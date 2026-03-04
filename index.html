@@ -78,15 +78,14 @@
             margin-top: 64px;
             position: relative;
             min-height: 520px;
-            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            background: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
             display: flex;
             align-items: center;
             overflow: hidden;
         }
         .hero-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, rgba(26,26,26,0.92) 0%, rgba(26,26,26,0.5) 100%);
+            display: none;
         }
         .hero-geometric {
             position: absolute;
@@ -94,7 +93,7 @@
             top: -80px;
             width: 600px;
             height: 600px;
-            border: 1px solid rgba(208,74,2,0.15);
+            border: 1px solid rgba(0,32,96,0.1);
             border-radius: 50%;
             opacity: 0;
             animation: heroCircle 1.5s ease-out 0.3s forwards;
@@ -105,7 +104,7 @@
             bottom: -120px;
             width: 400px;
             height: 400px;
-            border: 1px solid rgba(208,74,2,0.1);
+            border: 1px solid rgba(0,32,96,0.07);
             border-radius: 50%;
             opacity: 0;
             animation: heroCircle 1.5s ease-out 0.6s forwards;
@@ -122,7 +121,7 @@
         }
         .hero-breadcrumb {
             font-size: 0.8rem;
-            color: rgba(255,255,255,0.5);
+            color: #999;
             margin-bottom: 32px;
             letter-spacing: 0.05em;
             text-transform: uppercase;
@@ -130,7 +129,7 @@
         .hero-title {
             font-size: clamp(2.5rem, 5vw, 3.5rem);
             font-weight: 700;
-            color: #ffffff;
+            color: #2d2d2d;
             line-height: 1.1;
             margin-bottom: 20px;
             opacity: 0;
@@ -143,7 +142,7 @@
         .hero-sub {
             font-size: 1.125rem;
             font-weight: 300;
-            color: rgba(255,255,255,0.75);
+            color: #5a5a5a;
             line-height: 1.6;
             max-width: 540px;
             opacity: 0;
