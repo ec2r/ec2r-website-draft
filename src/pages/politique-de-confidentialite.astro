@@ -34,9 +34,10 @@ import '../styles/global.css';
             1. Responsable du traitement
           </h2>
           <p class="text-white/80 leading-relaxed">
-            <strong>EC²R Conseil</strong><br/>
+            <strong>EC2R-CONSEIL</strong>, SAS au capital de 10 000 €<br/>
+            SIREN : 901 098 756<br/>
             29 rue du Pont, 92200 Neuilly-sur-Seine<br/>
-            Contact : <span class="text-white/60">[À COMPLÉTER]</span>
+            Contact : <span id="pc-email" class="text-white/60">chargement...</span>
           </p>
         </section>
 
@@ -88,7 +89,7 @@ import '../styles/global.css';
           </h2>
           <p class="text-white/80 leading-relaxed">
             Conformément au RGPD, vous disposez des droits suivants : accès, rectification, effacement, limitation, portabilité, opposition.<br/>
-            Pour exercer vos droits : <span class="text-white/60">[EMAIL À COMPLÉTER]</span>
+            Pour exercer vos droits : <span id="pc-rights-email" class="text-white/60">chargement...</span>
           </p>
         </section>
 
@@ -139,4 +140,18 @@ import '../styles/global.css';
     <!-- Footer spacer -->
     <div class="h-24"></div>
   </div>
+
+  <script>
+    // Obfuscation anti-scraping
+    (function() {
+      const d = 'ec2r-conseil';
+      const t = 'com';
+      const addr = 'contact' + '@' + d + '.' + t;
+      const link = '<a href="mai' + 'lto:' + addr + '" class="text-energy-dark hover:underline">' + addr + '</a>';
+      const e1 = document.getElementById('pc-email');
+      const e2 = document.getElementById('pc-rights-email');
+      if (e1) e1.innerHTML = link;
+      if (e2) e2.innerHTML = link;
+    })();
+  </script>
 </Layout>
