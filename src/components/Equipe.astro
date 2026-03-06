@@ -1,8 +1,12 @@
 ---
 /*
   PLACEHOLDER : photos à remplacer par les vrais portraits.
-  Photos nécessaires : Stéphane, Luc, Jean-François, Arnaud, Laurent Pro.
-  Laurent Pro identifié le 05/03 (transcripts Stéphane).
+  Photos nécessaires : Stéphane, Luc, Jean-François, Arnaud.
+  
+  NOTE: Laurent Prost (Grant Thornton) retiré du site public.
+  Raison : positionnement GT incompatible avec affichage public
+  (concurrents dans la commission CROEC, rôle officiel = expert-comptable de la méthode).
+  Il peut apparaître sur les versions démo internes uniquement.
 */
 
 const founders = [
@@ -32,12 +36,6 @@ const team = [
     role: 'Interlocuteur EC²R',
     bio: 'Accompagne les organisations dans le déploiement opérationnel de la méthode.',
     initials: 'AB',
-  },
-  {
-    name: 'Laurent Pro',
-    role: 'Conseiller stratégique',
-    bio: 'Toujours un temps d\'avance sur le marché. Inventeur de l\'analyse de gestion prospective — ce que le marché redécouvre aujourd\'hui. Conseille sur la structuration et la protection de la valeur.',
-    initials: 'LP',
   },
 ];
 ---
@@ -93,7 +91,7 @@ const team = [
     </div>
 
     <!-- Other members -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
+    <div class="grid sm:grid-cols-2 gap-6 mb-16">
       {team.map((member, i) => (
         <div class={`reveal reveal-delay-${i + 1}`}>
           <div class="bg-white rounded-xl p-6 border border-slate-200 h-full 
