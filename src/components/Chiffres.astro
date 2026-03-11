@@ -1,11 +1,11 @@
 ---
 interface Props {
-  fr: { stats: { suffix: string; label: string }[] };
-  en: { stats: { suffix: string; label: string }[] };
+  fr: { eyebrow?: string; stats: { suffix: string; label: string }[] };
+  en: { eyebrow?: string; stats: { suffix: string; label: string }[] };
 }
 const { fr, en } = Astro.props;
 
-const values = [5, 200, 18, 50];
+const values = [5, 200, 18, 250];
 ---
 
 <section class="py-20 lg:py-24 bg-navy-950 relative overflow-hidden">
@@ -14,6 +14,10 @@ const values = [5, 200, 18, 50];
   <div class="absolute bottom-0 left-0 right-0 energy-gradient-bar h-[2px]"></div>
 
   <div class="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+    {fr.eyebrow && (
+      <p class="text-center text-white/30 text-sm font-medium tracking-wider mb-10"
+         data-i18n-fr={fr.eyebrow} data-i18n-en={en.eyebrow}>{fr.eyebrow}</p>
+    )}
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
       {fr.stats.map((stat, i) => (
         <div class={`text-center reveal reveal-delay-${i + 1}`}>

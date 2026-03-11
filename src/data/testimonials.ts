@@ -1,0 +1,701 @@
+/**
+ * Témoignages LinkedIn — données brutes extraites des commentaires réels
+ * sur les posts de Stéphane Flahaut (EC2R), post-juin 2021.
+ *
+ * Chaque entrée = un commentaire non sollicité, public, vérifiable.
+ * Les photos sont à ajouter manuellement (photoUrl).
+ */
+
+export type Sector =
+  | 'expertise-comptable'
+  | 'immobilier'
+  | 'assurance-protection'
+  | 'industrie'
+  | 'hospitality'
+  | 'conseil-rh'
+  | 'direction-generale';
+
+export type ImpactLevel = 'institutionnel' | 'direction' | 'operationnel' | 'prescripteur';
+
+export interface Testimonial {
+  id: string;
+  name: string;
+  title: string;
+  company?: string;
+  photoUrl?: string;
+  linkedinUrl: string;
+  postUrl: string;
+  quote: string;
+  sector: Sector;
+  impact: ImpactLevel;
+  tags: string[];
+  year: number;
+}
+
+export const sectorLabels: Record<Sector, { fr: string; en: string }> = {
+  'expertise-comptable': { fr: 'Expertise comptable', en: 'Accounting' },
+  'immobilier':          { fr: 'Immobilier · Franchise', en: 'Real Estate · Franchise' },
+  'assurance-protection':{ fr: 'Assurance · Protection sociale', en: 'Insurance · Social Protection' },
+  'industrie':           { fr: 'Industrie · Ingénierie', en: 'Industry · Engineering' },
+  'hospitality':         { fr: 'Hospitalité · Séminaires', en: 'Hospitality · Events' },
+  'conseil-rh':          { fr: 'Conseil · RH · Formation', en: 'Consulting · HR · Training' },
+  'direction-generale':  { fr: 'Direction générale', en: 'General Management' },
+};
+
+export const impactLabels: Record<ImpactLevel, { fr: string; en: string }> = {
+  'institutionnel': { fr: 'Institutionnel', en: 'Institutional' },
+  'direction':      { fr: 'Direction', en: 'Leadership' },
+  'operationnel':   { fr: 'Opérationnel', en: 'Operational' },
+  'prescripteur':   { fr: 'Prescripteur', en: 'Advocate' },
+};
+
+export const testimonials: Testimonial[] = [
+
+  // ═══════════════════════════════════════════════════
+  // EXPERTISE COMPTABLE
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'lauhon-mandature',
+    name: 'Valérie-Anne LAUHON',
+    title: 'Présidente de l\'Ordre des Experts-Comptables de la Martinique',
+    company: 'Ordre des EC Martinique',
+    linkedinUrl: 'https://www.linkedin.com/in/val%C3%A9rie-anne-lauhon-08064420a',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7345209079276924928/',
+    quote: "Ta bienveillance, ton énergie et ton regard éclairant sur le leadership nous ont tous boostés. Merci d'avoir contribué à faire de ce premier séminaire des élus un vrai temps fort, humain, sincère et porteur de sens pour notre profession et nos territoires.",
+    sector: 'expertise-comptable',
+    impact: 'institutionnel',
+    tags: ['bienveillance', 'leadership', 'énergie', 'sens', 'territoires'],
+    year: 2025,
+  },
+  {
+    id: 'lauhon-collectif',
+    name: 'Valérie-Anne LAUHON',
+    title: 'Présidente de l\'Ordre des Experts-Comptables de la Martinique',
+    company: 'Ordre des EC Martinique',
+    linkedinUrl: 'https://www.linkedin.com/in/val%C3%A9rie-anne-lauhon-08064420a',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7425929841599750144/',
+    quote: "Merci Stephane pour ton accompagnement qui a surtout permis de renforcer notre collectif et de créer une dynamique encore plus soudée au service de la profession.",
+    sector: 'expertise-comptable',
+    impact: 'institutionnel',
+    tags: ['collectif', 'dynamique', 'profession'],
+    year: 2026,
+  },
+  {
+    id: 'pierre-justin',
+    name: 'Thierry Pierre-Justin',
+    title: 'Président de l\'Ordre des Experts-Comptables de Guadeloupe',
+    company: 'Ordre des EC Guadeloupe',
+    linkedinUrl: 'https://www.linkedin.com/in/thierry-pierre-justin-9a7366110',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7273454056348508161/',
+    quote: "Incroyable ! Des formateurs d'exception, des confrères reboostés ! Un pur moment d'anthologie !",
+    sector: 'expertise-comptable',
+    impact: 'institutionnel',
+    tags: ['incroyable', 'reboostés', 'anthologie', 'exception'],
+    year: 2024,
+  },
+  {
+    id: 'ademar-maragnes',
+    name: 'Emelyne ADEMAR-MARAGNES',
+    title: 'Expert-comptable dirigeante · Commissaire aux comptes',
+    company: 'Ordre des EC Guadeloupe',
+    linkedinUrl: 'https://www.linkedin.com/in/emelyne-ademar-maragnes-b25866151',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7345209079276924928/',
+    quote: "Des apports intellectuels toujours plus riches et porteurs de sens ! Tu as su nous rappeler à quel point le collectif peut être puissant !",
+    sector: 'expertise-comptable',
+    impact: 'direction',
+    tags: ['collectif', 'puissant', 'sens', 'apports'],
+    year: 2025,
+  },
+  {
+    id: 'geromegnace',
+    name: 'Murielle GÉROMÉGNACE-FRANCILLETTE',
+    title: 'Expert-comptable · Présidente commission formation CROEC Guadeloupe',
+    company: 'Alizés Auditeurs',
+    linkedinUrl: 'https://www.linkedin.com/in/murielle-g%C3%A9rom%C3%A9gnace-francillette-572207159',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7345209079276924928/',
+    quote: "Un grand merci pour cette formation sur-mesure pour nos élus ! Tous étaient ravis et nous repartons avec les batteries rechargées et une énergie collective encore plus positive.",
+    sector: 'expertise-comptable',
+    impact: 'institutionnel',
+    tags: ['sur-mesure', 'batteries rechargées', 'énergie collective'],
+    year: 2025,
+  },
+  {
+    id: 'geromegnace-2',
+    name: 'Murielle GÉROMÉGNACE-FRANCILLETTE',
+    title: 'Expert-comptable · Présidente commission formation CROEC Guadeloupe',
+    company: 'Alizés Auditeurs',
+    linkedinUrl: 'https://www.linkedin.com/in/murielle-g%C3%A9rom%C3%A9gnace-francillette-572207159',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7138174838904385538/',
+    quote: "100% ! 100% ! Merci Stéphane pour cette énergie ++++ — à nous de jouer maintenant !",
+    sector: 'expertise-comptable',
+    impact: 'institutionnel',
+    tags: ['énergie', 'passage à l\'acte'],
+    year: 2023,
+  },
+  {
+    id: 'nouqueret',
+    name: 'Marie NOUQUERET',
+    title: 'Expert-comptable',
+    company: 'GFP Expertise',
+    linkedinUrl: 'https://www.linkedin.com/in/marie-nouqueret-3321b168',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7299039587249586176/',
+    quote: "Votre approche du management, à la fois constructive et bienveillante, m'a particulièrement marquée. Elle se distingue par sa capacité à valoriser les individus et à inclure leurs perspectives, plutôt que de se concentrer uniquement sur les objectifs fixés par le manager. Une méthode inspirante.",
+    sector: 'expertise-comptable',
+    impact: 'operationnel',
+    tags: ['méthode', 'bienveillance', 'inspirante', 'valoriser', 'différenciante'],
+    year: 2025,
+  },
+  {
+    id: 'maugenne',
+    name: 'Dominique MAUGENNE',
+    title: 'Présidente de l\'Ordre des EC Guadeloupe 2020-2022 · Présidente Auditec',
+    company: 'Auditec Guadeloupe',
+    linkedinUrl: 'https://www.linkedin.com/in/dominique-maugenne-8598431a5',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7422983846910054400/',
+    quote: "Une formation de haut vol et de beaux échanges. Une belle approche du management.",
+    sector: 'expertise-comptable',
+    impact: 'institutionnel',
+    tags: ['haut niveau', 'management'],
+    year: 2026,
+  },
+  {
+    id: 'maugenne-2',
+    name: 'Dominique MAUGENNE',
+    title: 'Présidente de l\'Ordre des EC Guadeloupe 2020-2022',
+    company: 'Auditec Guadeloupe',
+    linkedinUrl: 'https://www.linkedin.com/in/dominique-maugenne-8598431a5',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7273454056348508161/',
+    quote: "Rebooster de leader, Stéphane et Georges ont tenu leur promesse… Merci aux confrères et consœurs pour leur énergie communiquante. Top.",
+    sector: 'expertise-comptable',
+    impact: 'institutionnel',
+    tags: ['rebooster', 'promesse tenue', 'énergie'],
+    year: 2024,
+  },
+  {
+    id: 'rappaille',
+    name: 'Ida Rappaille',
+    title: 'Expert-comptable · Directrice d\'agence FIDUCIAL Fort-de-France',
+    company: 'FIDUCIAL',
+    linkedinUrl: 'https://www.linkedin.com/in/ida-rappaille-a94448320',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7270779510843703296/',
+    quote: "Superbe formation, et excellent formateur. Top.",
+    sector: 'expertise-comptable',
+    impact: 'direction',
+    tags: ['excellent', 'top'],
+    year: 2024,
+  },
+  {
+    id: 'comlan',
+    name: 'Adrien COMLAN',
+    title: 'Expert-comptable',
+    company: 'Cabinet COMLAN',
+    linkedinUrl: 'https://www.linkedin.com/in/adrien-comlan-39746858',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7425929841599750144/',
+    quote: "Ce séminaire a été d'une grande utilité. L'engagement en tant qu'élu nous confronte à des problématiques bien différentes de celles de nos cabinets et, en tant que « jeune élu », je n'y étais pas préparé.",
+    sector: 'expertise-comptable',
+    impact: 'operationnel',
+    tags: ['utilité', 'engagement', 'préparation'],
+    year: 2026,
+  },
+  {
+    id: 'karam',
+    name: 'Katherine KARAM',
+    title: 'Expert-comptable au cœur de l\'humain · Auditeur de durabilité',
+    company: 'Ordre des EC Guadeloupe',
+    linkedinUrl: 'https://www.linkedin.com/in/katherine-karam-610114203',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7273454056348508161/',
+    quote: "Merci à Stéphane Flahaut, notre animateur d'exception qui nous a concocté un programme énergisant sur mesure.",
+    sector: 'expertise-comptable',
+    impact: 'operationnel',
+    tags: ['sur-mesure', 'énergisant', 'exception'],
+    year: 2024,
+  },
+  {
+    id: 'chagas',
+    name: 'Fabien CHAGAS DOS SANTOS',
+    title: 'Expert-comptable associé · Dir. Régional Antilles-Guyane FIDUCIAL · Prsdt IFEC Guadeloupe',
+    company: 'FIDUCIAL / IFEC',
+    linkedinUrl: 'https://www.linkedin.com/in/fabien-chagas-dos-santos-8103bb193',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7272703122983075841/',
+    quote: "Moment au top ! Merci Stéphane pour tes précieux conseils.",
+    sector: 'expertise-comptable',
+    impact: 'direction',
+    tags: ['précieux', 'top'],
+    year: 2024,
+  },
+  {
+    id: 'cabirol',
+    name: 'Gwendoline CABIROL',
+    title: 'Expert-comptable associée et gérante',
+    company: 'SE2C',
+    linkedinUrl: '',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7299039587249586176/',
+    quote: "Excellente journée et très conviviale ! À refaire.",
+    sector: 'expertise-comptable',
+    impact: 'operationnel',
+    tags: ['convivialité', 'excellent'],
+    year: 2025,
+  },
+  {
+    id: 'cretinoir',
+    name: 'Jean-Philippe CRETINOIR',
+    title: 'Spécialiste protection sociale et patrimoniale · Développeur Régional',
+    company: 'AG2R LA MONDIALE',
+    linkedinUrl: 'https://www.linkedin.com/in/jean-philippe-cretinoir',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7422983846910054400/',
+    quote: "Merci Stéphane pour ta bienveillance et ton professionnalisme. Ravi de ton accompagnement.",
+    sector: 'expertise-comptable',
+    impact: 'prescripteur',
+    tags: ['bienveillance', 'professionnalisme'],
+    year: 2026,
+  },
+  {
+    id: 'landre',
+    name: 'Ericka LANDRE',
+    title: 'Expert-comptable',
+    linkedinUrl: 'https://www.linkedin.com/in/ericka-landre-21b60a136',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7422983846910054400/',
+    quote: "Toujours un plaisir de participer à tes formations Stéphane. Merci encore.",
+    sector: 'expertise-comptable',
+    impact: 'operationnel',
+    tags: ['plaisir', 'récurrence'],
+    year: 2026,
+  },
+  {
+    id: 'fernique',
+    name: 'François FERNIQUE',
+    title: 'Manager de la Collective',
+    company: 'AG2R LA MONDIALE',
+    linkedinUrl: 'https://www.linkedin.com/in/francoisfernique',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7270779510843703296/',
+    quote: "Les rires entendus lors de cette journée confirment ce que je lis sur le mur des mots ! Bravo à tous les participants d'avoir su changer de repères !",
+    sector: 'expertise-comptable',
+    impact: 'prescripteur',
+    tags: ['repères', 'changement', 'mur des mots'],
+    year: 2024,
+  },
+
+  // ═══════════════════════════════════════════════════
+  // IMMOBILIER · FRANCHISE (LAFORET)
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'beaucousin-chance',
+    name: 'Florence BEAUCOUSIN',
+    title: 'Directrice Formation Laforêt France',
+    company: 'Laforêt France',
+    linkedinUrl: 'https://www.linkedin.com/in/ACoAABxAk0oB1iOH12pjEtoM5WR4DLQf2n-Ivjw',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7132292043912957952/',
+    quote: "Une grande chance pour le Campus Laforêt d'avoir rencontré Stéphane il y a maintenant deux ans et d'être aussi en phase sur ce que nous délivrons. Merci pour ton engagement et ton efficacité énergique.",
+    sector: 'immobilier',
+    impact: 'direction',
+    tags: ['partenariat', 'engagement', 'efficacité', 'énergie'],
+    year: 2023,
+  },
+  {
+    id: 'beaucousin-appels',
+    name: 'Florence BEAUCOUSIN',
+    title: 'Directrice Formation Laforêt France',
+    company: 'Laforêt France',
+    linkedinUrl: 'https://www.linkedin.com/in/ACoAABxAk0oB1iOH12pjEtoM5WR4DLQf2n-Ivjw',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7205635551830425602/',
+    quote: "Les appels que j'ai reçus après chacune des sessions étaient positifs et porteurs de demandes pour de nouvelles journées à programmer !",
+    sector: 'immobilier',
+    impact: 'direction',
+    tags: ['résultats', 'demande', 'récurrence'],
+    year: 2024,
+  },
+  {
+    id: 'beaucousin-pilote',
+    name: 'Florence BEAUCOUSIN',
+    title: 'Directrice Formation Laforêt France',
+    company: 'Laforêt France',
+    linkedinUrl: 'https://www.linkedin.com/in/ACoAABxAk0oB1iOH12pjEtoM5WR4DLQf2n-Ivjw',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7114952632384790528/',
+    quote: "Un programme conforme à nos attentes et un grand merci aux pilotes souriants, énergiques et challengeants. Un pilote réussi !",
+    sector: 'immobilier',
+    impact: 'direction',
+    tags: ['résultats', 'conforme', 'pilote réussi'],
+    year: 2023,
+  },
+  {
+    id: 'beaucousin-professionnalisme',
+    name: 'Florence BEAUCOUSIN',
+    title: 'Directrice Formation Laforêt France',
+    company: 'Laforêt France',
+    linkedinUrl: 'https://www.linkedin.com/in/ACoAABxAk0oB1iOH12pjEtoM5WR4DLQf2n-Ivjw',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7136319493248552961/',
+    quote: "Un nouveau parcours co-construit ensemble et animé avec toujours autant de professionnalisme et d'énergie. Un mois riche : Douai, Aix-en-Provence, Paris… et demain Pointe-à-Pitre !",
+    sector: 'immobilier',
+    impact: 'direction',
+    tags: ['co-construction', 'professionnalisme', 'déploiement national'],
+    year: 2023,
+  },
+  {
+    id: 'chediac',
+    name: 'Sara Chediac',
+    title: 'Agent immobilier',
+    company: 'Laforêt',
+    linkedinUrl: 'https://www.linkedin.com/in/sara-chediac-260b33262',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7119747264406765569/',
+    quote: "Merci Stéphane pour cette formation hors du commun qui restera gravée à jamais dans nos vies pro.",
+    sector: 'immobilier',
+    impact: 'operationnel',
+    tags: ['hors du commun', 'gravée à jamais', 'impact'],
+    year: 2023,
+  },
+  {
+    id: 'etard',
+    name: 'Emmanuel ETARD',
+    title: 'Gérant Laforêt · Spécialiste Immobilier Montech & Castelsarrasin',
+    company: 'Laforêt Montech',
+    linkedinUrl: 'https://www.linkedin.com/in/emmanuel-etard-14b713ab',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7414618899180290049/',
+    quote: "Ayant vu la méthode EC²R à l'œuvre, je ne peux que valider son efficacité. C'est une approche vraiment différenciante et impactante. Hâte de voir ce que 2026 nous réserve !",
+    sector: 'immobilier',
+    impact: 'direction',
+    tags: ['méthode EC²R', 'différenciante', 'impactante', 'efficacité'],
+    year: 2026,
+  },
+  {
+    id: 'cirelli',
+    name: 'Laurent CIRELLI',
+    title: 'Responsable pédagogique',
+    company: 'Laforêt France',
+    linkedinUrl: 'https://www.linkedin.com/in/laurent-cirelli-511361a8',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7033551009964523521/',
+    quote: "Merci Stéphane pour cette journée éclairante et inspirante. Chez Laforêt, se former pour performer, c'est aussi l'un des objectifs des formateurs du Campus !",
+    sector: 'immobilier',
+    impact: 'operationnel',
+    tags: ['éclairante', 'inspirante', 'performer'],
+    year: 2023,
+  },
+  {
+    id: 'cirelli-2',
+    name: 'Laurent CIRELLI',
+    title: 'Responsable pédagogique',
+    company: 'Laforêt France',
+    linkedinUrl: 'https://www.linkedin.com/in/laurent-cirelli-511361a8',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7119747264406765569/',
+    quote: "Bravo et merci Stéphane pour ton implication et ton engagement sans failles au service des membres du réseau Laforêt et, in fine, de leurs clients !",
+    sector: 'immobilier',
+    impact: 'operationnel',
+    tags: ['engagement', 'implication', 'sans failles'],
+    year: 2023,
+  },
+  {
+    id: 'motret',
+    name: 'Corinne Motret',
+    title: 'Responsable Agence',
+    company: 'Laforêt Guadeloupe',
+    linkedinUrl: 'https://www.linkedin.com/in/corinne-motret-a7484592',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7139255087268270080/',
+    quote: "Merci encore Stéphane pour ces échanges impliqués et impliquants, aussi inspirants à titre individuel que collectif.",
+    sector: 'immobilier',
+    impact: 'operationnel',
+    tags: ['inspirant', 'collectif', 'individuel'],
+    year: 2023,
+  },
+  {
+    id: 'glet',
+    name: 'Anthony Glet',
+    title: 'Négociateur Immobilier',
+    company: 'Laforêt Saint-Cyr-l\'École',
+    linkedinUrl: '',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7009507789391699968/',
+    quote: "Merci à toi pour cette journée forte enrichissante !",
+    sector: 'immobilier',
+    impact: 'operationnel',
+    tags: ['enrichissante'],
+    year: 2022,
+  },
+
+  // ═══════════════════════════════════════════════════
+  // ASSURANCE · PROTECTION SOCIALE (AG2R)
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'adiceam',
+    name: 'Anil Adiceam',
+    title: 'Délégué général adjoint — Fondation d\'entreprise AG2R LA MONDIALE',
+    company: 'AG2R LA MONDIALE',
+    linkedinUrl: 'https://www.linkedin.com/in/anil-adiceam-5697965b',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:6805800081925648385/',
+    quote: "O Captain, my captain ! Un modèle, un accompagnement, une démarche méthodologique réellement innovants, et d'une efficacité redoutable ! Le leadership bienveillant à la portée de tous les managers… avec un référentiel simple à mettre en œuvre.",
+    sector: 'assurance-protection',
+    impact: 'direction',
+    tags: ['innovant', 'efficacité redoutable', 'référentiel', 'leadership bienveillant'],
+    year: 2021,
+  },
+  {
+    id: 'morgane-h',
+    name: 'Morgane H.',
+    title: 'Manager · Entrepreneur',
+    company: 'AG2R LA MONDIALE',
+    linkedinUrl: 'https://www.linkedin.com/in/morgane-h-68051a15b',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:6805800081925648385/',
+    quote: "Metteur en scène révélateur de talents, grand sensei armé de ta zénitude et de tes conseils pratiques constructifs. À chaque session, tu sais générer en nous l'envie et l'engagement pour oser, nous faire transpirer, avancer vers de nouvelles méthodes, et mettre toutes les cartes dans nos mains pour réussir.",
+    sector: 'assurance-protection',
+    impact: 'operationnel',
+    tags: ['révélateur de talents', 'engagement', 'oser', 'réussir', 'pratique'],
+    year: 2021,
+  },
+  {
+    id: 'riou',
+    name: 'Véronique RIOU',
+    title: 'Responsable de service Aides individuelles',
+    company: 'AG2R LA MONDIALE',
+    linkedinUrl: 'https://www.linkedin.com/in/v%C3%A9ronique-riou-408244a7',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:6805800081925648385/',
+    quote: "C'est grâce à toi et tout le travail que tu fais en amont pour nous accompagner qui nous rend si dynamiques ! Tu nous guides vers le meilleur, comment y résister.",
+    sector: 'assurance-protection',
+    impact: 'direction',
+    tags: ['dynamique', 'guide', 'le meilleur'],
+    year: 2021,
+  },
+  {
+    id: 'hoolodor-1',
+    name: 'Pierre HOOLODOR',
+    title: 'Manager Sud',
+    company: 'AG2R La Mondiale',
+    linkedinUrl: 'https://www.linkedin.com/in/pierre-hoolodor-07531563',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7119747264406765569/',
+    quote: "Comme d'habitude, une intervention de haut niveau.",
+    sector: 'assurance-protection',
+    impact: 'direction',
+    tags: ['haut niveau', 'récurrence'],
+    year: 2023,
+  },
+  {
+    id: 'hoolodor-2',
+    name: 'Pierre HOOLODOR',
+    title: 'Manager',
+    company: 'AG2R La Mondiale',
+    linkedinUrl: 'https://www.linkedin.com/in/pierre-hoolodor-28b13b1b9',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7138174838904385538/',
+    quote: "Toujours TOP notre cher Stéphane. Hat Off.",
+    sector: 'assurance-protection',
+    impact: 'direction',
+    tags: ['top', 'récurrence'],
+    year: 2023,
+  },
+  {
+    id: 'boudineau',
+    name: 'Stéphane BOUDINEAU',
+    title: 'Directeur du développement commercial NHF',
+    company: 'AG2R LA MONDIALE',
+    linkedinUrl: 'https://www.linkedin.com/in/st%C3%A9phane-boudineau',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7299039587249586176/',
+    quote: "Tout simplement merci Stéphane pour tout ce que tu apportes et transmets.",
+    sector: 'assurance-protection',
+    impact: 'direction',
+    tags: ['transmission', 'apport'],
+    year: 2025,
+  },
+  {
+    id: 'le-roux',
+    name: 'Stéphane LE ROUX',
+    title: 'Directeur des outre-mer',
+    company: 'AG2R LA MONDIALE',
+    linkedinUrl: '',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7270779510843703296/',
+    quote: "Tous ces sourires font plaisir à voir. Merci Stéphane de ton implication à nos côtés dans le Label.",
+    sector: 'assurance-protection',
+    impact: 'direction',
+    tags: ['implication', 'label'],
+    year: 2024,
+  },
+
+  // ═══════════════════════════════════════════════════
+  // INDUSTRIE · INGÉNIERIE
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'rougier',
+    name: 'Christophe ROUGIER',
+    title: 'Senior Quality Engineer',
+    company: 'Compagnie des Signaux - CSEE',
+    linkedinUrl: 'https://www.linkedin.com/in/christophe-rougier-258918135',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7140673118313799680/',
+    quote: "Encore un grand merci pour les moments de partage que nous avons pu avoir avec toi. Avec toute la reconnaissance. À très bientôt j'espère.",
+    sector: 'industrie',
+    impact: 'operationnel',
+    tags: ['partage', 'reconnaissance'],
+    year: 2023,
+  },
+  {
+    id: 'tylinski',
+    name: 'Gérald Tylinski',
+    title: 'Responsable de Production et du Site de Riom',
+    company: 'Compagnie des Signaux - CSEE',
+    linkedinUrl: '',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7339252656852402176/',
+    quote: "C'est toujours un plaisir d'accueillir une session de formation sur notre site de Riom ! Merci à toi Stéphane ! Belle énergie collective ⚡",
+    sector: 'industrie',
+    impact: 'direction',
+    tags: ['énergie collective', 'plaisir', 'récurrence'],
+    year: 2025,
+  },
+
+  // ═══════════════════════════════════════════════════
+  // HOSPITALITÉ · SÉMINAIRES
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'saint-hilaire',
+    name: 'Sophie de Saint Hilaire',
+    title: 'Responsable Parcours Formation - Culture & Métiers',
+    company: 'Châteauform\'',
+    linkedinUrl: 'https://www.linkedin.com/in/sophie-de-saint-hilaire-09022416',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7128482252530831360/',
+    quote: "Un grand merci Stéphane pour cette intervention très inspirante sur la Chaleur Ajoutée et sur le sujet de la mobilisation des énergies. Plus que jamais essentiel aujourd'hui !",
+    sector: 'hospitality',
+    impact: 'direction',
+    tags: ['inspirant', 'mobilisation', 'essentiel'],
+    year: 2023,
+  },
+  {
+    id: 'adamson-faure',
+    name: 'Emmanuelle Adamson Faure',
+    title: 'Contenu inspirationnel & Orchestration Clubs et Partenariats',
+    company: 'Châteauform\'',
+    linkedinUrl: '',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7169272722693300226/',
+    quote: "Un grand merci pour ta réactivité à cette demande de dernière minute. Que d'éloges de l'équipe !",
+    sector: 'hospitality',
+    impact: 'direction',
+    tags: ['éloges', 'réactivité'],
+    year: 2024,
+  },
+  {
+    id: 'michalet',
+    name: 'Laure Michalet',
+    title: 'Talent and Culture Program Manager',
+    linkedinUrl: 'https://www.linkedin.com/in/ACoAAAs6KXEB4oSat3i29SmsNAgX0NGiB44B8ac',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:6992139775809875968/',
+    quote: "Prête pour les 'next steps' et la mise en action du collectif ! Quel bonheur de retravailler ensemble et de mobiliser les énergies pour le 'perform and transform' !",
+    sector: 'hospitality',
+    impact: 'direction',
+    tags: ['mobiliser', 'perform and transform', 'collectif'],
+    year: 2022,
+  },
+
+  // ═══════════════════════════════════════════════════
+  // CONSEIL · RH · FORMATION
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'tristan',
+    name: 'Lionel Tristan',
+    title: 'Managing Director · Global Executive Board Member',
+    company: 'Fracht France',
+    linkedinUrl: 'https://www.linkedin.com/in/lionel-tristan-22527244',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7056696422976364545/',
+    quote: "Merci Stéphane, ainsi qu'à l'équipe EC2R et à Karine de HR Compliance. Un séminaire convivial et instructif dans un cadre très agréable !",
+    sector: 'conseil-rh',
+    impact: 'direction',
+    tags: ['convivial', 'instructif'],
+    year: 2023,
+  },
+  {
+    id: 'lemaitre',
+    name: 'Gaëtan Lemaître',
+    title: 'Associé Paie et SIRH',
+    company: 'Primexis',
+    linkedinUrl: 'https://www.linkedin.com/in/gaetanlemaitre',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7214283134844964864/',
+    quote: "Tops moments de co-construction en équipe ! On ne se lasse pas d'apprendre et d'expérimenter dans un environnement mouvant.",
+    sector: 'conseil-rh',
+    impact: 'operationnel',
+    tags: ['co-construction', 'apprendre', 'expérimenter'],
+    year: 2024,
+  },
+  {
+    id: 'jolly',
+    name: 'Michel JOLLY',
+    title: 'Associé',
+    linkedinUrl: '',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7259632200227205121/',
+    quote: "Merci Stéphane d'être présent auprès de nos confrères sur cette très belle journée.",
+    sector: 'conseil-rh',
+    impact: 'prescripteur',
+    tags: ['présence', 'confrères'],
+    year: 2024,
+  },
+  {
+    id: 'sigfrit',
+    name: 'Charles SIGFRIT',
+    title: 'Founder, CS HR Partners · Executive Search for CEOs, CFOs',
+    company: 'CS HR Partners',
+    linkedinUrl: '',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:7287508930618933250/',
+    quote: "Une belle solution, une belle énergie… bravo Stéphane.",
+    sector: 'conseil-rh',
+    impact: 'prescripteur',
+    tags: ['solution', 'énergie'],
+    year: 2025,
+  },
+
+  // ═══════════════════════════════════════════════════
+  // DIRECTION GÉNÉRALE · INSTITUTIONNEL
+  // ═══════════════════════════════════════════════════
+
+  {
+    id: 'dubois-damien',
+    name: 'Christophe DUBOIS-DAMIEN',
+    title: 'CEO · Président Comité Économie IESF · Sciences Po Alumni',
+    company: 'IESF',
+    linkedinUrl: 'https://www.linkedin.com/in/christophe-dubois-damien',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:6832650148162650112/',
+    quote: "Stéphane Flahaut est un des meilleurs spécialistes des problèmes de leadership.",
+    sector: 'direction-generale',
+    impact: 'institutionnel',
+    tags: ['meilleur spécialiste', 'leadership'],
+    year: 2021,
+  },
+  {
+    id: 'fualdes',
+    name: 'Jérôme Fualdes',
+    title: 'Conseil PME & ETI · Structure managériale',
+    company: 'OREOS',
+    linkedinUrl: '',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:6876563428232744960/',
+    quote: "Bravo Stéphane, Laurent et Christophe ! Du haut niveau et un régal à suivre !",
+    sector: 'direction-generale',
+    impact: 'prescripteur',
+    tags: ['haut niveau', 'régal'],
+    year: 2021,
+  },
+  {
+    id: 'michils',
+    name: 'Yann MICHILS',
+    title: 'Directeur de Développement Région Pacifique',
+    company: 'AG2R LA MONDIALE',
+    linkedinUrl: '',
+    postUrl: 'https://www.linkedin.com/feed/update/urn:li:activity:6876563428232744960/',
+    quote: "Merci Stéphane pour la qualité de la conférence. Le Pacifique à l'écoute. Envie de donner une suite… pour Faire.",
+    sector: 'direction-generale',
+    impact: 'direction',
+    tags: ['qualité', 'passage à l\'acte', 'suite'],
+    year: 2021,
+  },
+];
+
+// ── Derived data ──
+
+export const allTags = [...new Set(testimonials.flatMap(t => t.tags))].sort();
+
+export const allSectors = [...new Set(testimonials.map(t => t.sector))];
+
+export function getTestimonialsBySector(sector: Sector): Testimonial[] {
+  return testimonials.filter(t => t.sector === sector);
+}
+
+export function getTestimonialsByTag(tag: string): Testimonial[] {
+  return testimonials.filter(t => t.tags.includes(tag));
+}
+
+export function getTestimonialsByImpact(impact: ImpactLevel): Testimonial[] {
+  return testimonials.filter(t => t.impact === impact);
+}

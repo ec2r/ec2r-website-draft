@@ -23,11 +23,46 @@ const abymeColors = ['bg-energy-red/10 text-energy-red', 'bg-energy-yellow/10 te
       <p class="section-text" data-i18n-fr={fr.intro} data-i18n-en={en.intro}>{fr.intro}</p>
     </div>
 
+    <!-- IRM : 5 étapes -->
+    <div class="mb-16 reveal">
+      <div class="bg-navy-950 rounded-2xl p-8 md:p-12 text-white">
+        <h3 class="font-display font-bold text-2xl mb-2"
+            data-i18n-fr={fr.irmTitle} data-i18n-en={en.irmTitle}>{fr.irmTitle}</h3>
+        <p class="text-white/50 text-sm mb-8"
+           data-i18n-fr={fr.irmSub} data-i18n-en={en.irmSub}>{fr.irmSub}</p>
+        <div class="flex flex-col md:flex-row items-start gap-4">
+          {fr.irmSteps.map((step: any, i: number) => (
+            <>
+              <div class="flex-1 text-center">
+                <div class="w-10 h-10 rounded-full bg-energy-dark/30 text-energy-green flex items-center justify-center mx-auto mb-3 text-sm font-bold">
+                  {i + 1}
+                </div>
+                <p class="font-display font-semibold text-white text-sm mb-1"
+                   data-i18n-fr={step.title} data-i18n-en={en.irmSteps[i].title}>{step.title}</p>
+                <p class="text-white/40 text-xs"
+                   data-i18n-fr={step.text} data-i18n-en={en.irmSteps[i].text}>{step.text}</p>
+              </div>
+              {i < fr.irmSteps.length - 1 && (
+                <div class="hidden md:flex items-center text-energy-green/40 mt-8">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </div>
+              )}
+            </>
+          ))}
+        </div>
+      </div>
+    </div>
+
     <!-- 3 parcours -->
     <div class="grid md:grid-cols-3 gap-6 mb-20">
       {fr.parcours.map((p: any, i: number) => (
         <div class={`reveal reveal-delay-${i+1}`}>
           <div class={`${i < 2 ? 'bg-navy-950 text-white' : 'bg-slate-50 text-navy-950 border border-slate-200'} rounded-2xl p-8 h-full relative overflow-hidden group hover:shadow-2xl hover:shadow-navy-900/30 transition-all duration-500`}>
+            {i === 2 && (
+              <span class="absolute top-4 right-4 text-xs text-slate-400 bg-slate-100 px-2 py-0.5 rounded-full">accès libre</span>
+            )}
             <div class={`absolute top-0 left-0 right-0 h-1 ${i === 0 ? 'bg-gradient-to-r from-energy-red via-energy-yellow to-energy-green' : i === 1 ? 'bg-gradient-to-r from-energy-green via-energy-yellow to-energy-red' : 'bg-energy-green'}`}></div>
             <div class={`w-12 h-12 ${i < 2 ? 'bg-energy-dark/20' : 'bg-navy-950/[0.06]'} rounded-xl flex items-center justify-center mb-6`}
                  set:html={parcoursIcons[i]}></div>

@@ -92,8 +92,10 @@ const links = [
   const langOth  = document.getElementById('lang-other')!;
 
   // ── Lang toggle ────────────────────────────────────────────────────
-  // La détection initiale est dans Layout.astro (DOMContentLoaded)
-  // Ici on gère juste le clic utilisateur
+  // Init : appliquer la classe drapeau au chargement
+  const initLang = localStorage.getItem('ec2r-lang') || 'fr';
+  langBtn.classList.add(initLang === 'fr' ? 'lang-fr-active' : 'lang-en-active');
+
   langBtn.addEventListener('click', () => {
     const cur = document.documentElement.getAttribute('data-lang') || 'fr';
     const next = cur === 'fr' ? 'en' : 'fr';
@@ -107,6 +109,8 @@ const links = [
       frFlag.style.opacity = next === 'fr' ? '1' : '0.4';
       enFlag.style.opacity = next === 'en' ? '1' : '0.4';
     }
+    langBtn.classList.toggle('lang-fr-active', next === 'fr');
+    langBtn.classList.toggle('lang-en-active', next === 'en');
   });
 
   // ── Scroll ────────────────────────────────────────────────────────
@@ -148,3 +152,12 @@ const links = [
     }
   });
 </script>
+
+<style>
+  #lang-toggle.lang-fr-active {
+    background: linear-gradient(90deg, rgba(0,35,149,0.08), rgba(255,255,255,0.04), rgba(237,41,57,0.08));
+  }
+  #lang-toggle.lang-en-active {
+    background: linear-gradient(90deg, rgba(0,36,125,0.08), rgba(207,20,43,0.06), rgba(0,36,125,0.08));
+  }
+</style>

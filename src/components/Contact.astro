@@ -134,6 +134,14 @@ const { fr, en } = Astro.props;
                         data-i18n-fr={opt} data-i18n-en={en.form.situationOptions[i]}>{opt}</option>
               ))}
             </select>
+            <div id="referral-details" class="hidden mt-3 p-4 bg-white/5 rounded-lg border border-white/10 space-y-3">
+              <p class="text-white/50 text-xs">Vous pensez à quelqu'un pour qui ça résonnerait ?</p>
+              <input type="text" name="referral-name" placeholder="Nom de la personne"
+                     class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm placeholder-white/30 focus:outline-none focus:border-energy-green/50" />
+              <input type="email" name="referral-email" placeholder="Son email (optionnel)"
+                     class="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm placeholder-white/30 focus:outline-none focus:border-energy-green/50" />
+              <p class="text-white/30 text-xs italic">On valorise chaque mise en relation sérieuse.</p>
+            </div>
           </div>
           <div>
             <label for="referral" class="block text-white/70 text-sm font-medium mb-2"
@@ -177,6 +185,13 @@ const { fr, en } = Astro.props;
 </section>
 
 <script>
+  // Bloc conditionnel prescrire/recommander (opt1)
+  const intentSelect = document.getElementById('intent');
+  const refDetails = document.getElementById('referral-details');
+  intentSelect?.addEventListener('change', () => {
+    refDetails?.classList.toggle('hidden', (intentSelect as HTMLSelectElement).value !== 'opt1');
+  });
+
   // Placeholder i18n for inputs
   new MutationObserver(() => {
     const lang = document.documentElement.getAttribute('data-lang') || 'fr';

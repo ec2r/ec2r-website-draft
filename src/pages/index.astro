@@ -5,6 +5,7 @@ import Hero from '../components/Hero.astro';
 import Methode from '../components/Methode.astro';
 import Chiffres from '../components/Chiffres.astro';
 import Preuves from '../components/Preuves.astro';
+import Temoignages from '../components/Temoignages.astro';
 import Protocole from '../components/Protocole.astro';
 import Equipe from '../components/Equipe.astro';
 import Contact from '../components/Contact.astro';
@@ -25,6 +26,7 @@ const en = translations.en;
     <Methode fr={fr.methode} en={en.methode} />
     <Chiffres fr={fr.chiffres} en={en.chiffres} />
     <Preuves fr={fr.preuves} en={en.preuves} frVideos={(fr as any).videos} enVideos={(en as any).videos} frMuseeLabel={(fr as any).museeLabel} enMuseeLabel={(en as any).museeLabel} />
+    <Temoignages />
     <Protocole fr={fr.protocole} en={en.protocole} />
     <Equipe fr={fr.equipe} en={en.equipe} />
     <Contact fr={fr.contact} en={en.contact} />

@@ -33,19 +33,39 @@ const nums = ['①','②','③','④','⑤','⑥','↗'];
           <span class="energy-gradient-text" data-i18n-fr={fr.hero.title2} data-i18n-en={en.hero.title2}>{fr.hero.title2}</span>
         </h1>
 
-        <div class="text-2xl md:text-3xl font-display font-bold text-white/80 mb-8 h-[2.5em] md:h-[2em] opacity-0 animate-fade-up" style="animation-delay: 0.6s">
-          <span class="text-white/50" data-i18n-fr={fr.hero.taglinePrefix} data-i18n-en={en.hero.taglinePrefix}>{fr.hero.taglinePrefix}</span>
-          <span id="rotating-tagline" class="rotating-words">
-            {fr.hero.taglines.map((t: string, i: number) => (
-              <span class={`word${i === 0 ? ' active' : ''}`} data-tagline-fr={t} data-tagline-en={en.hero.taglines[i]}>{t}</span>
-            ))}
-          </span>
+        <div class="mb-8 opacity-0 animate-fade-up font-mono" style="animation-delay: 0.6s">
+          <div class="space-y-1 text-lg md:text-xl">
+            <div class="flex items-center gap-3">
+              <span class="text-energy-green font-bold text-2xl">E</span>
+              <span class="text-white/20">·····</span>
+              <span class="text-white/70" data-i18n-fr="Énergie" data-i18n-en="Energy">Énergie</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-energy-green font-bold text-2xl">C</span>
+              <span class="text-white/20">·····</span>
+              <span class="text-white/70" data-i18n-fr="Collective" data-i18n-en="Collective">Collective</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-energy-green font-bold text-2xl">²C</span>
+              <span class="text-white/20">·····</span>
+              <span id="c2-cycling" class="text-white font-semibold" style="transition: opacity 0.2s ease">Croissance</span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-energy-green font-bold text-2xl">R</span>
+              <span class="text-white/20">·····</span>
+              <span id="r-cycling" class="text-white font-semibold" style="transition: opacity 0.2s ease">Responsable</span>
+            </div>
+          </div>
         </div>
 
-        <!-- sub1 : préfixe traduit + mot cyclant traduit -->
+        <!-- sub1 : Netflix barré + Waze -->
         <p class="text-lg md:text-xl text-white/60 leading-relaxed max-w-lg mb-4 opacity-0 animate-fade-up" style="animation-delay: 0.8s">
-          <span><span id="netflix-prefix" data-i18n-fr={(fr.hero as any).sub1Prefix || 'Pas le Netflix de '} data-i18n-en={(en.hero as any).sub1Prefix || 'Not the Netflix of '}>{(fr.hero as any).sub1Prefix || 'Pas le Netflix de '}</span><strong id="netflix-cycling" class="text-white" style="transition: opacity 0.2s ease">{(fr.hero as any).sub1Cycling ? (fr.hero as any).sub1Cycling[0] : 'la formation'}</strong>.</span><br/>
-          <span><span id="waze-prefix" data-i18n-fr={(fr.hero as any).sub1bPrefix || 'Le Waze du '} data-i18n-en={(en.hero as any).sub1bPrefix || 'The Waze of '}>{(fr.hero as any).sub1bPrefix || 'Le Waze du '}</span><strong id="waze-cycling" class="text-white" style="transition: opacity 0.2s ease">{(fr.hero as any).sub1bCycling ? (fr.hero as any).sub1bCycling[0] : 'comportement professionnel'}</strong>.</span>
+          <span class="line-through decoration-white/20">
+            <span id="netflix-prefix" data-i18n-fr={(fr.hero as any).sub1Prefix || 'Pas le Netflix de '} data-i18n-en={(en.hero as any).sub1Prefix || 'Not the Netflix of '}>{(fr.hero as any).sub1Prefix || 'Pas le Netflix de '}</span><strong id="netflix-cycling" class="text-white/40" style="transition: opacity 0.2s ease">{(fr.hero as any).sub1Cycling ? (fr.hero as any).sub1Cycling[0] : 'la formation'}</strong>.
+          </span><br/>
+          <span>
+            <span id="waze-prefix" data-i18n-fr={(fr.hero as any).sub1bPrefix || 'Le Waze du '} data-i18n-en={(en.hero as any).sub1bPrefix || 'The Waze of '}>{(fr.hero as any).sub1bPrefix || 'Le Waze du '}</span><strong id="waze-cycling" class="text-white" style="transition: opacity 0.2s ease">{(fr.hero as any).sub1bCycling ? (fr.hero as any).sub1bCycling[0] : 'comportement professionnel'}</strong>.
+          </span>
         </p>
         <p id="hero-sub2" class="text-base text-white/40 leading-relaxed max-w-lg mb-10 opacity-0 animate-fade-up"
            style="animation-delay: 0.95s"
@@ -75,13 +95,13 @@ const nums = ['①','②','③','④','⑤','⑥','↗'];
               <button class="sit-trigger w-full text-left px-4 py-3 flex items-start gap-3 group" aria-expanded="false">
                 <span class="shrink-0 mt-0.5">
                   {nums[i] === '↗' ? (
-                    <svg width="28" height="34" viewBox="0 0 28 34" fill="none" class="text-energy-green/60 group-hover:text-energy-green transition-colors duration-200">
+                    <svg width="28" height="34" viewBox="0 0 28 34" fill="none" class="text-white/30 group-hover:text-white/60 transition-colors duration-200">
                       <rect x="1" y="5" width="26" height="28" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/>
                       <rect x="9" y="1" width="10" height="5" rx="1.5" stroke="currentColor" stroke-width="1.4" fill="none"/>
                       <text x="14" y="23" text-anchor="middle" font-size="13" font-weight="700" fill="currentColor" font-family="system-ui">↗</text>
                     </svg>
                   ) : (
-                    <svg width="28" height="34" viewBox="0 0 28 34" fill="none" class="text-energy-green/60 group-hover:text-energy-green transition-colors duration-200">
+                    <svg width="28" height="34" viewBox="0 0 28 34" fill="none" class="text-white/30 group-hover:text-white/60 transition-colors duration-200">
                       <rect x="1" y="5" width="26" height="28" rx="3" stroke="currentColor" stroke-width="1.6" fill="none"/>
                       <rect x="9" y="1" width="10" height="5" rx="1.5" stroke="currentColor" stroke-width="1.4" fill="none"/>
                       <text x="14" y="23" text-anchor="middle" font-size="10" font-weight="700" fill="currentColor" font-family="system-ui">E{i + 1}</text>
@@ -168,17 +188,38 @@ const nums = ['①','②','③','④','⑤','⑥','↗'];
 </style>
 
 <script>
-  // ── Rotating tagline ──
-  const container = document.getElementById('rotating-tagline');
-  if (container) {
-    const words = container.querySelectorAll('.word');
-    let current = 0;
-    setInterval(() => {
-      words[current].classList.remove('active');
-      current = (current + 1) % words.length;
-      words[current].classList.add('active');
-    }, 3000);
+  // ── EC²R decomposition cycling ──
+  const c2El = document.getElementById('c2-cycling') as HTMLElement;
+  const rEl = document.getElementById('r-cycling') as HTMLElement;
+  const c2Fr = ['Croissance', 'Changement', 'Comportement'];
+  const c2En = ['Growth', 'Change', 'Behaviour'];
+  const rFr = ['Responsable', 'Réaliste', 'Rapide', 'Rassurant'];
+  const rEn = ['Responsible', 'Realistic', 'Rapid', 'Reassuring'];
+  let c2Idx = 0, rIdx = 0;
+
+  function cycleEC2R(el: HTMLElement | null, arrFr: string[], arrEn: string[], idx: number): number {
+    if (!el) return idx;
+    const lang = document.documentElement.getAttribute('data-lang') || 'fr';
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.textContent = lang === 'en' ? arrEn[idx] : arrFr[idx];
+      el.style.opacity = '1';
+    }, 200);
+    return (idx + 1) % arrFr.length;
   }
+
+  setInterval(() => { c2Idx = cycleEC2R(c2El, c2Fr, c2En, c2Idx); }, 2500);
+  setInterval(() => { rIdx = cycleEC2R(rEl, rFr, rEn, rIdx); }, 3200);
+
+  // Update EC²R on lang change
+  const ec2rLangObserver = new MutationObserver(() => {
+    const lang = document.documentElement.getAttribute('data-lang') || 'fr';
+    const ci = c2Idx > 0 ? c2Idx - 1 : c2Fr.length - 1;
+    const ri = rIdx > 0 ? rIdx - 1 : rFr.length - 1;
+    if (c2El) c2El.textContent = lang === 'en' ? c2En[ci] : c2Fr[ci];
+    if (rEl) rEl.textContent = lang === 'en' ? rEn[ri] : rFr[ri];
+  });
+  ec2rLangObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
 
   // ── Netflix / Waze cycling ──
   const netflixEl  = document.getElementById('netflix-cycling') as HTMLElement;
@@ -288,14 +329,7 @@ const nums = ['①','②','③','④','⑤','⑥','↗'];
       }
     });
 
-    // ── i18n : éléments Hero spéciaux (taglines, situations) ──
-    function updateHeroLang(lang: string) {
-      // Rotating tagline words
-      document.querySelectorAll('#rotating-tagline .word').forEach((el: any) => {
-        el.textContent = lang === 'en' ? el.dataset.taglineEn : el.dataset.taglineFr;
-      });
-    }
-
+    // ── i18n : éléments Hero spéciaux (situations) ──
     function updateSituationsLang(lang: string) {
       document.querySelectorAll('.sit-accroche').forEach((el: any) => {
         el.textContent = el.dataset[lang] || el.dataset.fr;
@@ -315,23 +349,17 @@ const nums = ['①','②','③','④','⑤','⑥','↗'];
           `<li class="text-slate-400 text-sm flex items-start gap-2"><span class="text-slate-600 mt-0.5 shrink-0">–</span><span>${e}</span></li>`
         ).join('');
       });
-      // Rotating tagline words
-      document.querySelectorAll('#rotating-tagline .word').forEach((el: any) => {
-        el.textContent = el.dataset[`tagline${lang.charAt(0).toUpperCase() + lang.slice(1)}`] || el.dataset.taglineFr;
-      });
     }
 
     // Écoute les changements de langue
     const observer = new MutationObserver(() => {
       const lang = document.documentElement.getAttribute('data-lang') || 'fr';
-      updateHeroLang(lang);
       updateSituationsLang(lang);
     });
     observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
 
     // Init
     const initLang = document.documentElement.getAttribute('data-lang') || 'fr';
-    updateHeroLang(initLang);
     updateSituationsLang(initLang);
   });
 

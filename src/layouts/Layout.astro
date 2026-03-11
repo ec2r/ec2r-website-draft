@@ -37,6 +37,18 @@ const {
 <body>
   <slot />
 
+  <!-- Overlay T0 lancement -->
+  <div id="t0-overlay" class="fixed top-12 left-4 z-40 hidden sm:flex items-center gap-2
+       bg-navy-950/80 backdrop-blur-sm rounded-lg px-3 py-2 border border-white/5
+       text-white/30 hover:text-white/50 transition-colors text-xs max-w-[200px]">
+    <span class="w-2 h-2 rounded-full bg-energy-green animate-pulse flex-shrink-0"></span>
+    <span>
+      <span data-i18n-fr="Live depuis le 11 mars 2026" data-i18n-en="Live since March 11, 2026">Live depuis le 11 mars 2026</span>
+      <br/>
+      <span class="text-white/20">200+ collectifs · 5 ans terrain</span>
+    </span>
+  </div>
+
   <script>
     // ── i18n global ──────────────────────────────────────────────────
     function applyI18n(lang: string) {
