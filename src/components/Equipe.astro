@@ -1,4 +1,10 @@
 ---
+interface Props {
+  fr: { label: string; title1: string; title2: string; intro: string; portraitPlaceholder: string; fieldTitle: string; fieldNote: string };
+  en: { label: string; title1: string; title2: string; intro: string; portraitPlaceholder: string; fieldTitle: string; fieldNote: string };
+}
+const { fr, en } = Astro.props;
+
 const founders = [
   {
     name: 'Stéphane',
@@ -50,16 +56,12 @@ const team = [
   <div class="max-w-7xl mx-auto px-6 lg:px-8">
     
     <div class="max-w-3xl mb-16 reveal">
-      <p class="section-label">Les praticiens</p>
+      <p class="section-label" data-i18n-fr={fr.label} data-i18n-en={en.label}>{fr.label}</p>
       <h2 class="section-title">
-        Des gens qui passent<br/>
-        <span class="energy-gradient-text">à l'acte</span>.
+        <span data-i18n-fr={fr.title1} data-i18n-en={en.title1}>{fr.title1}</span><br/>
+        <span class="energy-gradient-text" data-i18n-fr={fr.title2} data-i18n-en={en.title2}>{fr.title2}</span>
       </h2>
-      <p class="section-text">
-        Pas de consultants interchangeables. Des profils expertise complémentaires qui croient 
-        en la différenciation, qui ont expérimenté et démontré la puissance de la méthode sur le terrain, 
-        qui savent la traduire dans vos quotidiens métiers.
-      </p>
+      <p class="section-text" data-i18n-fr={fr.intro} data-i18n-en={en.intro}>{fr.intro}</p>
     </div>
 
     <!-- Founders (Stéphane + Luc) — large cards with + styling -->
@@ -83,7 +85,7 @@ const team = [
                     {member.initials}
                   </span>
                 </div>
-                <p class="text-white/25 text-xs tracking-wider uppercase">Portrait à ajouter</p>
+                <p class="text-white/25 text-xs tracking-wider uppercase" data-i18n-fr={fr.portraitPlaceholder} data-i18n-en={en.portraitPlaceholder}>{fr.portraitPlaceholder}</p>
               </div>
             </div>
             <div class="p-8">
@@ -123,7 +125,7 @@ const team = [
     <!-- Seminar photos teaser -->
     <div class="reveal">
       <div class="bg-white rounded-2xl border border-slate-200 p-8 md:p-12 text-center">
-        <p class="text-sm text-slate-400 uppercase tracking-wider font-medium mb-4">Sur le terrain</p>
+        <p class="text-sm text-slate-400 uppercase tracking-wider font-medium mb-4" data-i18n-fr={fr.fieldTitle} data-i18n-en={en.fieldTitle}>{fr.fieldTitle}</p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
           {[
             'Séminaire Label Antilles',
@@ -138,9 +140,7 @@ const team = [
             </div>
           ))}
         </div>
-        <p class="text-slate-400 text-sm italic">
-          Photos des séminaires et ateliers à intégrer.
-        </p>
+        <p class="text-slate-400 text-sm italic" data-i18n-fr={fr.fieldNote} data-i18n-en={en.fieldNote}>{fr.fieldNote}</p>
       </div>
     </div>
 

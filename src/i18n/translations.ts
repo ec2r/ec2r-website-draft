@@ -188,6 +188,17 @@ export const translations = {
       form: { name: 'Nom', namePlaceholder: 'Votre nom', email: 'Email', situation: 'Votre situation', situationDefault: 'Choisir...', situationOptions: ['Vous voulez nous en parler', 'Vous voulez nous prescrire', 'Vous voulez expérimenter'], referral: 'Qui vous en a parlé ?', referralPlaceholder: 'Nom de la personne ou contexte', message: 'Message', messagePlaceholder: 'Ce qui vous amène, votre contexte...', consent: "J'accepte que mes données soient traitées par EC²R Conseil pour répondre à ma demande, conformément à la", consentLink: 'politique de confidentialité', submit: 'Engager la conversation', note: 'Nous répondons personnellement. Pas d\'auto-répondeur.' },
     },
 
+    // Equipe
+    equipe: {
+      label: 'Les praticiens',
+      title1: 'Des gens qui passent',
+      title2: 'à l\'acte.',
+      intro: "Pas de consultants interchangeables. Des profils expertise complémentaires qui croient en la différenciation, qui ont expérimenté et démontré la puissance de la méthode sur le terrain, qui savent la traduire dans vos quotidiens métiers.",
+      portraitPlaceholder: 'Portrait à ajouter',
+      fieldTitle: 'Sur le terrain',
+      fieldNote: 'Photos des séminaires et ateliers à intégrer.',
+    },
+
     // Footer
     footer: {
       address: '29 rue du Pont, 92200 Neuilly-sur-Seine',
@@ -373,6 +384,16 @@ export const translations = {
       booking: { title: 'Book a slot', sub: '10 min, no pitch, just a conversation.', cta: 'Choose a slot', note: 'Agenda connection coming soon — in the meantime, write to us.' },
       quote: '"If you want to copy us, forget us. The method has outgrown the person — it\'s self-sustaining and evolving. Artists and those with their own method are the ones who succeed."',
       form: { name: 'Name', namePlaceholder: 'Your name', email: 'Email', situation: 'Your situation', situationDefault: 'Choose...', situationOptions: ['You want to talk to us', 'You want to refer us', 'You want to experiment'], referral: 'Who told you about us?', referralPlaceholder: 'Person\'s name or context', message: 'Message', messagePlaceholder: 'What brings you here, your context...', consent: "I agree that my data will be processed by EC²R Conseil to respond to my request, in accordance with the", consentLink: 'privacy policy', submit: 'Start the conversation', note: 'We respond personally. No auto-responder.' },
+    },
+
+    equipe: {
+      label: 'Practitioners',
+      title1: 'People who',
+      title2: 'act.',
+      intro: "No interchangeable consultants. Complementary expertise profiles who believe in differentiation, who have experimented and demonstrated the power of the method in the field, who know how to translate it into your day-to-day business realities.",
+      portraitPlaceholder: 'Portrait to add',
+      fieldTitle: 'In the field',
+      fieldNote: 'Seminar and workshop photos to integrate.',
     },
 
     footer: {
