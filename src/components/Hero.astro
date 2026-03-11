@@ -42,10 +42,10 @@ const nums = ['①','②','③','④','⑤','⑥','↗'];
           </span>
         </div>
 
-        <!-- sub1 : structure fixe, seuls les textes changent via data attrs -->
+        <!-- sub1 : préfixe traduit + mot cyclant traduit -->
         <p class="text-lg md:text-xl text-white/60 leading-relaxed max-w-lg mb-4 opacity-0 animate-fade-up" style="animation-delay: 0.8s">
-          <span>Pas le Netflix de <strong id="netflix-cycling" class="text-white" style="transition: opacity 0.2s ease">{(fr.hero as any).sub1Cycling ? (fr.hero as any).sub1Cycling[0] : 'la formation'}</strong>.</span><br/>
-          <span>Le Waze du <strong id="waze-cycling" class="text-white" style="transition: opacity 0.2s ease">{(fr.hero as any).sub1bCycling ? (fr.hero as any).sub1bCycling[0] : 'comportement professionnel'}</strong>.</span>
+          <span><span id="netflix-prefix" data-i18n-fr={(fr.hero as any).sub1Prefix || 'Pas le Netflix de '} data-i18n-en={(en.hero as any).sub1Prefix || 'Not the Netflix of '}>{(fr.hero as any).sub1Prefix || 'Pas le Netflix de '}</span><strong id="netflix-cycling" class="text-white" style="transition: opacity 0.2s ease">{(fr.hero as any).sub1Cycling ? (fr.hero as any).sub1Cycling[0] : 'la formation'}</strong>.</span><br/>
+          <span><span id="waze-prefix" data-i18n-fr={(fr.hero as any).sub1bPrefix || 'Le Waze du '} data-i18n-en={(en.hero as any).sub1bPrefix || 'The Waze of '}>{(fr.hero as any).sub1bPrefix || 'Le Waze du '}</span><strong id="waze-cycling" class="text-white" style="transition: opacity 0.2s ease">{(fr.hero as any).sub1bCycling ? (fr.hero as any).sub1bCycling[0] : 'comportement professionnel'}</strong>.</span>
         </p>
         <p id="hero-sub2" class="text-base text-white/40 leading-relaxed max-w-lg mb-10 opacity-0 animate-fade-up"
            style="animation-delay: 0.95s"
@@ -146,6 +146,14 @@ const nums = ['①','②','③','④','⑤','⑥','↗'];
     </div>
   </div>
 
+  <!-- Data store pour les cycling arrays (évite de dupliquer dans le JS) -->
+  <div id="hero-cycling-data" hidden
+    data-netflix-fr={JSON.stringify((fr.hero as any).sub1Cycling || [])}
+    data-netflix-en={JSON.stringify((en.hero as any).sub1Cycling || [])}
+    data-waze-fr={JSON.stringify((fr.hero as any).sub1bCycling || [])}
+    data-waze-en={JSON.stringify((en.hero as any).sub1bCycling || [])}
+  ></div>
+
   <div class="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/30 animate-bounce">
     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
@@ -173,13 +181,14 @@ const nums = ['①','②','③','④','⑤','⑥','↗'];
   }
 
   // ── Netflix / Waze cycling ──
-  const netflixEl = document.getElementById('netflix-cycling') as HTMLElement;
-  const wazeEl    = document.getElementById('waze-cycling') as HTMLElement;
+  const netflixEl  = document.getElementById('netflix-cycling') as HTMLElement;
+  const wazeEl     = document.getElementById('waze-cycling') as HTMLElement;
+  const cyclingData = document.getElementById('hero-cycling-data') as HTMLElement;
 
-  const netflixFr = ['la formation', 'le conseil', 'la RH', 'le co-développement', 'le management'];
-  const netflixEn = ['training', 'consulting', 'HR', 'co-development', 'management'];
-  const wazeFr    = ['comportement professionnel', 'changement', 'mobilisation collective'];
-  const wazeEn    = ['professional behaviour', 'change', 'collective mobilisation'];
+  const netflixFr: string[] = JSON.parse(cyclingData?.dataset.netflixFr || '[]');
+  const netflixEn: string[] = JSON.parse(cyclingData?.dataset.netflixEn || '[]');
+  const wazeFr: string[]    = JSON.parse(cyclingData?.dataset.wazeFr    || '[]');
+  const wazeEn: string[]    = JSON.parse(cyclingData?.dataset.wazeEn    || '[]');
 
   let nIdx = 0;
   let wIdx = 0;

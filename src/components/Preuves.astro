@@ -1,11 +1,9 @@
 ---
-interface Props { fr: any; en: any; }
-const { fr, en } = Astro.props;
+interface Props { fr: any; en: any; frVideos: any[]; enVideos: any[]; frMuseeLabel: string; enMuseeLabel: string; }
+const { fr, en, frVideos, enVideos, frMuseeLabel, enMuseeLabel } = Astro.props;
 
-const videos = [
-  { title: "Regards croisés Ep.1", subtitle: "Mobilisons nos énergies vers la performance", description: "Avec Vincent Clarico, recordman du monde et entraîneur Équipe de France.", youtubeId: "jhq47z0GanA" },
-  { title: "Regards croisés Ep.2", subtitle: "REMOBILISER ses énergies", description: "Avec Marie-Laure Brunet, double médaillée olympique de biathlon.", youtubeId: "e3KEgfNuNzQ" },
-];
+// IDs YouTube fixes (pas traduisibles)
+const videoIds = ["jhq47z0GanA", "e3KEgfNuNzQ"];
 
 const wallTagColors = [
   'bg-energy-dark/10 text-energy-dark border-energy-dark/20',
@@ -88,18 +86,21 @@ const wallTagColors = [
       <p class="text-slate-500 text-sm mb-8 ml-5"
          data-i18n-fr={fr.trajSub} data-i18n-en={en.trajSub}>{fr.trajSub}</p>
       <div class="grid md:grid-cols-2 gap-8">
-        {videos.map(video => (
+        {frVideos.map((video: any, i: number) => (
           <div class="group">
             <div class="relative aspect-video bg-navy-950 rounded-xl overflow-hidden shadow-lg shadow-navy-900/10 group-hover:shadow-xl transition-shadow duration-300">
-              <iframe src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}`}
+              <iframe src={`https://www.youtube-nocookie.com/embed/${videoIds[i]}`}
                 title={video.title} class="absolute inset-0 w-full h-full" frameborder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen loading="lazy"></iframe>
             </div>
             <div class="mt-4">
-              <h4 class="font-display font-semibold text-navy-950">{video.title}</h4>
-              <p class="text-sm text-energy-dark font-medium">{video.subtitle}</p>
-              <p class="text-sm text-slate-500 mt-1">{video.description}</p>
+              <h4 class="font-display font-semibold text-navy-950"
+                  data-i18n-fr={video.title} data-i18n-en={enVideos[i].title}>{video.title}</h4>
+              <p class="text-sm text-energy-dark font-medium"
+                 data-i18n-fr={video.subtitle} data-i18n-en={enVideos[i].subtitle}>{video.subtitle}</p>
+              <p class="text-sm text-slate-500 mt-1"
+                 data-i18n-fr={video.description} data-i18n-en={enVideos[i].description}>{video.description}</p>
             </div>
           </div>
         ))}
@@ -111,7 +112,8 @@ const wallTagColors = [
       <div class="bg-white border border-slate-200 rounded-2xl p-8 md:p-12">
         <div class="grid md:grid-cols-[1fr,auto] gap-8 items-center">
           <div>
-            <p class="text-xs text-slate-400 uppercase tracking-wider font-medium mb-3">Trajectoire</p>
+            <p class="text-xs text-slate-400 uppercase tracking-wider font-medium mb-3"
+               data-i18n-fr={frMuseeLabel} data-i18n-en={enMuseeLabel}>{frMuseeLabel}</p>
             <h4 class="font-display font-bold text-xl text-navy-950 mb-3"
                 data-i18n-fr={fr.museeTitle} data-i18n-en={en.museeTitle}>{fr.museeTitle}</h4>
             <p class="text-slate-600 leading-relaxed mb-4"

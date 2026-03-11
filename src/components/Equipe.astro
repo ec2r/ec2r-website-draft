@@ -1,54 +1,21 @@
 ---
 interface Props {
-  fr: { label: string; title1: string; title2: string; intro: string; portraitPlaceholder: string; fieldTitle: string; fieldNote: string };
-  en: { label: string; title1: string; title2: string; intro: string; portraitPlaceholder: string; fieldTitle: string; fieldNote: string };
+  fr: any;
+  en: any;
 }
 const { fr, en } = Astro.props;
 
+// Données fixes (noms propres, initiales — jamais traduits)
 const founders = [
-  {
-    name: 'Stéphane',
-    namePlus: 'Flau',
-    fullName: 'Stéphane Flahaut',
-    role: 'Fondateur & Président',
-    bio: 'Porteur de la méthode EC²R depuis plus de 5 ans. Construit des collectifs et s\'assure que les comportements facilitent la dynamique. Garant, avec l\'IA, de l\'intégrité de la méthode.',
-    initials: 'SF',
-  },
-  {
-    name: 'Luc',
-    namePlus: 'Létoffé',
-    fullName: 'Luc Létoffé',
-    role: 'Co-design Méthode × Technologie',
-    bio: 'Bien nommé, passe de l\'idéation à la situation. Remplace votre équipe de codeurs par du co-design en direct. Formalise le brief avec les experts métiers, avance, livre.',
-    initials: 'LL',
-  },
+  { name: 'Stéphane', namePlus: 'Flau', initials: 'SF' },
+  { name: 'Luc',      namePlus: 'Létoffé', initials: 'LL' },
 ];
 
 const team = [
-  {
-    name: 'Jean-François Morin',
-    role: 'Co-fondateur',
-    bio: 'Co-fondateur de la méthode EC²R, « entraîneur d\'entraîneurs ». Associé depuis les origines, ancrage terrain et transmission.',
-    initials: 'JFM',
-  },
-  {
-    name: 'Arnaud Bochurberg',
-    role: 'Expert & Prescripteur',
-    bio: 'Accompagne les organisations dans le déploiement opérationnel. Expert des dynamiques de transformation et de la mise en acte.',
-    initials: 'AB',
-  },
-  {
-    name: 'Jean Zuccarelli',
-    role: 'Praticien EC²R',
-    bio: 'Place réservée — profil en cours d\'intégration.',
-    initials: 'JZ',
-  },
-  {
-    name: 'Maria Emilia Garcia',
-    role: 'Praticienne EC²R',
-    bio: 'Place réservée — profil en cours d\'intégration.',
-    initials: 'MEG',
-  },
+  { name: 'Jean-François Morin', initials: 'JFM' },
+  { name: 'Arnaud Bochurberg',   initials: 'AB'  },
+  { name: 'Jean Zuccarelli',     initials: 'JZ'  },
+  { name: 'Maria Emilia Garcia', initials: 'MEG' },
 ];
 ---
 
@@ -92,8 +59,10 @@ const team = [
               <h3 class="font-display font-bold text-xl text-navy-950 mb-1">
                 {member.name}<span class="plus-accent">+</span> {member.namePlus}
               </h3>
-              <p class="text-energy-dark font-semibold text-sm mb-4">{member.role}</p>
-              <p class="text-slate-600 leading-relaxed">{member.bio}</p>
+              <p class="text-energy-dark font-semibold text-sm mb-4"
+                 data-i18n-fr={fr.founders[i].role} data-i18n-en={en.founders[i].role}>{fr.founders[i].role}</p>
+              <p class="text-slate-600 leading-relaxed"
+                 data-i18n-fr={fr.founders[i].bio} data-i18n-en={en.founders[i].bio}>{fr.founders[i].bio}</p>
             </div>
           </div>
         </div>
@@ -115,8 +84,10 @@ const team = [
               </span>
             </div>
             <h3 class="font-display font-semibold text-navy-950 mb-1">{member.name}</h3>
-            <p class="text-energy-dark text-sm font-medium mb-3">{member.role}</p>
-            <p class="text-slate-500 text-sm leading-relaxed">{member.bio}</p>
+            <p class="text-energy-dark text-sm font-medium mb-3"
+               data-i18n-fr={fr.team[i].role} data-i18n-en={en.team[i].role}>{fr.team[i].role}</p>
+            <p class="text-slate-500 text-sm leading-relaxed"
+               data-i18n-fr={fr.team[i].bio} data-i18n-en={en.team[i].bio}>{fr.team[i].bio}</p>
           </div>
         </div>
       ))}
@@ -127,16 +98,12 @@ const team = [
       <div class="bg-white rounded-2xl border border-slate-200 p-8 md:p-12 text-center">
         <p class="text-sm text-slate-400 uppercase tracking-wider font-medium mb-4" data-i18n-fr={fr.fieldTitle} data-i18n-en={en.fieldTitle}>{fr.fieldTitle}</p>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-          {[
-            'Séminaire Label Antilles',
-            'CROEC Martinique',
-            'Formation Laforêt',
-            'Atelier collectif',
-          ].map((label) => (
+          {fr.seminaireTitles.map((label: string, i: number) => (
             <div class="aspect-[4/3] bg-gradient-to-br from-slate-50 to-slate-100 rounded-lg 
                         flex items-center justify-center border border-slate-200 
                         hover:border-energy-dark/20 transition-colors duration-300">
-              <p class="text-slate-400 text-xs text-center px-4 leading-relaxed">{label}</p>
+              <p class="text-slate-400 text-xs text-center px-4 leading-relaxed"
+                 data-i18n-fr={label} data-i18n-en={en.seminaireTitles[i]}>{label}</p>
             </div>
           ))}
         </div>

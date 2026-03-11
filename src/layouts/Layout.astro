@@ -27,7 +27,7 @@ const {
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:type" content="website" />
-  <meta property="og:locale" content="fr_FR" />
+  <meta id="og-locale" property="og:locale" content="fr_FR" />
   
   <title>{title}</title>
   
@@ -54,6 +54,8 @@ const {
           : (el.dataset.placeholderFr || '');
       });
       document.documentElement.setAttribute('lang', lang);
+      const ogLocale = document.getElementById('og-locale');
+      if (ogLocale) ogLocale.setAttribute('content', lang === 'en' ? 'en_GB' : 'fr_FR');
     }
 
     // Détection initiale : localStorage → navigator.language → fr

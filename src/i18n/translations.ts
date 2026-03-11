@@ -24,8 +24,10 @@ export const translations = {
         'une réactivité plus collective',
       ],
       sub1: 'Pas le Netflix de la formation.',
+      sub1Prefix: 'Pas le Netflix de ',
       sub1Cycling: ['la formation', 'le conseil', 'la RH', 'le co-développement', 'le management'],
       sub1b: 'Le Waze du comportement professionnel.',
+      sub1bPrefix: 'Le Waze du ',
       sub1bCycling: ['comportement professionnel', 'changement', 'mobilisation collective'],
       sub2: "Un IRM+ organisationnel qui mesure les énergies collectives, identifie chirurgicalement les leviers de mobilisation et accompagne le passage à l'acte jusqu'au comportement en situation.",
       cta1: 'Découvrir la méthode',
@@ -199,7 +201,48 @@ export const translations = {
       portraitPlaceholder: 'Portrait à ajouter',
       fieldTitle: 'Sur le terrain',
       fieldNote: 'Photos des séminaires et ateliers à intégrer.',
+      founders: [
+        {
+          role: 'Fondateur & Président',
+          bio: 'Porteur de la méthode EC²R depuis plus de 5 ans. Construit des collectifs et s\'assure que les comportements facilitent la dynamique. Garant, avec l\'IA, de l\'intégrité de la méthode.',
+        },
+        {
+          role: 'Co-design Méthode × Technologie',
+          bio: 'Bien nommé, passe de l\'idéation à la situation. Remplace votre équipe de codeurs par du co-design en direct. Formalise le brief avec les experts métiers, avance, livre.',
+        },
+      ],
+      team: [
+        {
+          role: 'Co-fondateur',
+          bio: 'Co-fondateur de la méthode EC²R, « entraîneur d\'entraîneurs ». Associé depuis les origines, ancrage terrain et transmission.',
+        },
+        {
+          role: 'Expert & Prescripteur',
+          bio: 'Accompagne les organisations dans le déploiement opérationnel. Expert des dynamiques de transformation et de la mise en acte.',
+        },
+        {
+          role: 'Praticien EC²R',
+          bio: 'Place réservée — profil en cours d\'intégration.',
+        },
+        {
+          role: 'Praticienne EC²R',
+          bio: 'Place réservée — profil en cours d\'intégration.',
+        },
+      ],
+      seminaireTitles: [
+        'Séminaire Label Antilles',
+        'CROEC Martinique',
+        'Formation Laforêt',
+        'Atelier collectif',
+      ],
     },
+
+    // Preuves (données statiques non traduisibles via data-attrs)
+    videos: [
+      { title: 'Regards croisés Ep.1', subtitle: 'Mobilisons nos énergies vers la performance', description: 'Avec Vincent Clarico, recordman du monde et entraîneur Équipe de France.' },
+      { title: 'Regards croisés Ep.2', subtitle: 'REMOBILISER ses énergies', description: 'Avec Marie-Laure Brunet, double médaillée olympique de biathlon.' },
+    ],
+    museeLabel: 'Trajectoire',
 
     // Footer
     footer: {
@@ -230,8 +273,10 @@ export const translations = {
         'more collective reactivity',
       ],
       sub1: 'Not the Netflix of training.',
+      sub1Prefix: 'Not the Netflix of ',
       sub1Cycling: ['training', 'consulting', 'HR', 'co-development', 'management'],
       sub1b: 'The Waze of professional behaviour.',
+      sub1bPrefix: 'The Waze of ',
       sub1bCycling: ['professional behaviour', 'change', 'collective mobilisation'],
       sub2: "An organisational MRI+ that measures collective energies, surgically identifies mobilisation levers and supports action through to behaviour in situation.",
       cta1: 'Discover the method',
@@ -398,7 +443,48 @@ export const translations = {
       portraitPlaceholder: 'Portrait to add',
       fieldTitle: 'In the field',
       fieldNote: 'Seminar and workshop photos to integrate.',
+      founders: [
+        {
+          role: 'Founder & President',
+          bio: 'Carrier of the EC²R method for over 5 years. Builds collectives and ensures behaviours facilitate the dynamic. Guardian, with AI, of the method\'s integrity.',
+        },
+        {
+          role: 'Co-design Method × Technology',
+          bio: 'Well named, moves from ideation to situation. Replaces your team of coders with direct co-design. Formalises the brief with business experts, moves forward, delivers.',
+        },
+      ],
+      team: [
+        {
+          role: 'Co-founder',
+          bio: 'Co-founder of the EC²R method, "coaches\' coach". A partner from the origins, field grounding and transmission.',
+        },
+        {
+          role: 'Expert & Advocate',
+          bio: 'Supports organisations in operational deployment. Expert in transformation dynamics and moving to action.',
+        },
+        {
+          role: 'EC²R Practitioner',
+          bio: 'Reserved slot — profile being integrated.',
+        },
+        {
+          role: 'EC²R Practitioner',
+          bio: 'Reserved slot — profile being integrated.',
+        },
+      ],
+      seminaireTitles: [
+        'Label Antilles Seminar',
+        'CROEC Martinique',
+        'Laforêt Training',
+        'Collective Workshop',
+      ],
     },
+
+    // Preuves (données statiques non traduisibles via data-attrs)
+    videos: [
+      { title: 'Cross Perspectives Ep.1', subtitle: 'Mobilising our energies towards performance', description: 'With Vincent Clarico, world record holder and France national team coach.' },
+      { title: 'Cross Perspectives Ep.2', subtitle: 'REMOBILISING your energies', description: 'With Marie-Laure Brunet, double Olympic biathlon medallist.' },
+    ],
+    museeLabel: 'Trajectory',
 
     footer: {
       address: '29 rue du Pont, 92200 Neuilly-sur-Seine',
@@ -408,9 +494,12 @@ export const translations = {
   },
 } as const;
 
-export function getLang(request?: Request): Lang {
-  // Côté serveur : Accept-Language header (Astro SSR only, pas utilisé ici)
-  // Côté client : géré dans le script inline
+/**
+ * getLang — renvoie toujours 'fr' (SSG statique).
+ * Utilisé uniquement pour typer les props au build time.
+ * La détection réelle (localStorage → navigator.language) est dans Layout.astro (client).
+ */
+export function getLang(_request?: Request): Lang {
   return 'fr';
 }
 
