@@ -86,6 +86,22 @@ const abymeColors = ['bg-energy-red/10 text-energy-red', 'bg-energy-yellow/10 te
       ))}
     </div>
 
+    <!-- Se former — formation + MentorIA -->
+    {fr.seFormer && (
+    <div class="mb-16 reveal">
+      <div class="bg-slate-50 rounded-2xl border border-slate-200 border-dashed p-8 md:p-10 relative">
+        <span class="absolute top-4 right-4 text-xs font-semibold bg-amber-100 text-amber-700 px-2.5 py-1 rounded-full"
+              data-i18n-fr={fr.seFormer.tag} data-i18n-en={en.seFormer?.tag}>{fr.seFormer.tag}</span>
+        <p class="text-xs text-energy-dark uppercase tracking-wider font-semibold mb-2"
+           data-i18n-fr={fr.seFormer.label} data-i18n-en={en.seFormer?.label}>{fr.seFormer.label}</p>
+        <h3 class="font-display font-bold text-xl text-navy-950 mb-3"
+            data-i18n-fr={fr.seFormer.title} data-i18n-en={en.seFormer?.title}>{fr.seFormer.title}</h3>
+        <p class="text-slate-600 leading-relaxed max-w-2xl"
+           data-i18n-fr={fr.seFormer.text} data-i18n-en={en.seFormer?.text}>{fr.seFormer.text}</p>
+      </div>
+    </div>
+    )}
+
     <!-- Lien vers l'app EC2R -->
     <div class="mb-20 reveal">
       <div class="bg-gradient-to-r from-energy-dark/5 to-energy-green/5 rounded-2xl border border-energy-dark/10 p-8 md:p-12 text-center">
