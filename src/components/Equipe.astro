@@ -12,10 +12,10 @@ const founders = [
 ];
 
 const team = [
-  { name: 'Jean-François Morin', initials: 'JFM' },
-  { name: 'Arnaud Bochurberg',   initials: 'AB'  },
-  { name: 'Maria Emilia Garcia', initials: 'MEG' },
-  { name: 'Jean Zuccarelli',     initials: 'JZ'  },
+  { name: 'Jean-François Morin', initials: 'JFM', photo: '' },
+  { name: 'Arnaud Bochurberg',   initials: 'AB',  photo: '/photos/equipe/arnaud-bochurberg.webp' },
+  { name: 'Maria Emilia Garcia', initials: 'MEG', photo: '' },
+  { name: 'Jean Zuccarelli',     initials: 'JZ',  photo: '' },
 ];
 ---
 
@@ -75,14 +75,20 @@ const team = [
         <div class={`reveal reveal-delay-${i + 1}`}>
           <div class="bg-white rounded-xl p-6 border border-slate-200 h-full 
                       hover:border-energy-dark/20 hover:shadow-md transition-all duration-300 group">
-            <div class="w-14 h-14 rounded-xl bg-navy-950/[0.04] border border-slate-200 mb-4 
-                        flex items-center justify-center
-                        group-hover:bg-navy-950 group-hover:border-navy-950 transition-all duration-300">
-              <span class="text-navy-900/30 text-sm font-display font-bold 
-                          group-hover:text-energy-green transition-colors duration-300">
-                {member.initials}
-              </span>
-            </div>
+            {member.photo ? (
+              <img src={member.photo} alt={member.name} 
+                   class="w-14 h-14 rounded-xl object-cover border border-slate-200 mb-4 
+                          group-hover:border-navy-950 transition-all duration-300" loading="lazy" />
+            ) : (
+              <div class="w-14 h-14 rounded-xl bg-navy-950/[0.04] border border-slate-200 mb-4 
+                          flex items-center justify-center
+                          group-hover:bg-navy-950 group-hover:border-navy-950 transition-all duration-300">
+                <span class="text-navy-900/30 text-sm font-display font-bold 
+                            group-hover:text-energy-green transition-colors duration-300">
+                  {member.initials}
+                </span>
+              </div>
+            )}
             <h3 class="font-display font-semibold text-navy-950 mb-1">{member.name}</h3>
             <p class="text-energy-dark text-sm font-medium mb-3"
                data-i18n-fr={fr.team[i].role} data-i18n-en={en.team[i].role}>{fr.team[i].role}</p>
