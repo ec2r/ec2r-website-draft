@@ -1,2 +1,8 @@
+# Robots.txt pour EC2R Website (pre-production)
+# Site pas encore prêt pour indexation publique
+
 User-agent: *
 Disallow: /
+
+# Sitemap sera disponible en production
+Sitemap: https://methode-ec2r.com/sitemap-index.xml

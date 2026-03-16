@@ -139,12 +139,12 @@ export const translations = {
       ],
     },
 
-    // Preuves
+    // Preuves — section "Impact terrain"
     preuves: {
-      label: 'Ils le vivent',
-      title1: "Ils l'ont déjà vécu,",
-      title2: 'ils vous le racontent',
-      intro: "Pas de promesses marketing. Des résultats concrets, les mots de nos clients depuis 5 ans. Pas de témoignages sollicités, pas de citations anonymisées — ce sont les mots publiés spontanément sur LinkedIn par des dirigeants, des présidents d'ordres professionnels, des managers de terrain. Des données mesurables. Des comportements observables. Un impact déjà+ réel.",
+      label: 'Impact terrain',
+      title1: '5 ans de terrain,',
+      title2: 'des résultats qui parlent',
+      intro: "Des mots publiés spontanément sur LinkedIn par des dirigeants, des présidents d'ordres professionnels, des managers de terrain. Des données mesurables, des comportements observables, un impact concret. Pas de promesses — des faits.",
       wallTitle: 'Ce qu\'ils retiennent',
       wallCloudNote: 'Mur de contribution ouvert — les mots grandissent avec la méthode.',
       wallWords: {
@@ -320,7 +320,7 @@ export const translations = {
   en: {
     nav: {
       method: 'The Method',
-      proof: 'They live it',
+      proof: 'Impact',
       testimonials: 'Testimonials',
       protocol: 'The Protocol',
       practitioners: 'Practitioners',
@@ -451,10 +451,10 @@ export const translations = {
     },
 
     preuves: {
-      label: 'They live it',
-      title1: "They've already lived it,",
-      title2: 'they tell you about it',
-      intro: "No marketing promises. Concrete results, client words from 5 years. No solicited testimonials, no anonymised quotes — words published spontaneously on LinkedIn by CEOs, professional body presidents, field managers, academics. More measurable data. More observable behaviours. An already+ real impact.",
+      label: 'Field impact',
+      title1: '5 years in the field,',
+      title2: 'results that speak',
+      intro: "Words published spontaneously on LinkedIn by CEOs, professional body presidents, field managers. Measurable data, observable behaviours, concrete impact. No promises — facts.",
       wallTitle: 'What they remember',
       wallCloudNote: 'Open contribution wall — words grow with the method.',
       wallWords: {
