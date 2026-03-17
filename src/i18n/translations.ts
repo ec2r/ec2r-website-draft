@@ -268,12 +268,12 @@ export const translations = {
       fieldNote: 'Photos des séminaires et ateliers à intégrer.',
       founders: [
         {
-          role: 'Fondateur de la méthode EC²R : Cofondateur EC²R Conseil',
+          role: 'Fondateur de la méthode · Président EC²R Conseil',
           bio: "Porte et incarne la méthode EC²R depuis plus de 5 ans. Accompagne des collectifs vers la performance depuis plus de 20 ans. Assure l'amélioration continue de la méthode : garant, avec l'IA, de son intégrité et de son développement.",
         },
         {
-          role: 'Co-design Méthode × Technologie : À la genèse du protocole augmenté',
-          bio: "Passe de l'idéation à la situation. Co-construit la promesse de valeur+ avec vos experts métiers, traduit+ en produit, et fait passer de l'idée à l'acte : en direct, avec vous.",
+          role: 'Copilote technique · Architecte',
+          bio: "Bien nommé, passe de l'idéation à la situation. Co-construit la promesse de valeur+ avec vos experts métiers, traduit+ en produit, et fait passer de l'idée à l'acte : en direct, avec vous.",
         },
       ],
       team: [

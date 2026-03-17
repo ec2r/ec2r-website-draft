@@ -14,8 +14,8 @@ const { fr, en } = Astro.props;
 
 // Founders (données fixes — pas traduites)
 const founders = [
-  { name: 'Stéphane', namePlus: 'Flahaut', initials: 'SF', linkedin: 'https://www.linkedin.com/in/stephane-flahaut' },
-  { name: 'Luc', namePlus: 'Létoffé', initials: 'LL', linkedin: '' },
+  { name: 'Stéphane', namePlus: 'FLAHAUT', initials: 'SF', linkedin: 'https://www.linkedin.com/in/stephane-flahaut' },
+  { name: 'Luc', namePlus: 'LÉTOFFÉ', initials: 'LL', linkedin: '' },
 ];
 
 // Praticiens (données fixes)
@@ -79,12 +79,12 @@ const seminairePlaceholders = [
   <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 space-y-12">
 
     <!-- ════════════════════════════════════════════════════════════════════════ -->
-    <!-- 1. TITRE + BASELINE DIFFÉRENCIATION -->
+    <!-- 1. TITRE : PRATICIENS + PRESCRIPTEURS -->
     <!-- ════════════════════════════════════════════════════════════════════════ -->
     <div>
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-display font-extrabold text-white mb-3">
-        <span data-i18n-lang="fr">Experts certifiés qui traduisent et vous aident à passer à l'acte</span>
-        <span data-i18n-lang="en">Certified experts who translate and help you take action</span>
+        <span data-i18n-lang="fr">Praticiens certifiés qui traduisent et vous aident à passer à l'acte</span>
+        <span data-i18n-lang="en">Certified practitioners who translate and help you take action</span>
       </h2>
       <p class="text-white/40 text-sm mb-3 italic">
         <span data-i18n-lang="fr">Pas des consultants interchangeables, pas des chefs de profession et ensuite des juniors.</span>
@@ -209,39 +209,38 @@ const seminairePlaceholders = [
     </div>
 
     <!-- ════════════════════════════════════════════════════════════════════════ -->
-    <!-- 4. TEASER "SUR LE TERRAIN" — photos séminaires à venir -->
+    <!-- 4. PRESCRIPTEURS : Ils l'ont vécu ou ils veulent nous recommander -->
     <!-- ════════════════════════════════════════════════════════════════════════ -->
-    <div class="bg-energy-green/[0.03] border border-energy-green/10 rounded-2xl p-8">
-      <div class="flex items-center gap-3 mb-2">
-        <div class="w-2 h-6 bg-gradient-to-b from-energy-green to-energy-dark rounded-full"></div>
-        <p class="text-sm text-energy-green/70 uppercase tracking-wider font-medium">
-          <span data-i18n-lang="fr">{fr.equipe?.fieldTitle || 'Sur le terrain'}</span>
-          <span data-i18n-lang="en">{en.equipe?.fieldTitle || 'In the field'}</span>
+    <div>
+      <h3 class="text-lg font-display font-bold text-white/70 mb-4 uppercase tracking-wider text-xs">
+        <span data-i18n-lang="fr">Prescripteurs</span>
+        <span data-i18n-lang="en">Prescribers</span>
+      </h3>
+      <div class="bg-white/[0.02] border border-white/[0.06] rounded-xl p-8 text-center">
+        <p class="text-white/50 text-sm leading-relaxed max-w-2xl mx-auto mb-4">
+          <span data-i18n-lang="fr">Ils l'ont vécu ou ils veulent nous recommander</span>
+          <span data-i18n-lang="en">They experienced it or they want to recommend us</span>
+        </p>
+        <p class="text-white/30 text-xs italic">
+          <span data-i18n-lang="fr">Section en construction</span>
+          <span data-i18n-lang="en">Under construction</span>
         </p>
       </div>
+    </div>
 
-      <h3 class="text-xl font-display font-bold text-white mb-4 ml-5">
-        <span data-i18n-lang="fr">L'espace formateur — bientôt vous aurez ça</span>
-        <span data-i18n-lang="en">The training space — coming soon</span>
-      </h3>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-4">
-        {seminairePlaceholders.map((placeholder, i) => (
-          <div class="aspect-[4/3] bg-white/[0.02] border border-white/[0.06] rounded-lg 
-                      flex items-center justify-center 
-                      hover:border-energy-green/20 transition-colors duration-300">
-            <p class="text-white/30 text-xs text-center px-4 leading-relaxed">
-              <span data-i18n-lang="fr">{placeholder.labelFr}</span>
-              <span data-i18n-lang="en">{placeholder.labelEn}</span>
-            </p>
-          </div>
-        ))}
-      </div>
-
-      <p class="text-white/40 text-sm italic text-center ml-5">
-        <span data-i18n-lang="fr">{fr.equipe?.fieldNote || 'Photos de séminaires, sessions terrain, co-design en direct — à venir.'}</span>
-        <span data-i18n-lang="en">{en.equipe?.fieldNote || 'Photos of seminars, field sessions, live co-design — coming soon.'}</span>
-      </p>
+    <!-- ════════════════════════════════════════════════════════════════════════ -->
+    <!-- 5. LIEN LINKEDIN EC2R -->
+    <!-- ════════════════════════════════════════════════════════════════════════ -->
+    <div class="text-center">
+      <a href="https://www.linkedin.com/company/ec2r-conseil" target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 
+                text-white text-sm font-semibold px-6 py-3 rounded-lg transition-all group">
+        <svg class="w-5 h-5 text-white/70 group-hover:text-energy-green transition-colors" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        <span data-i18n-lang="fr">Suivre EC²R sur LinkedIn</span>
+        <span data-i18n-lang="en">Follow EC²R on LinkedIn</span>
+      </a>
     </div>
 
   </div>
