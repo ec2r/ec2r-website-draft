@@ -30,36 +30,94 @@ const universes = [
   <!-- Carrousel horizontal — 6 univers -->
   <main id="universe-carousel" class="universe-carousel">
     <section id="vous-le-vivez" class="universe-panel">
+      <!-- Bouton "Explorer cet univers" -->
+      <button class="universe-explore-btn" data-scroll-to-content>
+        <span data-i18n-lang="fr">Explorer cet univers</span>
+        <span data-i18n-lang="en">Explore this universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      <!-- Bouton "Univers suivant" -->
+      <button class="universe-next-btn" data-next-universe="la-methode">
+        <span data-i18n-lang="fr">Univers suivant</span>
+        <span data-i18n-lang="en">Next universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </button>
       <div class="universe-scroll">
         <VousLeVivez fr={fr} en={en} />
       </div>
     </section>
 
     <section id="la-methode" class="universe-panel">
+      <button class="universe-explore-btn" data-scroll-to-content>
+        <span data-i18n-lang="fr">Explorer cet univers</span>
+        <span data-i18n-lang="en">Explore this universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      <button class="universe-next-btn" data-next-universe="ils-lont-vecu">
+        <span data-i18n-lang="fr">Univers suivant</span>
+        <span data-i18n-lang="en">Next universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </button>
       <div class="universe-scroll">
         <LaMethode fr={fr} en={en} />
       </div>
     </section>
 
     <section id="ils-lont-vecu" class="universe-panel">
+      <button class="universe-explore-btn" data-scroll-to-content>
+        <span data-i18n-lang="fr">Explorer cet univers</span>
+        <span data-i18n-lang="en">Explore this universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      <button class="universe-next-btn" data-next-universe="le-protocole">
+        <span data-i18n-lang="fr">Univers suivant</span>
+        <span data-i18n-lang="en">Next universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </button>
       <div class="universe-scroll">
         <IlsLontVecu fr={fr} en={en} />
       </div>
     </section>
 
     <section id="le-protocole" class="universe-panel">
+      <button class="universe-explore-btn" data-scroll-to-content>
+        <span data-i18n-lang="fr">Explorer cet univers</span>
+        <span data-i18n-lang="en">Explore this universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      <button class="universe-next-btn" data-next-universe="les-praticiens">
+        <span data-i18n-lang="fr">Univers suivant</span>
+        <span data-i18n-lang="en">Next universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </button>
       <div class="universe-scroll">
         <LeProtocole fr={fr} en={en} />
       </div>
     </section>
 
     <section id="les-praticiens" class="universe-panel">
+      <button class="universe-explore-btn" data-scroll-to-content>
+        <span data-i18n-lang="fr">Explorer cet univers</span>
+        <span data-i18n-lang="en">Explore this universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      <button class="universe-next-btn" data-next-universe="parlons-en">
+        <span data-i18n-lang="fr">Univers suivant</span>
+        <span data-i18n-lang="en">Next universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </button>
       <div class="universe-scroll">
         <LesPraticiens fr={fr} en={en} />
       </div>
     </section>
 
     <section id="parlons-en" class="universe-panel">
+      <button class="universe-explore-btn" data-scroll-to-content>
+        <span data-i18n-lang="fr">Explorer cet univers</span>
+        <span data-i18n-lang="en">Explore this universe</span>
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
+      </button>
+      <!-- Pas de bouton Next sur le dernier univers (géré par CSS) -->
       <div class="universe-scroll">
         <ParlonsEn fr={fr} en={en} />
       </div>
@@ -68,3 +126,37 @@ const universes = [
 
   <BottomBar fr={fr} en={en} />
 </Layout>
+
+<script>
+  // ══════════════════════════════════════════════════════════════════
+  // UNIVERSE NAVIGATION BUTTONS
+  // ══════════════════════════════════════════════════════════════════
+  
+  document.addEventListener('DOMContentLoaded', () => {
+    // Boutons "Explorer cet univers" — scroll vertical vers le contenu
+    const exploreButtons = document.querySelectorAll<HTMLButtonElement>('[data-scroll-to-content]');
+    exploreButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const panel = btn.closest('.universe-panel');
+        const scrollContainer = panel?.querySelector('.universe-scroll');
+        if (scrollContainer) {
+          scrollContainer.scrollTo({ top: 300, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Boutons "Univers suivant" — scroll horizontal vers l'univers suivant
+    const nextButtons = document.querySelectorAll<HTMLButtonElement>('[data-next-universe]');
+    nextButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const nextId = btn.dataset.nextUniverse;
+        if (nextId) {
+          const nextPanel = document.getElementById(nextId);
+          if (nextPanel) {
+            nextPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+          }
+        }
+      });
+    });
+  });
+</script>
