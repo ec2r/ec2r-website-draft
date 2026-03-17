@@ -14,18 +14,46 @@ const { fr, en } = Astro.props;
 
     <div class="text-center mb-10">
       <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-extrabold text-white mb-4">
-        <span data-i18n-lang="fr">Parlons-en</span>
-        <span data-i18n-lang="en">Let's talk</span>
+        <span data-i18n-lang="fr">Parlons-en !</span>
+        <span data-i18n-lang="en">Let's talk!</span>
       </h2>
 
-      <p class="text-lg text-white/60 leading-relaxed max-w-2xl mx-auto mb-2">
-        <span data-i18n-lang="fr">Un <strong class="text-white">vrai</strong> échange humain et rapide. Pas un pitch, pas un formulaire commercial, pas un agent conversationnel.</span>
-        <span data-i18n-lang="en">A <strong class="text-white">real</strong> human and quick exchange. Not a pitch, not a commercial form, not a chatbot.</span>
+      <p class="text-lg text-white/60 leading-relaxed max-w-2xl mx-auto mb-4">
+        <span data-i18n-lang="fr">Un <strong class="text-white">vrai</strong> échange humain et rapide, pas un pitch ou un formulaire commercial. 10 minutes pour voir comment ça résonne.</span>
+        <span data-i18n-lang="en">A <strong class="text-white">real</strong> human and quick exchange, not a pitch or commercial form. 10 minutes to see how it resonates.</span>
       </p>
 
-      <p class="text-base text-white/40 max-w-xl mx-auto">
-        <span data-i18n-lang="fr">10 minutes pour voir avec l'un des associés ou praticiens comment ça résonne — pour vous, vos leaders, votre organisation.</span>
-        <span data-i18n-lang="en">10 minutes to see with one of our partners or practitioners how it resonates — for you, your leaders, your organization.</span>
+      <p class="text-sm text-white/35 max-w-xl mx-auto mb-6">
+        <span data-i18n-lang="fr">Pas de formulaire commercial, pas d'agent conversationnel. Une vraie présence.</span>
+        <span data-i18n-lang="en">No commercial form, no chatbot. A real presence.</span>
+      </p>
+
+      <!-- 3 intentions -->
+      <div class="flex flex-wrap justify-center gap-3 mb-6 text-xs">
+        <div class="bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2">
+          <span class="text-energy-green font-bold" data-i18n-lang="fr">En être</span>
+          <span class="text-energy-green font-bold" data-i18n-lang="en">Be part of it</span>
+          <span class="text-white/40" data-i18n-lang="fr"> : vous voulez vivre la méthode</span>
+          <span class="text-white/40" data-i18n-lang="en"> : you want to experience the method</span>
+        </div>
+        <div class="bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2">
+          <span class="text-energy-green font-bold" data-i18n-lang="fr">Le vivre</span>
+          <span class="text-energy-green font-bold" data-i18n-lang="en">Live it</span>
+          <span class="text-white/40" data-i18n-lang="fr"> : vous avez un projet collectif</span>
+          <span class="text-white/40" data-i18n-lang="en"> : you have a collective project</span>
+        </div>
+        <div class="bg-white/[0.03] border border-white/10 rounded-lg px-4 py-2">
+          <span class="text-energy-green font-bold" data-i18n-lang="fr">Prescrire</span>
+          <span class="text-energy-green font-bold" data-i18n-lang="en">Prescribe</span>
+          <span class="text-white/40" data-i18n-lang="fr"> : vous pensez à quelqu'un</span>
+          <span class="text-white/40" data-i18n-lang="en"> : you're thinking of someone</span>
+        </div>
+      </div>
+
+      <!-- Petit texte arrogant -->
+      <p class="text-xs text-white/20 italic max-w-lg mx-auto">
+        <span data-i18n-lang="fr">Si vous voulez uniquement un budget : oubliez-nous. Si ça résonne et que vous voulez co-construire : parlons-en.</span>
+        <span data-i18n-lang="en">If you only want a quote: forget us. If it resonates and you want to co-create: let's talk.</span>
       </p>
     </div>
 
