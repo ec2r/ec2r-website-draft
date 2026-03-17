@@ -275,9 +275,13 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
           <span data-i18n-lang="en">{en.preuves?.trajTitle || 'Trajectories'}</span>
         </h3>
       </div>
-      <p class="text-white/40 text-sm mb-6 ml-5">
+      <p class="text-white/40 text-sm mb-2 ml-5">
         <span data-i18n-lang="fr">{fr.preuves?.trajSub || 'Vidéos de témoignages réels'}</span>
         <span data-i18n-lang="en">{en.preuves?.trajSub || 'Real testimonial videos'}</span>
+      </p>
+      <p class="text-white/25 text-xs mb-6 ml-5 italic">
+        <span data-i18n-lang="fr">5 ans de retour terrain, pas 3.</span>
+        <span data-i18n-lang="en">5 years of field feedback, not 3.</span>
       </p>
       <div class="grid md:grid-cols-2 gap-6">
         {(fr.preuves?.videos || []).slice(0, 2).map((video: any, i: number) => (
@@ -325,14 +329,14 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
       </div>
 
       <!-- Mise en abyme (1/3) -->
-      <div class="bg-energy-green/[0.03] border border-energy-green/10 rounded-xl p-5">
+      <div id="mise-en-abyme" class="bg-energy-green/[0.03] border border-energy-green/10 rounded-xl p-5">
         <h3 class="text-sm font-display font-bold text-energy-green/70 mb-2">
           <span data-i18n-lang="fr">Ce site est vivant</span>
           <span data-i18n-lang="en">This site is alive</span>
         </h3>
         <p class="text-white/35 text-xs leading-relaxed">
-          <span data-i18n-lang="fr">Il documente sa propre construction et notre dynamique de mobilisation. Ce n'est pas un résultat figé ou un T0 — c'est l'illustration du processus vivant de la méthode. On essaye, on expérimente, on se plante, on traduit, on améliore, on affine, on grandit. La puissance <span class="plus-accent">+</span> dirigée de l'IA EC2R, pour partir du réel.</span>
-          <span data-i18n-lang="en">It documents its own construction and our mobilization dynamics. Not a frozen result or a T0 — it's the illustration of the method's living process. We try, experiment, fail, translate, improve, refine, grow. The directed<span class="plus-accent">+</span> power of EC2R AI, starting from reality.</span>
+          <span data-i18n-lang="fr">Il documente sa propre construction et notre dynamique de mobilisation. Ce n'est pas un résultat figé ou un T0 — c'est l'illustration du processus vivant de la méthode. Nous avons utilisé la puissance<span class="plus-accent">+</span> dirigée de l'IA pour partir du réel et construire notre plateforme de leadership augmenté. La plupart des entreprises réfléchissent à comment faire savoir leur valeur ajoutée. Nous, ça fait 5 ans qu'on a construit un savoir-faire : et on a voulu passer d'un mode artisanal à un mode augmenté. On essaye, on expérimente, on se plante, on traduit, on améliore, on affine, on grandit.</span>
+          <span data-i18n-lang="en">It documents its own construction and our mobilization dynamics. Not a frozen result or a T0 — it's the illustration of the method's living process. We used the directed<span class="plus-accent">+</span> power of AI to start from reality and build our augmented leadership platform. Most companies think about how to communicate their value. We spent 5 years building expertise: and we wanted to move from artisanal to augmented mode. We try, experiment, fail, translate, improve, refine, grow.</span>
         </p>
       </div>
     </section>

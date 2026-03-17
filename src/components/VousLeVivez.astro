@@ -21,6 +21,12 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
     <div class="flex flex-wrap gap-4 mb-6 text-xs text-white/30">
       <div class="flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-energy-green animate-pulse"></span>
+        <span data-i18n-lang="fr">5 ans d'existence —</span>
+        <span data-i18n-lang="en">5 years of existence —</span>
+        <span id="counter-5ans" class="font-mono text-white/50"></span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-energy-green animate-pulse"></span>
         <span data-i18n-lang="fr">EC2R Conseil depuis le 1er juillet 2021 —</span>
         <span data-i18n-lang="en">EC2R Conseil since July 1, 2021 —</span>
         <span id="counter-ec2r" class="font-mono text-white/50"></span>
@@ -173,6 +179,7 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
 <script>
   // ── Compteurs live ──
   function updateCounters() {
+    const fiveYearsStart = new Date('2021-07-01T00:00:00').getTime();
     const ec2rStart = new Date('2021-07-01T00:00:00').getTime();
     const protoStart = new Date('2026-03-11T00:00:00').getTime();
     const now = Date.now();
@@ -185,8 +192,10 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
       return `${d}j ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
     }
 
+    const el0 = document.getElementById('counter-5ans');
     const el1 = document.getElementById('counter-ec2r');
     const el2 = document.getElementById('counter-proto');
+    if (el0) el0.textContent = fmt(now - fiveYearsStart);
     if (el1) el1.textContent = fmt(now - ec2rStart);
     if (el2) el2.textContent = fmt(now - protoStart);
   }

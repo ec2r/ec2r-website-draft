@@ -509,7 +509,7 @@ export const translations = {
         { year: '2023', label: 'Formalisation', sub: 'We improve, we formalise. We spread.' },
         { year: '2024', label: 'Diffusion', sub: 'Referents emerge. It takes hold.' },
         { year: '2025', label: 'Augmentation', sub: "EC2R AI enters the loop. From know-how to show-how." },
-        { year: '2026', label: '…', sub: 'This site : mise en abyme. We experiment live.' },
+        { year: '2026', label: 'Augmentation', sub: 'The protocol becomes AI-augmented. Living site. AI Mentor. A new era.' },
       ],
     },
 
