@@ -186,6 +186,58 @@ const { universes } = Astro.props;
     const next = dx < 0 ? Math.min(currentIdx + 1, panels.length - 1) : Math.max(currentIdx - 1, 0);
     (panels[next] as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
   }, { passive: true });
+
+  // ── Wheel navigation (desktop) ──────────────────────────────────
+  // Redirection vers l'univers suivant/précédent quand le panel
+  // atteint son bord vertical (ou si le contenu n'est pas scrollable).
+  let isWheelNavigating = false;
+
+  carousel.addEventListener('wheel', (e: WheelEvent) => {
+    // Trackpad avec swipe horizontal → laisser le carousel gérer nativement
+    if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+
+    const activePanel = panels[currentIdx] as HTMLElement;
+    const scrollEl = activePanel?.querySelector('.universe-scroll') as HTMLElement;
+    if (!scrollEl) return;
+
+    const goingDown = e.deltaY > 0;
+    const atTop    = scrollEl.scrollTop <= 1;
+    const atBottom = scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 1;
+    const noScroll = scrollEl.scrollHeight <= scrollEl.clientHeight + 2;
+
+    const shouldNavigate = noScroll || (goingDown && atBottom) || (!goingDown && atTop);
+
+    if (shouldNavigate) {
+      e.preventDefault();
+      if (isWheelNavigating) return;
+
+      const next = goingDown
+        ? Math.min(currentIdx + 1, panels.length - 1)
+        : Math.max(currentIdx - 1, 0);
+
+      if (next !== currentIdx) {
+        isWheelNavigating = true;
+        (panels[next] as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        setTimeout(() => { isWheelNavigating = false; }, 900);
+      }
+    }
+  }, { passive: false });
+
+  // ── Keyboard navigation (← →) ───────────────────────────────────
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    const tag = (e.target as Element).tagName;
+    if (['INPUT', 'TEXTAREA', 'SELECT'].includes(tag)) return;
+
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      const next = Math.min(currentIdx + 1, panels.length - 1);
+      (panels[next] as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      const next = Math.max(currentIdx - 1, 0);
+      (panels[next] as HTMLElement).scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
+  });
 </script>
 
 <style>
