@@ -1,0 +1,171 @@
+---
+import '../styles/fonts.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'EC²R — Mobiliser les énergies collectives',
+  description = 'Méthode EC²R : identifier chirurgicalement les leviers de mobilisation collective pour passer à l\'acte. Développement professionnel, pas personnel.',
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <meta name="robots" content="noindex, nofollow" />
+  <script is:inline>
+    // i18n critical CSS — injected before any paint to avoid FOUC
+    (function(){var s=document.createElement('style');s.textContent='[data-lang="fr"] [data-i18n-lang="en"]{display:none!important}[data-lang="en"] [data-i18n-lang="fr"]{display:none!important}';document.head.insertBefore(s,document.head.firstChild);})();
+  </script>
+  
+  <!-- Canonical URL -->
+  <link rel="canonical" href={Astro.url.href} />
+  
+  <!-- Hreflang -->
+  <link rel="alternate" hreflang="fr" href={new URL(Astro.url.pathname, 'https://methode-ec2r.com').href} />
+  <link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname, 'https://methode-ec2r.com').href} />
+  <link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname, 'https://methode-ec2r.com').href} />
+  
+  <!-- OG -->
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={Astro.url.href} />
+  <meta property="og:image" content={new URL('/images/og-image.png', Astro.url).href} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta id="og-locale" property="og:locale" content="fr_FR" />
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={new URL('/images/og-image.png', Astro.url).href} />
+  
+  <title>{title}</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/images/logo-ec2r.png" />
+  
+  <!-- Structured Data (JSON-LD) -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "EC²R Conseil",
+    "url": "https://methode-ec2r.com",
+    "logo": new URL('/images/logo-ec2r.png', Astro.url).href,
+    "description": "Méthode EC²R : mobiliser les énergies collectives de performance. Coaching managérial, baromètre organisationnel, IA mentor.",
+    "founder": {
+      "@type": "Person",
+      "name": "Stéphane Flahaut",
+      "jobTitle": "Fondateur EC²R Conseil"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "email": "contact@methode-ec2r.com",
+      "contactType": "customer service",
+      "availableLanguage": ["French", "English"]
+    },
+    "sameAs": [
+      "https://www.youtube.com/@stephaneflahaut-ec2rconseil",
+      "https://www.linkedin.com/in/stephane-flahaut"
+    ]
+  })} />
+</head>
+<body>
+  <slot />
+
+  <script>
+    // ── i18n global ──────────────────────────────────────────────────
+    function applyI18n(lang: string) {
+      document.querySelectorAll<HTMLElement>('[data-i18n-fr]').forEach(el => {
+        // Ne modifier que les feuilles (pas d'éléments enfants non-texte)
+        const hasChildElements = Array.from(el.childNodes).some(n => n.nodeType === 1);
+        if (hasChildElements) return;
+        const val = lang === 'en' ? el.dataset.i18nEn : el.dataset.i18nFr;
+        if (val !== undefined && val !== '') el.textContent = val;
+      });
+      // Placeholders inputs/textarea
+      document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-placeholder-fr]').forEach(el => {
+        el.placeholder = lang === 'en'
+          ? (el.dataset.placeholderEn || el.dataset.placeholderFr || '')
+          : (el.dataset.placeholderFr || '');
+      });
+      document.documentElement.setAttribute('lang', lang);
+      const ogLocale = document.getElementById('og-locale');
+      if (ogLocale) ogLocale.setAttribute('content', lang === 'en' ? 'en_GB' : 'fr_FR');
+    }
+
+    // Détection initiale : localStorage → navigator.language → fr
+    function detectLang(): string {
+      const stored = localStorage.getItem('ec2r-lang');
+      if (stored === 'fr' || stored === 'en') return stored;
+      const nav = (navigator.language || 'fr').toLowerCase();
+      return nav.startsWith('fr') ? 'fr' : 'en';
+    }
+
+    // Au chargement du DOM : set data-lang et applique les textes
+    document.addEventListener('DOMContentLoaded', () => {
+      const lang = detectLang();
+      localStorage.setItem('ec2r-lang', lang);
+      document.documentElement.setAttribute('data-lang', lang);
+      applyI18n(lang);
+
+      // Met à jour le bouton toggle si déjà rendu
+      const cur = document.getElementById('lang-current');
+      const oth = document.getElementById('lang-other');
+      if (cur) cur.textContent = lang.toUpperCase();
+      if (oth) oth.textContent = lang === 'fr' ? 'EN' : 'FR';
+    });
+
+    // Écoute les changements (déclenchés par le toggle dans Nav)
+    new MutationObserver(() => {
+      const lang = document.documentElement.getAttribute('data-lang') || 'fr';
+      applyI18n(lang);
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+    );
+
+    document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+    // Active nav on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY + 100;
+      sections.forEach((section) => {
+        const sectionEl = section as HTMLElement;
+        const top = sectionEl.offsetTop;
+        const height = sectionEl.offsetHeight;
+        const id = sectionEl.getAttribute('id');
+        if (scrollY >= top && scrollY < top + height) {
+          navLinks.forEach((link) => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${id}`) {
+              link.classList.add('active');
+            }
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
