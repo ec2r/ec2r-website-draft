@@ -104,12 +104,12 @@ const {
       if (ogLocale) ogLocale.setAttribute('content', lang === 'en' ? 'en_GB' : 'fr_FR');
     }
 
-    // Détection initiale : localStorage → navigator.language → fr
+    // Détection initiale : localStorage (choix explicite) → fr par défaut
+    // Le site est français par défaut. Seul un clic sur le toggle EN bascule.
     function detectLang(): string {
       const stored = localStorage.getItem('ec2r-lang');
       if (stored === 'fr' || stored === 'en') return stored;
-      const nav = (navigator.language || 'fr').toLowerCase();
-      return nav.startsWith('fr') ? 'fr' : 'en';
+      return 'fr';
     }
 
     // Au chargement du DOM : set data-lang et applique les textes
