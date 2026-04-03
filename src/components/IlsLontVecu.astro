@@ -341,40 +341,7 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════════════════════════════ -->
-    <!-- 5. LINKEDIN CARDS -->
-    <!-- ════════════════════════════════════════════════════════════════════════ -->
-    {fr.preuves?.linkedinPosts && (
-      <section class="grid md:grid-cols-3 gap-4">
-        {fr.preuves.linkedinPosts.slice(0, 3).map((post: any, i: number) => (
-          <div class="bg-white/[0.03] rounded-xl p-5 border border-white/[0.06] hover:border-white/15 transition-all">
-            <div class="flex items-center gap-3 mb-3">
-              <div class="w-10 h-10 rounded-full bg-white/10 border border-white/10 flex items-center justify-center">
-                <span class="text-white/30 text-xs font-bold">{post.name.split(' ').map((w: string) => w[0]).join('')}</span>
-              </div>
-              <div>
-                <p class="font-display font-semibold text-white text-sm">
-                  <span data-i18n-lang="fr">{post.name}</span>
-                  <span data-i18n-lang="en">{en.preuves?.linkedinPosts?.[i]?.name || post.name}</span>
-                </p>
-                <p class="text-white/40 text-xs">
-                  <span data-i18n-lang="fr">{post.title}</span>
-                  <span data-i18n-lang="en">{en.preuves?.linkedinPosts?.[i]?.title || post.title}</span>
-                </p>
-              </div>
-            </div>
-            <span class="inline-block text-xs font-medium text-energy-green bg-energy-green/10 px-3 py-1 rounded-full mb-3">
-              <span data-i18n-lang="fr">{post.type}</span>
-              <span data-i18n-lang="en">{en.preuves?.linkedinPosts?.[i]?.type || post.type}</span>
-            </span>
-            <blockquote class="text-white/60 text-sm leading-relaxed">
-              <span data-i18n-lang="fr">"{post.quote}"</span>
-              <span data-i18n-lang="en">"{en.preuves?.linkedinPosts?.[i]?.quote || post.quote}"</span>
-            </blockquote>
-          </div>
-        ))}
-      </section>
-    )}
+
 
     <!-- ════════════════════════════════════════════════════════════════════════ -->
     <!-- 6. MUSÉE / TIMELINE -->

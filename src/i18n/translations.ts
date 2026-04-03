@@ -7,7 +7,7 @@ export const translations = {
       method: 'La Méthode',
       proof: 'Ils le vivent',
       testimonials: 'Témoignages',
-      protocol: 'Le Protocole',
+      protocol: 'La plateforme',
       practitioners: 'Les Praticiens',
       contact: 'Parlons-en',
     },
@@ -15,8 +15,8 @@ export const translations = {
     // Hero
     hero: {
       label: 'Méthode EC²R ©',
-      title1: 'Nos énergies',
-      title2: 'plus collectives',
+      title1: 'La méthode+ vivante EC²R',
+      title2: "Vos équipes ont besoin d'énergie et de savoir comment passer à l'acte.",
       taglinePrefix: 'pour ',
       taglines: [
         'une croissance plus responsable',
@@ -25,12 +25,12 @@ export const translations = {
         'une réactivité plus collective',
       ],
       sub1: 'Pas le Netflix de la formation.',
-      sub1Prefix: 'Pas le Netflix de ',
-      sub1Cycling: ['la formation', 'le conseil', 'la RH', 'le co-développement', 'le management'],
+      sub1Prefix: 'Pas le Netflix ',
+      sub1Cycling: ['de la formation', 'du conseil', 'du co-développement', 'du management', 'de la RH'],
       sub1b: 'Le Waze du comportement professionnel.',
-      sub1bPrefix: 'Le Waze pour guider en temps réel ',
-      sub1bCycling: ['le changement', 'la mobilisation collective', 'les comportements de leadership', 'les micro-comportements décisifs'],
-      sub2: "Votre IRM+ organisationnel qui mesure vos énergies collectives, identifie+ chirurgicalement vos leviers de mobilisation et accompagne votre passage à l'acte jusqu'au micro-comportement dans vos situations quotidiennes.",
+      sub1bPrefix: 'Le Waze ',
+      sub1bCycling: ['de la mobilisation collective', 'des comportements de leadership', 'des micro-comportements décisifs', 'du changement'],
+      sub2: 'Énergie + Collective pour des comportements plus responsables, plus réalistes, plus rapides',
       cta1: 'Découvrir la méthode',
       cta2: 'Parlons-en',
       ec2rLines: {
