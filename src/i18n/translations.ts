@@ -226,7 +226,7 @@ export const translations = {
       seFormer: {
         label: 'Se former',
         title: 'Formation présentiel + MentorIA',
-        tag: 'Bientôt opérationnel',
+        tag: null,
         text: "Formation sur mesure en présentiel : séminaires, ateliers, déploiement multi-sites : complétée par le MentorIA EC2R pour ancrer les acquis dans le quotidien métier.",
       },
       abyme: {
