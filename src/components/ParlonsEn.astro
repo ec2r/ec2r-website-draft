@@ -3,6 +3,7 @@
  * Univers 6 : "Parlons-en"
  * Échange humain, prise de RDV, formulaire contact
  */
+import EC2R from './EC2R.astro';
 interface Props { fr: any; en: any; }
 const { fr, en } = Astro.props;
 ---
@@ -119,7 +120,7 @@ const { fr, en } = Astro.props;
 
     <!-- Footer minimal -->
     <div class="mt-12 pt-6 border-t border-white/5 text-center text-white/15 text-xs space-y-1">
-      <p>© {new Date().getFullYear()} Méthode EC2R · EC2R Conseil</p>
+      <p>© {new Date().getFullYear()} Méthode <EC2R /> · <EC2R /> Conseil</p>
       <div class="flex justify-center gap-4">
         <a href="/mentions-legales" class="hover:text-white/30 transition-colors">
           <span data-i18n-lang="fr">Mentions légales</span>

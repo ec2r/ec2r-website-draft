@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* EC²R brand kerning — the Unicode ² has wider metrics than normal letters.
+   This tightens the spacing so it doesn't look detached from C and R. */
+@layer base {
+  .ec2r-brand sup {
+    font-size: 0.65em;
+    margin: 0 -0.07em;
+    vertical-align: super;
+  }
+}
+
 /* i18n : masque les blocs de la langue inactive */
 [data-lang="fr"] [data-i18n-lang="en"] { display: none !important; }
 [data-lang="en"] [data-i18n-lang="fr"] { display: none !important; }
