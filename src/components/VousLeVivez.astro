@@ -79,13 +79,13 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
         <!-- Waze tagline -->
         <p class="text-base md:text-lg text-white/50 leading-relaxed max-w-lg mb-3">
           <span class="line-through decoration-white/15">
-            <span data-i18n-lang="fr">Pas le Netflix de </span>
+            <span data-i18n-lang="fr">Pas le Netflix </span>
             <span data-i18n-lang="en">Not the Netflix of </span>
-            <strong id="netflix-word" class="text-white/30">la formation</strong>.
+            <strong id="netflix-word" class="text-white/30">de la formation</strong>.
           </span><br/>
-          <span data-i18n-lang="fr">Le Waze du </span>
+          <span data-i18n-lang="fr">Le Waze </span>
           <span data-i18n-lang="en">The Waze of </span>
-          <strong id="waze-word" class="text-white">comportement professionnel</strong>.
+          <strong id="waze-word" class="text-white">de la mobilisation collective</strong>.
         </p>
 
         <!-- IRM baseline -->
@@ -164,10 +164,10 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
 
 <!-- Cycling data store -->
 <div id="vlv-cycling-data" hidden
-  data-netflix-fr={JSON.stringify((fr.hero as any).sub1Cycling || ['la formation','le conseil','le co-développement','le management'])}
-  data-netflix-en={JSON.stringify((en.hero as any).sub1Cycling || ['training','consulting','co-development','management'])}
-  data-waze-fr={JSON.stringify((fr.hero as any).sub1bCycling || ['comportement professionnel','mobilisation collective','micro-comportement','leadership décisif'])}
-  data-waze-en={JSON.stringify((en.hero as any).sub1bCycling || ['professional behaviour','collective mobilization','micro-behaviour','decisive leadership'])}
+  data-netflix-fr={JSON.stringify((fr.hero as any).sub1Cycling || ['de la formation','du conseil','du co-développement','du management','de la RH'])}
+  data-netflix-en={JSON.stringify((en.hero as any).sub1Cycling || ['training','consulting','co-development','management','HR'])}
+  data-waze-fr={JSON.stringify((fr.hero as any).sub1bCycling || ['de la mobilisation collective','des comportements de leadership','des micro-comportements décisifs','du changement'])}
+  data-waze-en={JSON.stringify((en.hero as any).sub1bCycling || ['collective mobilisation','leadership behaviours','decisive micro-behaviours','change'])}
 ></div>
 
 <style>

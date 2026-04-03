@@ -343,7 +343,7 @@ export const translations = {
       sub1Cycling: ['training', 'consulting', 'HR', 'co-development', 'management'],
       sub1b: 'The Waze of professional behaviour.',
       sub1bPrefix: 'The Waze of ',
-      sub1bCycling: ['professional behaviour', 'change', 'collective mobilisation'],
+      sub1bCycling: ['collective mobilisation', 'leadership behaviours', 'decisive micro-behaviours', 'change'],
       sub2: "An organisational MRI+ that measures collective energies, surgically identifies mobilisation levers and supports action through to behaviour in situation.",
       cta1: 'Discover the method',
       cta2: "Let's talk",
