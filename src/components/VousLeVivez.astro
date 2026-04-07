@@ -168,6 +168,10 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
   data-netflix-en={JSON.stringify((en.hero as any).sub1Cycling || ['training','consulting','co-development','management','HR'])}
   data-waze-fr={JSON.stringify((fr.hero as any).sub1bCycling || ['de la mobilisation collective','des comportements de leadership','des micro-comportements décisifs','du changement'])}
   data-waze-en={JSON.stringify((en.hero as any).sub1bCycling || ['collective mobilisation','leadership behaviours','decisive micro-behaviours','change'])}
+  data-c2-fr={JSON.stringify((fr.hero as any).ec2rLines?.c2cycling || ['Croissance','Changement','Comportement'])}
+  data-c2-en={JSON.stringify((en.hero as any).ec2rLines?.c2cycling || ['Growth','Change','Behaviour'])}
+  data-r-fr={JSON.stringify((fr.hero as any).ec2rLines?.rCycling || ['Responsable','Réaliste','Rapide','Rassurant'])}
+  data-r-en={JSON.stringify((en.hero as any).ec2rLines?.rCycling || ['Responsible','Realistic','Rapid','Reassuring'])}
 ></div>
 
 <style>
@@ -202,20 +206,51 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
   setInterval(updateCounters, 1000);
   updateCounters();
 
-  // ── EC2R decomposition typewriter ──
-  const c2El = document.getElementById('c2-cycling')!;
-  const rEl = document.getElementById('r-cycling')!;
-  const c2Words = ['Croissance','Changement','Comportement'];
-  const rWords = ['Responsable','Réaliste','Rapide','Rassurant'];
+  // ── EC2R decomposition typewriter (i18n FR/EN) ──
+  const c2El = document.getElementById('c2-cycling')! as HTMLElement;
+  const rEl = document.getElementById('r-cycling')! as HTMLElement;
+  const cyclingDataEl = document.getElementById('vlv-cycling-data')!;
+  const c2WordsFr: string[] = JSON.parse(cyclingDataEl.dataset.c2Fr || '["Croissance","Changement","Comportement"]');
+  const c2WordsEn: string[] = JSON.parse(cyclingDataEl.dataset.c2En || '["Growth","Change","Behaviour"]');
+  const rWordsFr:  string[] = JSON.parse(cyclingDataEl.dataset.rFr  || '["Responsable","Réaliste","Rapide","Rassurant"]');
+  const rWordsEn:  string[] = JSON.parse(cyclingDataEl.dataset.rEn  || '["Responsible","Realistic","Rapid","Reassuring"]');
   let c2i = 0, ri = 0;
 
-  function typewriter(el: HTMLElement, words: string[], idxRef: {v:number}, cb: ()=>void) {
-    const word = words[idxRef.v]; idxRef.v = (idxRef.v+1) % words.length;
-    let i=0; el.textContent='';
-    const t = setInterval(()=>{ el.textContent=word.slice(0,++i); if(i>=word.length){clearInterval(t);setTimeout(()=>{let j=word.length;const e=setInterval(()=>{el.textContent=word.slice(0,--j);if(j<=0){clearInterval(e);cb();}},40);},1800);}},55);
+  function typewriter(el: HTMLElement, wordsFr: string[], wordsEn: string[], idxRef: {v:number}, cb: ()=>void) {
+    const lang = document.documentElement.getAttribute('data-lang') || 'fr';
+    const words = lang === 'en' ? wordsEn : wordsFr;
+    const word = words[idxRef.v];
+    idxRef.v = (idxRef.v + 1) % words.length;
+    let i = 0;
+    el.textContent = '';
+    const t = setInterval(() => {
+      el.textContent = word.slice(0, ++i);
+      if (i >= word.length) {
+        clearInterval(t);
+        setTimeout(() => {
+          let j = word.length;
+          const e = setInterval(() => {
+            el.textContent = word.slice(0, --j);
+            if (j <= 0) { clearInterval(e); cb(); }
+          }, 40);
+        }, 1800);
+      }
+    }, 55);
   }
-  function cycleC2(){typewriter(c2El,c2Words,{v:c2i},()=>{c2i=(c2i)%c2Words.length;setTimeout(cycleC2,200);})}
-  function cycleR(){typewriter(rEl,rWords,{v:ri},()=>{ri=(ri)%rWords.length;setTimeout(cycleR,200);})}
+  function cycleC2() {
+    const ref = { v: c2i };
+    typewriter(c2El, c2WordsFr, c2WordsEn, ref, () => {
+      c2i = ref.v;
+      setTimeout(cycleC2, 200);
+    });
+  }
+  function cycleR() {
+    const ref = { v: ri };
+    typewriter(rEl, rWordsFr, rWordsEn, ref, () => {
+      ri = ref.v;
+      setTimeout(cycleR, 200);
+    });
+  }
 
   // Reveal lines
   const lines = document.querySelectorAll<HTMLElement>('#ec2r-decomposition .ec2r-line');
