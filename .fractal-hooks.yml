@@ -1,0 +1,10 @@
+se_hooks:
+  post_commit_elements: true
+
+# Portal sync (lab.undust.co). When true, post-commit parses commit
+# messages for portal spec refs and PATCHes the portal API:
+#   "Closes   #ecs-<id>"  -> status=delivered
+#   "Advances #ecs-<id>"  -> status=in_progress
+#   "Opens    #ecs-<id>"  -> status=backlog
+# <id> = portal Specification internal id (URL on lab.undust.co).
+portal_sync: true
