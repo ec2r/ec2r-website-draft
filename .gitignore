@@ -20,3 +20,6 @@ dist/
 # Env
 .env
 .env.*
+
+# Kamal secrets (all dotfiles in .kamal/)
+.kamal/.*

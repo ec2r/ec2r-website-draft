@@ -1,0 +1,33 @@
+service: ec2r-website
+image: lucletoffe/ec2r-website
+
+servers:
+  web:
+    - 54.38.26.13
+
+proxy:
+  ssl: true
+  hosts:
+    - methode-ec2r.com
+    - www.methode-ec2r.com
+  app_port: 80
+  healthcheck:
+    path: /up
+    interval: 5
+    timeout: 30
+
+registry:
+  server: eq.taila1bd8b.ts.net
+  username: lucletoffe
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+builder:
+  arch: amd64
+
+ssh:
+  user: ubuntu
+
+aliases:
+  logs: app logs -f
+  shell: app exec --interactive --reuse "sh"
