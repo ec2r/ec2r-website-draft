@@ -322,37 +322,9 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
       </div>
     </section>
 
-    <!-- ════════════════════════════════════════════════════════════════════════ -->
-    <!-- 4. WORD CLOUD + MISE EN ABYME -->
-    <!-- ════════════════════════════════════════════════════════════════════════ -->
-    <section class="grid lg:grid-cols-3 gap-6">
-      <!-- Word cloud dynamique (2/3) -->
-      <div class="lg:col-span-2 bg-white/[0.02] border border-white/[0.06] rounded-xl p-6">
-        <h3 class="font-display font-semibold text-white text-lg mb-4">
-          <span data-i18n-lang="fr">{fr.preuves?.wallTitle || 'Mur de contributions ouvert'}</span>
-          <span data-i18n-lang="en">{en.preuves?.wallTitle || 'Open contribution wall'}</span>
-        </h3>
-        <div id="word-cloud" class="relative h-[220px] md:h-[280px] overflow-hidden"></div>
-        <p class="text-white/25 text-xs mt-4 italic">
-          <span data-i18n-lang="fr">{fr.preuves?.wallCloudNote || 'Les mots grandissent avec les témoignages'}</span>
-          <span data-i18n-lang="en">{en.preuves?.wallCloudNote || 'Words grow with testimonials'}</span>
-        </p>
-      </div>
-
-      <!-- Mise en abyme (1/3) -->
-      <div id="mise-en-abyme" class="bg-energy-green/[0.03] border border-energy-green/10 rounded-xl p-5">
-        <h3 class="text-sm font-display font-bold text-energy-green/70 mb-2">
-          <span data-i18n-lang="fr">Ce site est vivant</span>
-          <span data-i18n-lang="en">This site is alive</span>
-        </h3>
-        <p class="text-white/35 text-xs leading-relaxed">
-          <span data-i18n-lang="fr">Il documente sa propre construction et notre dynamique de mobilisation. Ce n'est pas un résultat figé ou un T0 — c'est l'illustration du processus vivant de la Méthode. Nous avons utilisé la puissance<span class="plus-accent">+</span> dirigée de l'IA pour partir du réel et construire notre plateforme de leadership augmenté. On essaye, on expérimente, on se plante, on traduit, on améliore, on affine, on grandit.</span>
-          <span data-i18n-lang="en">It documents its own construction and our mobilization dynamics. Not a frozen result or a T0 — it's the illustration of the method's living process. We used the directed<span class="plus-accent">+</span> power of AI to start from reality and build our augmented leadership platform. Most companies think about how to communicate their value. We spent 5 years building expertise: and we wanted to move from artisanal to augmented mode. We try, experiment, fail, translate, improve, refine, grow.</span>
-        </p>
-      </div>
-    </section>
-
-
+    <!-- (Section "Mur de contributions" + "Mise en abyme" supprimée — déduplication
+         avec la section haut #word-cloud-top + bannière "Ce site est vivant"
+         qui contient déjà ces 2 éléments — req Stéphane v1) -->
 
     <!-- ════════════════════════════════════════════════════════════════════════ -->
     <!-- 6. MUSÉE / TIMELINE -->
@@ -495,9 +467,9 @@ const counterObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 counters.forEach(counter => counterObserver.observe(counter));
 
-// ═══ WORD CLOUD DYNAMIQUE ═══
+// ═══ WORD CLOUD DYNAMIQUE (en haut de section, id=word-cloud-top) ═══
 (() => {
-  const cloud = document.getElementById('word-cloud');
+  const cloud = document.getElementById('word-cloud-top');
   if (!cloud) return;
 
   const wordsData: Record<string, { large: string[]; medium: string[]; small: string[] }> = {
