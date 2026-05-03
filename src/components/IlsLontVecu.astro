@@ -90,23 +90,23 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
         </p>
       </div>
       <!-- Bannière "Ce site est vivant" — clic pour développer -->
-      <details class="bg-energy-green/[0.04] border border-energy-green/15 rounded-xl p-5 group">
+      <details class="bg-energy-green/[0.04] border border-energy-green/15 rounded-xl p-5 md:p-6 group flex flex-col justify-center">
         <summary class="cursor-pointer list-none">
-          <div class="flex items-center justify-between">
-            <h3 class="text-sm font-display font-bold text-energy-green/90">
+          <div class="flex items-center justify-between mb-3">
+            <h3 class="text-xl md:text-2xl font-display font-extrabold text-energy-green leading-tight">
               <span data-i18n-lang="fr">Ce site est vivant</span>
               <span data-i18n-lang="en">This site is alive</span>
             </h3>
-            <svg class="w-4 h-4 text-energy-green/60 group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-energy-green/70 group-open:rotate-180 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
-          <p class="text-white/40 text-xs mt-2 italic">
-            <span data-i18n-lang="fr">Pourquoi ? Cliquez pour lire.</span>
-            <span data-i18n-lang="en">Why? Click to read.</span>
+          <p class="text-white/70 text-base leading-snug">
+            <span data-i18n-lang="fr">Pourquoi ? <span class="text-energy-green/80 font-semibold">Cliquez pour lire.</span></span>
+            <span data-i18n-lang="en">Why? <span class="text-energy-green/80 font-semibold">Click to read.</span></span>
           </p>
         </summary>
-        <p class="text-white/40 text-xs leading-relaxed mt-3">
+        <p class="text-white/55 text-sm leading-relaxed mt-4 pt-4 border-t border-energy-green/10">
           <span data-i18n-lang="fr">Il documente sa propre construction et notre dynamique de mobilisation. Pas un résultat figé — l'illustration du processus vivant. Nous avons utilisé la puissance<span class="plus-accent">+</span> dirigée de l'IA pour partir du réel et passer d'un savoir-faire artisanal à un mode augmenté. On essaye, on expérimente, on traduit, on améliore.</span>
           <span data-i18n-lang="en">It documents its own construction and our mobilization dynamics. Not a frozen result — the illustration of the living process. We used the directed<span class="plus-accent">+</span> power of AI to start from reality and move from artisanal know-how to augmented mode.</span>
         </p>
@@ -510,18 +510,53 @@ counters.forEach(counter => counterObserver.observe(counter));
       [allWords[i], allWords[j]] = [allWords[j], allWords[i]];
     }
 
+    // Cleanup ancienne anim si re-render (changement de langue)
+    cancelAnimationFrame((cloud as any)._raf || 0);
+
+    type Particle = { el: HTMLSpanElement; x: number; y: number; vx: number; vy: number };
+    const particles: Particle[] = [];
+
     allWords.forEach((word, i) => {
       const span = document.createElement('span');
       span.textContent = word.text;
-      span.className = `absolute ${sizeClasses[word.size]} transition-all duration-1000 opacity-0`;
-      span.style.left = `${5 + Math.random() * 80}%`;
-      span.style.top = `${5 + Math.random() * 80}%`;
+      span.className = `absolute ${sizeClasses[word.size]} opacity-0`;
+      span.style.transition = 'opacity 1.2s ease';
+      span.style.willChange = 'transform';
+      const x = 5 + Math.random() * 75;
+      const y = 5 + Math.random() * 78;
+      span.style.left = `${x}%`;
+      span.style.top = `${y}%`;
       cloud!.appendChild(span);
 
-      setTimeout(() => {
-        span.style.opacity = String(sizeOpacity[word.size]);
-      }, 100 + i * 80);
+      // Fade-in décalé
+      setTimeout(() => { span.style.opacity = String(sizeOpacity[word.size]); }, 80 + i * 60);
+
+      // Vitesse lente, direction aléatoire (% par seconde)
+      const speed = 0.15 + Math.random() * 0.25; // 0.15–0.4 %/s
+      const angle = Math.random() * Math.PI * 2;
+      particles.push({
+        el: span, x, y,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+      });
     });
+
+    // Animation continue rAF avec rebond aux bords
+    let lastT = performance.now();
+    const tick = (now: number) => {
+      const dt = Math.min((now - lastT) / 1000, 0.05); // s, capé à 50ms
+      lastT = now;
+      for (const p of particles) {
+        p.x += p.vx * dt * 60;
+        p.y += p.vy * dt * 60;
+        if (p.x < 2 || p.x > 88) { p.vx *= -1; p.x = Math.max(2, Math.min(88, p.x)); }
+        if (p.y < 2 || p.y > 86) { p.vy *= -1; p.y = Math.max(2, Math.min(86, p.y)); }
+        p.el.style.left = `${p.x}%`;
+        p.el.style.top = `${p.y}%`;
+      }
+      (cloud as any)._raf = requestAnimationFrame(tick);
+    };
+    (cloud as any)._raf = requestAnimationFrame(tick);
   }
 
   render();
@@ -529,17 +564,5 @@ counters.forEach(counter => counterObserver.observe(counter));
   new MutationObserver(render).observe(
     document.documentElement, { attributes: true, attributeFilter: ['data-lang'] }
   );
-
-  setInterval(() => {
-    const spans = cloud!.querySelectorAll('span');
-    spans.forEach((s: any) => {
-      const dx = (Math.random() - 0.5) * 3;
-      const dy = (Math.random() - 0.5) * 2;
-      const left = parseFloat(s.style.left) + dx;
-      const top = parseFloat(s.style.top) + dy;
-      s.style.left = `${Math.max(2, Math.min(90, left))}%`;
-      s.style.top = `${Math.max(2, Math.min(88, top))}%`;
-    });
-  }, 4000);
 })();
 </script>
