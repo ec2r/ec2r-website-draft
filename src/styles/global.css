@@ -58,6 +58,8 @@
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  /* Marge top: 1.5x hauteur nav pour éviter que le titre colle la barre */
+  padding-top: 32px;
 }
 
 /* Mobile : ajustements */

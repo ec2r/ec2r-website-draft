@@ -104,7 +104,11 @@ const { universes } = Astro.props;
   const labelsFr = Array.from(tabs).map(t => t.querySelector('[data-i18n-lang="fr"]')?.textContent || '');
   const labelsEn = Array.from(tabs).map(t => t.querySelector('[data-i18n-lang="en"]')?.textContent || '');
 
+  let lastIdx = 0;
+  let isClickNav = false;
+
   function setActiveUniverse(idx: number) {
+    const previousIdx = lastIdx;
     currentIdx = idx;
     const lang = document.documentElement.getAttribute('data-lang') || 'fr';
 
@@ -132,24 +136,50 @@ const { universes } = Astro.props;
     // Background nav
     const nav = document.getElementById('top-nav')!;
     nav.classList.add('bg-navy-950/95', 'backdrop-blur-lg');
+
+    // Reset scroll vertical du nouveau panneau selon direction
+    // (sauf si click nav: déjà reset top en amont du scrollIntoView)
+    if (!isClickNav && idx !== previousIdx) {
+      const scrollEl = (panels[idx] as HTMLElement)?.querySelector('.universe-scroll') as HTMLElement;
+      if (scrollEl) {
+        if (idx > previousIdx) {
+          // Forward (scroll suivant) → arriver en haut
+          scrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          // Backward (scroll précédent) → arriver en bas
+          scrollEl.scrollTo({ top: scrollEl.scrollHeight, behavior: 'smooth' });
+        }
+      }
+    }
+    lastIdx = idx;
   }
 
-  // Click tab → scroll to panel
+  // Click tab → reset scroll top + scroll to panel
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const targetId = tab.dataset.universeTarget!;
       const panel = document.getElementById(targetId);
       if (panel) {
+        isClickNav = true;
+        const scrollEl = panel.querySelector('.universe-scroll') as HTMLElement;
+        if (scrollEl) scrollEl.scrollTop = 0;
         panel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+        setTimeout(() => { isClickNav = false; }, 1000);
       }
     });
   });
 
-  // Logo → retour univers 1
+  // Logo → retour univers 1, reset top
   logoBtn.addEventListener('click', (e) => {
     e.preventDefault();
     const first = carousel.querySelector('.universe-panel') as HTMLElement;
-    if (first) first.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    if (first) {
+      isClickNav = true;
+      const scrollEl = first.querySelector('.universe-scroll') as HTMLElement;
+      if (scrollEl) scrollEl.scrollTop = 0;
+      first.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+      setTimeout(() => { isClickNav = false; }, 1000);
+    }
   });
 
   // IntersectionObserver pour détecter le panneau actif
