@@ -531,8 +531,8 @@ counters.forEach(counter => counterObserver.observe(counter));
       // Fade-in décalé
       setTimeout(() => { span.style.opacity = String(sizeOpacity[word.size]); }, 80 + i * 60);
 
-      // Vitesse lente, direction aléatoire (% par seconde)
-      const speed = 0.15 + Math.random() * 0.25; // 0.15–0.4 %/s
+      // Vitesse très lente, direction aléatoire (% par seconde) — divisé par 3 sur retour Luc
+      const speed = 0.05 + Math.random() * 0.08; // 0.05–0.13 %/s
       const angle = Math.random() * Math.PI * 2;
       particles.push({
         el: span, x, y,
