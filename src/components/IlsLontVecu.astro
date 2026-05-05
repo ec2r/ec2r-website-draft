@@ -73,6 +73,15 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
 
   <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-14 space-y-16">
 
+    <!-- Indicateur scroll : descendre vers le mur de témoignages -->
+    <div class="text-center -mb-8">
+      <a href="#temoignages-wall" class="inline-flex items-center gap-2 text-accent text-xs font-semibold uppercase tracking-wider hover:text-accent/80 transition-colors animate-bounce" aria-label="Voir les témoignages">
+        <span data-i18n-lang="fr">Descendre vers les témoignages</span>
+        <span data-i18n-lang="en">Scroll to testimonials</span>
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+      </a>
+    </div>
+
     <!-- ════════════════════════════════════════════════════════════════════════ -->
     <!-- 1. NUAGE DE MOTS-CLÉS + BANNIÈRE "CE SITE EST VIVANT" — EN HAUT -->
     <!--    (remplace l'ancienne section "En chiffres" — req 6gZ0QrEG/0sqfNTUS) -->
