@@ -38,8 +38,8 @@ const team = [
     name: 'Jean', namePlus: 'ZUCCARELLI',
     initials: 'JZ', photo: '/photos/equipe/zuccarelli.webp',
     linkedin: 'https://www.linkedin.com/in/jean-zuccarelli-0807796/',
-    roleFr: 'Associé EC²R Conseil — Master Coach Executive',
-    roleEn: 'EC²R Conseil Partner — Executive Master Coach',
+    roleFr: 'Master Coach Executive',
+    roleEn: 'Executive Master Coach',
     bioFr: "Master Coach certifié, expert en leadership development & executive coaching. Sparring Partner chez Praesta France, fondateur de LaGranada Conseils et Beeateam. Ancien Director Practice Leadership Assessment & Coaching chez LHH France, Principal Leadership Development chez Right Management. ESCP, Process Com Certified.",
     bioEn: "Certified Master Coach, leadership development & executive coaching expert. Sparring Partner at Praesta France, founder of LaGranada Conseils and Beeateam. Former Director Leadership Assessment & Coaching Practice at LHH France, Principal Leadership Development at Right Management. ESCP, Process Com Certified.",
     size: 'regular', photoPos: 'center 25%',
@@ -48,8 +48,8 @@ const team = [
     name: 'Arnaud', namePlus: 'BOCHURBERG',
     initials: 'AB', photo: '/photos/equipe/arnaud-bochurberg.webp',
     linkedin: '',
-    roleFr: 'Associé EC²R Conseil — Expert en profilage comportemental',
-    roleEn: 'EC²R Conseil Partner — Behavioural profiling expert',
+    roleFr: 'Expert en profilage comportemental',
+    roleEn: 'Behavioural profiling expert',
     bioFr: "Président du Groupe Alard. Professeur associé en Psycho-sociologie de la Communication à l'Université Gustave Eiffel depuis 28 ans. Conférencier, formateur et coach de dirigeants. Officier des Palmes Académiques. 1750+ leaders accompagnés.",
     bioEn: "President of Groupe Alard. Associate Professor in Psycho-sociology of Communication at Gustave Eiffel University for 28 years. Speaker, trainer and executive coach. Officer of the Palmes Académiques. 1750+ leaders supported.",
     size: 'regular', photoPos: 'center 20%',
@@ -58,10 +58,10 @@ const team = [
     name: 'Marie-Emilia', namePlus: 'GARCIA',
     initials: 'MEG', photo: '/photos/equipe/garcia.webp',
     linkedin: '',
-    roleFr: 'Psychologue — Débriefings & profils individuels',
-    roleEn: 'Psychologist — Debriefs & individual profiles',
-    bioFr: "Psychologue. Débriefings de profils individuels EC²R. Accompagne le déploiement des sessions et la traduction des profils en quotidien métier.",
-    bioEn: "Psychologist. EC²R individual profile debriefs. Supports session deployment and translation of profiles into daily work reality.",
+    roleFr: 'Experte technique de la méthode augmentée EC²R',
+    roleEn: 'Technical expert of the augmented EC²R method',
+    bioFr: "Experte technique de la méthode augmentée EC²R. Débriefings de profils individuels et accompagnement du déploiement des sessions, traduction des profils en quotidien métier.",
+    bioEn: "Technical expert of the augmented EC²R method. Individual profile debriefs and session deployment support, translation of profiles into daily work reality.",
     size: 'regular', photoPos: 'center 15%',
   },
   {
@@ -95,8 +95,8 @@ const seminairePlaceholders = [
     <!-- ════════════════════════════════════════════════════════════════════════ -->
     <div>
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-display font-extrabold text-ink mb-2">
-        <span data-i18n-lang="fr">La team augmentée</span>
-        <span data-i18n-lang="en">The augmented team</span>
+        <span data-i18n-lang="fr">La team augmentée <span class="text-accent">+</span> élargie</span>
+        <span data-i18n-lang="en">The augmented <span class="text-accent">+</span> extended team</span>
       </h2>
       <p class="text-accent text-base font-semibold mb-4">
         <span data-i18n-lang="fr">Une <strong class="text-ink">Méthode</strong> à votre service, pas l'inverse.</span>
@@ -217,22 +217,28 @@ const seminairePlaceholders = [
         <span data-i18n-lang="en">They embody the EC²R Method on their grounds and ecosystems.</span>
       </p>
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <div class="bg-surface-alt border border-border-subtle rounded-xl p-4 hover:border-border transition-all">
-          <p class="text-ink text-sm font-display font-bold mb-1">CSHR Partners</p>
-          <p class="text-ink-subtle text-xs"><span data-i18n-lang="fr">Suisse</span><span data-i18n-lang="en">Switzerland</span></p>
+        <div class="bg-surface-alt border border-dashed border-border-subtle rounded-xl p-4 flex items-center justify-center min-h-[72px]">
+          <p class="text-ink-faint text-xs italic text-center">
+            <span data-i18n-lang="fr">Partenariat à venir</span>
+            <span data-i18n-lang="en">Partnership to come</span>
+          </p>
         </div>
-        <div class="bg-surface-alt border border-border-subtle rounded-xl p-4 hover:border-border transition-all">
-          <p class="text-ink text-sm font-display font-bold mb-1">Pro-A</p>
-          <p class="text-ink-subtle text-xs"><span data-i18n-lang="fr">Label métier des agenceurs</span><span data-i18n-lang="en">Furnishing professionals label</span></p>
+        <div class="bg-surface-alt border border-dashed border-border-subtle rounded-xl p-4 flex items-center justify-center min-h-[72px]">
+          <p class="text-ink-faint text-xs italic text-center">
+            <span data-i18n-lang="fr">Partenariat à venir</span>
+            <span data-i18n-lang="en">Partnership to come</span>
+          </p>
         </div>
-        <div class="bg-surface-alt border border-border-subtle rounded-xl p-4 hover:border-border transition-all">
-          <p class="text-ink text-sm font-display font-bold mb-1">Environnaissance</p>
-          <p class="text-ink-subtle text-xs"><span data-i18n-lang="fr">Monaco</span><span data-i18n-lang="en">Monaco</span></p>
+        <div class="bg-surface-alt border border-dashed border-border-subtle rounded-xl p-4 flex items-center justify-center min-h-[72px]">
+          <p class="text-ink-faint text-xs italic text-center">
+            <span data-i18n-lang="fr">Partenariat à venir</span>
+            <span data-i18n-lang="en">Partnership to come</span>
+          </p>
         </div>
       </div>
       <p class="text-ink-faint text-xs mt-4 italic text-center">
-        <span data-i18n-lang="fr">Liste enrichie au fur et à mesure</span>
-        <span data-i18n-lang="en">List grows over time</span>
+        <span data-i18n-lang="fr">Partenariats à venir — mis en avant prochainement</span>
+        <span data-i18n-lang="en">Partnerships to come — featured soon</span>
       </p>
     </div>
 
