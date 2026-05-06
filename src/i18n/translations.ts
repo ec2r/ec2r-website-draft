@@ -16,7 +16,7 @@ export const translations = {
     hero: {
       label: 'Méthode EC²R ©',
       title1: 'La méthode+ vivante',
-      title2: "Vos collectifs ont besoin d'énergie et de savoir comment passer + vite à l'action et pas à l'acte.",
+      title2: "Vos collectifs ont besoin d'énergie et de savoir comment passer + vite à l'action.",
       taglinePrefix: 'pour ',
       taglines: [
         'une croissance plus responsable',
@@ -40,7 +40,7 @@ export const translations = {
         rCycling: ['Rapides', 'Rassurants', 'Responsables', 'Réalistes'],
       },
       situationsLabel: '',
-      situationsHint: 'Créer des collectifs qui passent vraiment à l\'action — pas juste qui aimera faire ou se sentent bien au travail.',
+      situationsHint: 'Créer des collectifs qui passent vraiment à l\'action — pas juste qui veulent faire ou se sentent bien au travail.',
       tabCeQuiSePasse: 'Ce qui se passe',
       tabEssaye: 'Vous avez essayé',
       tabPromesse: 'Notre promesse',

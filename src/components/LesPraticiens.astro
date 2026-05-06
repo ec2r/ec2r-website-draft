@@ -35,26 +35,6 @@ const team = [
     size: 'regular', photoPos: 'center top',
   },
   {
-    name: 'Jean', namePlus: 'ZUCCARELLI',
-    initials: 'JZ', photo: '/photos/equipe/zuccarelli.webp',
-    linkedin: 'https://www.linkedin.com/in/jean-zuccarelli-0807796/',
-    roleFr: 'Master Coach Executive',
-    roleEn: 'Executive Master Coach',
-    bioFr: "Master Coach certifié, expert en leadership development & executive coaching. Sparring Partner chez Praesta France, fondateur de LaGranada Conseils et Beeateam. Ancien Director Practice Leadership Assessment & Coaching chez LHH France, Principal Leadership Development chez Right Management. ESCP, Process Com Certified.",
-    bioEn: "Certified Master Coach, leadership development & executive coaching expert. Sparring Partner at Praesta France, founder of LaGranada Conseils and Beeateam. Former Director Leadership Assessment & Coaching Practice at LHH France, Principal Leadership Development at Right Management. ESCP, Process Com Certified.",
-    size: 'regular', photoPos: 'center 25%',
-  },
-  {
-    name: 'Arnaud', namePlus: 'BOCHURBERG',
-    initials: 'AB', photo: '/photos/equipe/arnaud-bochurberg.webp',
-    linkedin: '',
-    roleFr: 'Expert en profilage comportemental',
-    roleEn: 'Behavioural profiling expert',
-    bioFr: "Président du Groupe Alard. Professeur associé en Psycho-sociologie de la Communication à l'Université Gustave Eiffel depuis 28 ans. Conférencier, formateur et coach de dirigeants. Officier des Palmes Académiques. 1750+ leaders accompagnés.",
-    bioEn: "President of Groupe Alard. Associate Professor in Psycho-sociology of Communication at Gustave Eiffel University for 28 years. Speaker, trainer and executive coach. Officer of the Palmes Académiques. 1750+ leaders supported.",
-    size: 'regular', photoPos: 'center 20%',
-  },
-  {
     name: 'Marie-Emilia', namePlus: 'GARCIA',
     initials: 'MEG', photo: '/photos/equipe/garcia.webp',
     linkedin: '',
@@ -73,6 +53,31 @@ const team = [
     bioFr: "De l'idée à l'acte, en direct, avec vous.",
     bioEn: "From idea to action, live, with you.",
     size: 'regular', photoPos: 'center 50%',
+  },
+];
+
+// Praticiens externes — incarnent la Méthode sur leurs terrains/écosystèmes
+// (déplacés du grid team vers la section Praticiens & Partenaires — vocal Stéphane M5)
+const praticiensExternes = [
+  {
+    name: 'Arnaud', namePlus: 'BOCHURBERG',
+    initials: 'AB', photo: '/photos/equipe/arnaud-bochurberg.webp',
+    linkedin: '',
+    roleFr: 'Expert en profilage comportemental',
+    roleEn: 'Behavioural profiling expert',
+    bioFr: "Président du Groupe Alard. Professeur associé en Psycho-sociologie de la Communication à l'Université Gustave Eiffel depuis 28 ans. Conférencier, formateur et coach de dirigeants. Officier des Palmes Académiques. 1750+ leaders accompagnés.",
+    bioEn: "President of Groupe Alard. Associate Professor in Psycho-sociology of Communication at Gustave Eiffel University for 28 years. Speaker, trainer and executive coach. Officer of the Palmes Académiques. 1750+ leaders supported.",
+    photoPos: 'center 20%',
+  },
+  {
+    name: 'Jean', namePlus: 'ZUCCARELLI',
+    initials: 'JZ', photo: '/photos/equipe/zuccarelli.webp',
+    linkedin: 'https://www.linkedin.com/in/jean-zuccarelli-0807796/',
+    roleFr: 'Master Coach Executive',
+    roleEn: 'Executive Master Coach',
+    bioFr: "Master Coach certifié, expert en leadership development & executive coaching. Sparring Partner chez Praesta France, fondateur de LaGranada Conseils et Beeateam. Ancien Director Practice Leadership Assessment & Coaching chez LHH France, Principal Leadership Development chez Right Management. ESCP, Process Com Certified.",
+    bioEn: "Certified Master Coach, leadership development & executive coaching expert. Sparring Partner at Praesta France, founder of LaGranada Conseils and Beeateam. Former Director Leadership Assessment & Coaching Practice at LHH France, Principal Leadership Development at Right Management. ESCP, Process Com Certified.",
+    photoPos: 'center 25%',
   },
 ];
 
@@ -216,6 +221,50 @@ const seminairePlaceholders = [
         <span data-i18n-lang="fr">Ils incarnent la Méthode EC²R sur leurs terrains et écosystèmes.</span>
         <span data-i18n-lang="en">They embody the EC²R Method on their grounds and ecosystems.</span>
       </p>
+
+      <!-- Ligne 1 : Praticiens externes (mêmes cartes que la team ci-dessus) -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-fr mb-6">
+        {praticiensExternes.map((member) => (
+          <div class="bg-surface-alt border border-border-subtle rounded-2xl overflow-hidden hover:border-border transition-all group flex flex-col">
+            <div class="aspect-[4/3] bg-gradient-to-br from-surface-alt via-surface to-surface-alt relative flex items-center justify-center overflow-hidden">
+              {member.photo ? (
+                <img src={member.photo} alt={`${member.name} ${member.namePlus}`}
+                     class="absolute inset-0 w-full h-full object-cover"
+                     style={`object-position: ${member.photoPos}`}
+                     loading="lazy" />
+              ) : (
+                <div class="text-center relative z-10">
+                  <div class="w-16 h-16 rounded-full bg-surface-raised border border-border-subtle mx-auto mb-2 flex items-center justify-center backdrop-blur-sm group-hover:border-accent/30 transition-colors duration-500">
+                    <span class="text-ink-subtle text-lg font-display font-bold group-hover:text-accent/70 transition-colors">{member.initials}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div class="p-4 flex-1 flex flex-col">
+              <h4 class="font-display font-bold text-sm text-ink mb-1 flex items-center gap-1">
+                {member.name}<span class="plus-accent text-xs">+</span> {member.namePlus}
+                {member.linkedin && (
+                  <a href={member.linkedin} target="_blank" rel="noopener" class="text-ink-disabled hover:text-accent text-xs transition-colors ml-auto">
+                    <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+                )}
+              </h4>
+              <p class="text-accent/80 font-semibold text-xs mb-2">
+                <span data-i18n-lang="fr">{member.roleFr}</span>
+                <span data-i18n-lang="en">{member.roleEn}</span>
+              </p>
+              <p class="text-ink-subtle text-[11px] leading-relaxed flex-1">
+                <span data-i18n-lang="fr">{member.bioFr}</span>
+                <span data-i18n-lang="en">{member.bioEn}</span>
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <!-- Ligne 2 : Partenaires (logos / cartes simples) -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
         <div class="bg-surface-alt border border-border-subtle hover:border-accent/40 hover:bg-surface-raised rounded-xl p-4 flex flex-col items-center justify-center min-h-[72px] transition-all">
           <p class="text-ink font-display font-semibold text-sm text-center">
