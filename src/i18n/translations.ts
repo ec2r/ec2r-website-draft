@@ -40,7 +40,7 @@ export const translations = {
         rCycling: ['Rapides', 'Rassurants', 'Responsables', 'Réalistes'],
       },
       situationsLabel: '',
-      situationsHint: 'Créer des collectifs qui passent vraiment à l\'action — pas juste qui voudraient faire ou se sentent bien au travail.',
+      situationsHint: 'Créer des collectifs qui passent vraiment à l\'action — pas juste qui aimera faire ou se sentent bien au travail.',
       tabCeQuiSePasse: 'Ce qui se passe',
       tabEssaye: 'Vous avez essayé',
       tabPromesse: 'Notre promesse',
