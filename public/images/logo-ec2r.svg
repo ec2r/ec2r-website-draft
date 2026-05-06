@@ -12,8 +12,8 @@
     <rect x="23" y="21" width="5" height="18" rx="1" fill="#C9A56E"/>
     <rect x="29" y="21" width="5" height="18" rx="1" fill="#22C55E"/>
     
-    <!-- Lightning bolt — petit éclair doré sur la batterie -->
-    <path d="M22 14 L19 23 L23 23 L20 32 L25 23 L21 23 L24 14 Z" fill="#C9A56E" stroke="#002060" stroke-width="0.5"/>
+    <!-- Lightning bolt — petit éclair jaune sur la batterie (version ec2r-app) -->
+    <path d="M22 14 L19 23 L23 23 L20 32 L25 23 L21 23 L24 14 Z" fill="#EAB308" stroke="#002060" stroke-width="0.5"/>
   </g>
   
   <!-- EC²R Text -->

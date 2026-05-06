@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
+  <!-- Battery body (5 segments — version actuelle TopNav) -->
+  <rect x="2" y="6" width="17" height="12" rx="2" stroke="#0F172A" stroke-width="1.5"/>
+  <rect x="20.5" y="9.5" width="1.5" height="5" rx="0.75" fill="#0F172A"/>
+  <rect x="4.5" y="8.5" width="2" height="7" rx="0.5" fill="#DC2626"/>
+  <rect x="7" y="8.5" width="2" height="7" rx="0.5" fill="#EAB308"/>
+  <rect x="9.5" y="8.5" width="2" height="7" rx="0.5" fill="#C9A56E"/>
+  <rect x="12" y="8.5" width="2" height="7" rx="0.5" fill="#22C55E"/>
+  <rect x="14.5" y="8.5" width="2" height="7" rx="0.5" fill="#166534"/>
+  <!-- Petit éclair jaune par-dessus -->
+  <path d="M 11.5 8 L 9.5 12 L 11 12 L 10.3 15.5 L 12.5 11.5 L 11 11.5 L 11.7 8 Z"
+        fill="#EAB308" stroke="#0F172A" stroke-width="0.3" stroke-linejoin="round"/>
+</svg>
