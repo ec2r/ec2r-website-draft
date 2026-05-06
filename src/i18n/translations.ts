@@ -16,7 +16,7 @@ export const translations = {
     hero: {
       label: 'Méthode EC²R ©',
       title1: 'La méthode+ vivante',
-      title2: "Vos équipes ont besoin d'énergie et de savoir comment passer + vite à l'action.",
+      title2: "Vos collectifs ont besoin d'énergie et de savoir comment passer + vite à l'action et pas à l'acte.",
       taglinePrefix: 'pour ',
       taglines: [
         'une croissance plus responsable',
