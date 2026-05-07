@@ -7,7 +7,7 @@
   <rect x="9.5" y="8.5" width="2" height="7" rx="0.5" fill="#C9A56E"/>
   <rect x="12" y="8.5" width="2" height="7" rx="0.5" fill="#22C55E"/>
   <rect x="14.5" y="8.5" width="2" height="7" rx="0.5" fill="#166534"/>
-  <!-- Petit éclair jaune par-dessus -->
-  <path d="M 11.5 8 L 9.5 12 L 11 12 L 10.3 15.5 L 12.5 11.5 L 11 11.5 L 11.7 8 Z"
+  <!-- Éclair jaune par-dessus (translaté +60% haut, élargi x1.5, barre centrale x2) -->
+  <path d="M 11.75 3.5 L 8.75 7.75 L 11 7.75 L 9.95 11 L 13.25 6.75 L 11 6.75 L 12.05 3.5 Z"
         fill="#EAB308" stroke="#0F172A" stroke-width="0.3" stroke-linejoin="round"/>
 </svg>
