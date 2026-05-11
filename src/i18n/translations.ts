@@ -350,7 +350,7 @@ export const translations = {
       ec2rLines: {
         e: 'Energy',
         c1: 'Collective',
-        c2cycling: ['Growth', 'Change', 'Behaviour'],
+        c2cycling: ['Capacity', 'Change', 'Conduct'],
         rCycling: ['Responsible', 'Realistic', 'Rapid', 'Reassuring'],
       },
       situationsLabel: 'You live it too, you who…',
