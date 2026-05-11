@@ -100,13 +100,6 @@ const { universes } = Astro.props;
     </div>
   </div>
 
-  <!-- Bouton "Remonter en haut" — mobile uniquement, fixe en bas-droit -->
-  <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Remonter en haut">
-    <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
-    </svg>
-  </button>
-
   <!-- Menu mobile (déroulant univers) -->
   <div id="mobile-menu" class="hidden lg:hidden bg-[rgb(var(--nav-bg))] backdrop-blur-lg border-t border-border-subtle">
     <ul class="px-4 py-3 space-y-1">
@@ -126,6 +119,15 @@ const { universes } = Astro.props;
     </ul>
   </div>
 </nav>
+
+<!-- Bouton "Remonter en haut" — mobile uniquement, fixe en bas-droit.
+     Hors <nav> car backdrop-filter sur la nav créerait un containing block
+     pour les descendants fixed, et le bouton serait positionné relativement à la nav. -->
+<button id="scroll-top-btn" class="scroll-top-btn" aria-label="Remonter en haut">
+  <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+  </svg>
+</button>
 
 <script>
   const carousel = document.getElementById('universe-carousel')!;
