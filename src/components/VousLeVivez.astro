@@ -140,14 +140,14 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
                     <p class="text-ink-faint text-sm leading-relaxed sit-passe" data-fr={s.ceQuiSePasse} data-en={en.situations[i].ceQuiSePasse}>{s.ceQuiSePasse}</p>
                   </div>
                   <div class="sit-pane px-3 py-2.5 absolute inset-0 transition-opacity" data-pane="1" style="opacity:0;pointer-events:none">
-                    <ul class="space-y-0.5 mb-1 sit-essaye-list" data-fr={JSON.stringify(s.essaye)} data-en={JSON.stringify(en.situations[i].essaye)}>
+                    <ul class="space-y-0.5 mb-4 sit-essaye-list" data-fr={JSON.stringify(s.essaye)} data-en={JSON.stringify(en.situations[i].essaye)}>
                       {s.essaye.map((e: string) => (
                         <li class="text-ink-subtle text-sm flex items-start gap-1.5">
                           <span class="text-ink-muted mt-0.5 shrink-0">–</span><span>{e}</span>
                         </li>
                       ))}
                     </ul>
-                    <p class="text-ink-subtle text-xs italic sit-conclusion" data-fr={s.essayeConclusion} data-en={en.situations[i].essayeConclusion}>{s.essayeConclusion}</p>
+                    <p class="text-ink-subtle text-xs italic sit-conclusion mt-3 mb-2 border-l-2 border-accent/30 pl-3" data-fr={s.essayeConclusion} data-en={en.situations[i].essayeConclusion}>{s.essayeConclusion}</p>
                   </div>
                   <div class="sit-pane px-3 py-2.5 absolute inset-0 transition-opacity" data-pane="2" style="opacity:0;pointer-events:none">
                     <p class="text-ink-muted text-sm leading-relaxed sit-reponse" data-fr={s.reponse} data-en={en.situations[i].reponse}>{s.reponse}</p>
@@ -162,7 +162,7 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
 
     <!-- CTA scroll vers la méthode -->
     <div class="text-center mt-4">
-      <a href="#diff-points" class="inline-flex items-center gap-1.5 text-accent text-xs font-semibold uppercase tracking-wider hover:text-accent/80 transition-colors animate-bounce" aria-label="Voir la méthode">
+      <a href="#methode-start" id="cta-voir-methode" class="inline-flex items-center gap-1.5 text-accent text-xs font-semibold uppercase tracking-wider hover:text-accent/80 transition-colors animate-bounce" aria-label="Voir la méthode">
         <span data-i18n-lang="fr">Voir la méthode</span>
         <span data-i18n-lang="en">See the method</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
@@ -314,5 +314,15 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
     }
     new MutationObserver(()=>updateSitLang(document.documentElement.getAttribute('data-lang')||'fr')).observe(document.documentElement,{attributes:true,attributeFilter:['data-lang']});
     updateSitLang(document.documentElement.getAttribute('data-lang')||'fr');
+
+    // CTA "Voir la méthode" : scroll dans .universe-scroll (overflow:hidden global empêche scroll natif)
+    const ctaVoirMethode = document.getElementById('cta-voir-methode');
+    if (ctaVoirMethode) {
+      ctaVoirMethode.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.getElementById('methode-start');
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    }
   });
 </script>

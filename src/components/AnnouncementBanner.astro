@@ -43,13 +43,21 @@
 <!-- Spacer pour compenser la hauteur du bandeau -->
 <div id="announcement-spacer" class="h-10 sm:h-9"></div>
 
+<script is:inline>
+  // Pose la classe AVANT le paint pour éviter un saut visuel
+  (function(){
+    if (sessionStorage.getItem('ec2r-banner-closed') === '1') {
+      document.documentElement.classList.add('banner-closed');
+    }
+  })();
+</script>
 <script>
   const banner = document.getElementById('announcement-banner');
   const spacer = document.getElementById('announcement-spacer');
   const closeBtn = document.getElementById('close-announcement');
 
-  // Fermé en session = caché
-  if (sessionStorage.getItem('ec2r-banner-closed') === '1') {
+  // Sync initial — si déjà fermé, masquer banner + spacer
+  if (document.documentElement.classList.contains('banner-closed')) {
     banner?.classList.add('hidden');
     spacer?.classList.add('hidden');
   }
@@ -57,6 +65,7 @@
   closeBtn?.addEventListener('click', () => {
     banner?.classList.add('hidden');
     spacer?.classList.add('hidden');
+    document.documentElement.classList.add('banner-closed');
     sessionStorage.setItem('ec2r-banner-closed', '1');
   });
 </script>

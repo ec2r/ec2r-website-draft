@@ -58,81 +58,105 @@ const { universes } = Astro.props;
       ))}
     </ul>
 
-    <!-- Mobile : indicateur univers actif + hamburger -->
-    <div class="flex items-center gap-3 lg:hidden">
-      <span id="mobile-universe-label" class="text-ink-muted text-sm font-semibold truncate max-w-[140px]">
-        {universes[0].labelFr}
-      </span>
-      <!-- Dots indicateurs -->
-      <div class="flex gap-1">
-        {universes.map((_, i) => (
-          <span class="universe-dot w-1.5 h-1.5 rounded-full bg-surface-raised transition-all duration-200"
-                data-dot-idx={i}></span>
-        ))}
-      </div>
-    </div>
-
-    <!-- Theme + Lang toggles -->
+    <!-- Lang + Theme toggles + Burger (mobile) -->
     <div class="flex items-center gap-2">
-      <!-- Theme toggle (mode clair par défaut, gros bouton — req TGlT0tmZ) -->
+      <!-- Lang toggle : version courte mobile (juste la langue active), version longue desktop (drapeaux + FR · EN) -->
+      <button id="lang-toggle" aria-label="Switch language"
+        class="flex items-center gap-1 text-xs font-semibold tracking-widest text-ink-subtle
+               hover:text-ink transition-colors duration-200 border border-border-subtle
+               hover:border-border-strong rounded-md px-2 py-1.5">
+        <!-- Mobile : juste FR ou EN -->
+        <span id="lang-current-mobile" class="lg:hidden">FR</span>
+        <!-- Desktop : drapeau FR · drapeau EN avec opacité -->
+        <span id="lang-fr-flag" class="hidden lg:inline text-sm leading-none">🇫🇷</span>
+        <span id="lang-current" class="hidden lg:inline">FR</span>
+        <span class="hidden lg:inline text-ink-disabled mx-0.5">·</span>
+        <span id="lang-en-flag" class="hidden lg:inline text-sm leading-none" style="opacity:0.4">🇬🇧</span>
+        <span id="lang-other" class="hidden lg:inline text-ink-disabled">EN</span>
+      </button>
+      <!-- Theme toggle (mode clair par défaut, gros bouton — req TGlT0tmZ) — texte masqué sur mobile -->
       <button id="theme-toggle" aria-label="Basculer mode clair/sombre"
         class="flex items-center gap-1.5 text-xs font-semibold text-ink-muted
                hover:text-ink transition-colors duration-200 border border-border-subtle
-               hover:border-border-strong rounded-md px-3 py-1.5">
+               hover:border-border-strong rounded-md px-2 py-1.5 lg:px-3">
         <svg id="theme-icon-sun" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
         <svg id="theme-icon-moon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
-        <span id="theme-label">Clair</span>
+        <span id="theme-label" class="hidden lg:inline">Clair</span>
       </button>
-      <button id="lang-toggle" aria-label="Switch language"
-        class="flex items-center gap-1 text-xs font-semibold tracking-widest text-ink-subtle
-               hover:text-ink transition-colors duration-200 border border-border-subtle
-               hover:border-border-strong rounded-md px-2 py-1">
-        <span id="lang-fr-flag" class="text-sm leading-none">🇫🇷</span>
-        <span id="lang-current">FR</span>
-        <span class="text-ink-disabled mx-0.5">·</span>
-        <span id="lang-en-flag" class="text-sm leading-none" style="opacity:0.4">🇬🇧</span>
-        <span id="lang-other" class="text-ink-disabled">EN</span>
+      <!-- Burger mobile (ouvre menu univers) -->
+      <button id="mobile-menu-toggle" type="button" aria-label="Menu" aria-expanded="false"
+        class="lg:hidden flex items-center justify-center p-2 text-ink border border-border-subtle rounded-md">
+        <svg id="burger-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg id="burger-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
       </button>
     </div>
+  </div>
+
+  <!-- Bouton "Remonter en haut" — mobile uniquement, fixe en bas-droit -->
+  <button id="scroll-top-btn" class="scroll-top-btn" aria-label="Remonter en haut">
+    <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+    </svg>
+  </button>
+
+  <!-- Menu mobile (déroulant univers) -->
+  <div id="mobile-menu" class="hidden lg:hidden bg-[rgb(var(--nav-bg))] backdrop-blur-lg border-t border-border-subtle">
+    <ul class="px-4 py-3 space-y-1">
+      {universes.map((u, i) => (
+        <li>
+          <button class="universe-tab mobile-menu-item w-full text-left px-3 py-3 rounded-md text-base font-semibold
+                         text-ink-subtle hover:text-ink hover:bg-surface-alt
+                         data-[active]:text-ink data-[active]:bg-surface-raised flex items-center gap-3"
+                  data-universe-target={u.id}
+                  data-idx={i}>
+            <span class="w-2 h-2 rounded-full flex-shrink-0" style={`background: var(--energy-color-${i})`}></span>
+            <span data-i18n-lang="fr">{u.labelFr}</span>
+            <span data-i18n-lang="en">{u.labelEn}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
   </div>
 </nav>
 
 <script>
   const carousel = document.getElementById('universe-carousel')!;
   const tabs = document.querySelectorAll<HTMLElement>('.universe-tab');
-  const dots = document.querySelectorAll<HTMLElement>('.universe-dot');
   const segments = document.querySelectorAll<HTMLElement>('.universe-progress-segment');
-  const mobileLabel = document.getElementById('mobile-universe-label')!;
   const logoBtn = document.getElementById('logo-home')!;
+  const mobileMenu = document.getElementById('mobile-menu')!;
+  const mobileMenuToggle = document.getElementById('mobile-menu-toggle')!;
+  const burgerOpen = document.getElementById('burger-open')!;
+  const burgerClose = document.getElementById('burger-close')!;
   let currentIdx = 0;
-
-  // Labels pour mobile
-  const labelsFr = Array.from(tabs).map(t => t.querySelector('[data-i18n-lang="fr"]')?.textContent || '');
-  const labelsEn = Array.from(tabs).map(t => t.querySelector('[data-i18n-lang="en"]')?.textContent || '');
 
   let lastIdx = 0;
   let isClickNav = false;
 
+  function closeMobileMenu() {
+    mobileMenu.classList.add('hidden');
+    burgerOpen.classList.remove('hidden');
+    burgerClose.classList.add('hidden');
+    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+  }
+
   function setActiveUniverse(idx: number) {
     const previousIdx = lastIdx;
     currentIdx = idx;
-    const lang = document.documentElement.getAttribute('data-lang') || 'fr';
 
-    // Tabs
-    tabs.forEach((t, i) => {
-      if (i === idx) t.setAttribute('data-active', '');
+    // Tabs (desktop + mobile menu items partagent .universe-tab) — match via data-idx
+    tabs.forEach((t) => {
+      const tabIdx = parseInt(t.dataset.idx || '0', 10);
+      if (tabIdx === idx) t.setAttribute('data-active', '');
       else t.removeAttribute('data-active');
-    });
-
-    // Dots
-    dots.forEach((d, i) => {
-      d.classList.toggle('bg-surface', i === idx);
-      d.classList.toggle('scale-125', i === idx);
-      d.classList.toggle('bg-surface-raised', i !== idx);
     });
 
     // Progress segments
@@ -140,12 +164,12 @@ const { universes } = Astro.props;
       s.style.opacity = i <= idx ? '1' : '0.2';
     });
 
-    // Mobile label
-    mobileLabel.textContent = lang === 'en' ? labelsEn[idx] : labelsFr[idx];
-
     // Background nav
     const nav = document.getElementById('top-nav')!;
     nav.classList.add('bg-[rgb(var(--nav-bg))]', 'backdrop-blur-lg');
+
+    // Notifier les autres composants (BottomBar, scroll-to-top) du changement d'univers
+    document.dispatchEvent(new CustomEvent('universechange', { detail: { idx, total: panels.length } }));
 
     // Reset scroll vertical du nouveau panneau selon direction
     // (sauf si click nav: déjà reset top en amont du scrollIntoView)
@@ -164,7 +188,7 @@ const { universes } = Astro.props;
     lastIdx = idx;
   }
 
-  // Click tab → reset scroll top + scroll to panel
+  // Click tab → reset scroll top + scroll to panel + close mobile menu
   tabs.forEach(tab => {
     tab.addEventListener('click', () => {
       const targetId = tab.dataset.universeTarget!;
@@ -176,7 +200,21 @@ const { universes } = Astro.props;
         panel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
         setTimeout(() => { isClickNav = false; }, 1000);
       }
+      closeMobileMenu();
     });
+  });
+
+  // Burger toggle (mobile)
+  mobileMenuToggle.addEventListener('click', () => {
+    const open = mobileMenu.classList.contains('hidden');
+    if (open) {
+      mobileMenu.classList.remove('hidden');
+      burgerOpen.classList.add('hidden');
+      burgerClose.classList.remove('hidden');
+      mobileMenuToggle.setAttribute('aria-expanded', 'true');
+    } else {
+      closeMobileMenu();
+    }
   });
 
   // Logo → retour univers 1, reset top
@@ -215,6 +253,11 @@ const { universes } = Astro.props;
   const langBtn = document.getElementById('lang-toggle')!;
   const langCur = document.getElementById('lang-current')!;
   const langOth = document.getElementById('lang-other')!;
+  const langCurMobile = document.getElementById('lang-current-mobile')!;
+
+  // Init affichage selon lang persistée (Layout pose data-lang au DOMContentLoaded — on relit ici)
+  const initLang = (document.documentElement.getAttribute('data-lang') as string) || localStorage.getItem('ec2r-lang') || 'fr';
+  langCurMobile.textContent = initLang.toUpperCase();
 
   langBtn.addEventListener('click', () => {
     const cur = document.documentElement.getAttribute('data-lang') || 'fr';
@@ -223,14 +266,13 @@ const { universes } = Astro.props;
     document.documentElement.setAttribute('data-lang', next);
     langCur.textContent = next.toUpperCase();
     langOth.textContent = next === 'fr' ? 'EN' : 'FR';
+    langCurMobile.textContent = next.toUpperCase();
     const frFlag = document.getElementById('lang-fr-flag') as HTMLElement;
     const enFlag = document.getElementById('lang-en-flag') as HTMLElement;
     if (frFlag && enFlag) {
       frFlag.style.opacity = next === 'fr' ? '1' : '0.4';
       enFlag.style.opacity = next === 'en' ? '1' : '0.4';
     }
-    // Maj mobile label
-    mobileLabel.textContent = next === 'en' ? labelsEn[currentIdx] : labelsFr[currentIdx];
   });
 
   // ── Theme toggle (light default, persisted in localStorage) ────────
@@ -241,14 +283,15 @@ const { universes } = Astro.props;
 
   function applyTheme(theme: string) {
     document.documentElement.setAttribute('data-theme', theme);
-    if (themeLabel) themeLabel.textContent = theme === 'light' ? 'Sombre' : 'Clair';
+    // Affiche l'ÉTAT courant (soleil = clair, lune = sombre), pas la cible
+    if (themeLabel) themeLabel.textContent = theme === 'light' ? 'Clair' : 'Sombre';
     if (themeIconSun && themeIconMoon) {
-      themeIconSun.classList.toggle('hidden', theme === 'light');
-      themeIconMoon.classList.toggle('hidden', theme !== 'light');
+      themeIconSun.classList.toggle('hidden', theme !== 'light');
+      themeIconMoon.classList.toggle('hidden', theme === 'light');
     }
   }
 
-  const savedTheme = localStorage.getItem('ec2r-theme') || 'dark';
+  const savedTheme = localStorage.getItem('ec2r-theme') || 'light';
   applyTheme(savedTheme);
 
   themeBtn?.addEventListener('click', () => {
@@ -303,6 +346,42 @@ const { universes } = Astro.props;
       }
     }
   }, { passive: false });
+
+  // ── Bouton "Remonter en haut" (mobile) ──────────────────────────
+  const scrollTopBtn = document.getElementById('scroll-top-btn') as HTMLButtonElement;
+  let activeScrollEl: HTMLElement | null = null;
+
+  function attachScrollListener() {
+    if (activeScrollEl) activeScrollEl.removeEventListener('scroll', updateScrollTopVisibility);
+    activeScrollEl = (panels[currentIdx] as HTMLElement)?.querySelector('.universe-scroll') as HTMLElement;
+    if (activeScrollEl) {
+      activeScrollEl.addEventListener('scroll', updateScrollTopVisibility, { passive: true });
+      updateScrollTopVisibility();
+    }
+  }
+
+  function updateScrollTopVisibility() {
+    if (!scrollTopBtn || !activeScrollEl) return;
+    const isMobile = window.matchMedia('(max-width: 1023px)').matches;
+    if (!isMobile) {
+      scrollTopBtn.style.display = 'none';
+      scrollTopBtn.classList.remove('visible');
+      return;
+    }
+    const show = activeScrollEl.scrollTop > 200;
+    scrollTopBtn.style.display = 'flex';
+    scrollTopBtn.classList.toggle('visible', show);
+  }
+
+  scrollTopBtn?.addEventListener('click', () => {
+    if (activeScrollEl) activeScrollEl.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  document.addEventListener('universechange', () => {
+    setTimeout(attachScrollListener, 50);
+  });
+  window.addEventListener('resize', updateScrollTopVisibility);
+  setTimeout(attachScrollListener, 100);
 
   // ── Keyboard navigation (← →) ───────────────────────────────────
   document.addEventListener('keydown', (e: KeyboardEvent) => {

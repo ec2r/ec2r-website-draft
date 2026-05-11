@@ -22,6 +22,8 @@ const {
   <script is:inline>
     // i18n critical CSS — injected before any paint to avoid FOUC
     (function(){var s=document.createElement('style');s.textContent='[data-lang="fr"] [data-i18n-lang="en"]{display:none!important}[data-lang="en"] [data-i18n-lang="fr"]{display:none!important}';document.head.insertBefore(s,document.head.firstChild);})();
+    // Theme : mode clair par défaut (sauf choix utilisateur persisté)
+    (function(){var t=localStorage.getItem('ec2r-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
   </script>
   
   <!-- Canonical URL -->

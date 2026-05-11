@@ -33,10 +33,20 @@ const { fr, en } = Astro.props;
     </div>
   </div>
 
-  <!-- Mobile : bouton flottant compact -->
-  <div class="sm:hidden flex justify-center py-3">
-    <button class="bottom-bar-navigate bg-energy-green/90 hover:bg-accent text-ink font-semibold 
-                   text-sm rounded-full px-5 py-2 shadow-lg transition-all flex items-center gap-2"
+  <!-- Mobile : 3 sections inline [← Revenir] [Parlons-en] [Avancer →] -->
+  <div class="sm:hidden flex items-stretch justify-between gap-2 px-3 py-2">
+    <button id="mobile-nav-prev" class="bottom-bar-prev flex items-center justify-center gap-1.5 text-xs font-semibold
+                   text-ink-muted hover:text-ink border border-border-subtle hover:border-border-strong
+                   rounded-md px-3 py-2 transition-all disabled:opacity-30 disabled:pointer-events-none flex-1"
+            aria-label="Univers précédent">
+      <svg class="w-4 h-4 mobile-nav-arrow-prev" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
+      </svg>
+      <span data-i18n-lang="fr">Revenir</span>
+      <span data-i18n-lang="en">Back</span>
+    </button>
+    <button class="bottom-bar-navigate bg-energy-green/90 hover:bg-accent text-ink font-semibold
+                   text-sm rounded-md px-4 py-2 shadow-lg transition-all flex items-center gap-1.5 flex-shrink-0"
             data-target="parlons-en">
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -44,11 +54,29 @@ const { fr, en } = Astro.props;
       <span data-i18n-lang="fr">Parlons-en</span>
       <span data-i18n-lang="en">Let's talk</span>
     </button>
+    <button id="mobile-nav-next" class="bottom-bar-next flex items-center justify-center gap-1.5 text-xs font-semibold
+                   text-ink-muted hover:text-ink border border-border-subtle hover:border-border-strong
+                   rounded-md px-3 py-2 transition-all disabled:opacity-30 disabled:pointer-events-none flex-1"
+            aria-label="Univers suivant">
+      <span data-i18n-lang="fr">Avancer</span>
+      <span data-i18n-lang="en">Next</span>
+      <svg class="w-4 h-4 mobile-nav-arrow-next" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+      </svg>
+    </button>
   </div>
 </div>
 
+<style>
+  /* Flèches animées (mêmes oscillations que le bouton Avancer desktop) */
+  @keyframes bounceRight { 0%,100% { transform: translateX(0); } 50% { transform: translateX(3px); } }
+  @keyframes bounceLeft  { 0%,100% { transform: translateX(0); } 50% { transform: translateX(-3px); } }
+  .mobile-nav-arrow-next { animation: bounceRight 2s ease-in-out infinite; }
+  .mobile-nav-arrow-prev { animation: bounceLeft 2s ease-in-out infinite; }
+</style>
+
 <script>
-  // Clic sur les boutons → scroll vers l'univers "parlons-en"
+  // Clic sur le CTA central → scroll vers l'univers "parlons-en"
   document.querySelectorAll<HTMLElement>('.bottom-bar-navigate').forEach(btn => {
     btn.addEventListener('click', () => {
       const targetId = btn.dataset.target || 'parlons-en';
@@ -58,4 +86,31 @@ const { fr, en } = Astro.props;
       }
     });
   });
+
+  // Revenir / Avancer (mobile) — naviguent dans le carrousel d'univers
+  const carousel = document.getElementById('universe-carousel');
+  const panels = carousel ? carousel.querySelectorAll<HTMLElement>('.universe-panel') : null;
+  const prevBtn = document.getElementById('mobile-nav-prev') as HTMLButtonElement | null;
+  const nextBtn = document.getElementById('mobile-nav-next') as HTMLButtonElement | null;
+  let currentIdx = 0;
+
+  function gotoPanel(idx: number) {
+    if (!panels || idx < 0 || idx >= panels.length) return;
+    panels[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+  }
+
+  prevBtn?.addEventListener('click', () => gotoPanel(currentIdx - 1));
+  nextBtn?.addEventListener('click', () => gotoPanel(currentIdx + 1));
+
+  // Sync état boutons selon univers courant (TopNav émet l'évènement)
+  function syncNavState(idx: number, total: number) {
+    currentIdx = idx;
+    if (prevBtn) prevBtn.disabled = idx <= 0;
+    if (nextBtn) nextBtn.disabled = idx >= total - 1;
+  }
+  document.addEventListener('universechange', (e: any) => {
+    syncNavState(e.detail.idx, e.detail.total);
+  });
+  // Init
+  if (panels) syncNavState(0, panels.length);
 </script>
