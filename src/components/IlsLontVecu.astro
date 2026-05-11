@@ -193,10 +193,10 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
         </div>
       </div>
 
-      <!-- Sector tabs -->
-      <div class="mb-6 overflow-x-auto">
-        <div class="flex gap-2 min-w-max">
-          <button class="sector-tab active px-4 py-2 rounded-lg text-xs font-medium transition-all duration-300 bg-accent/10 border border-accent/30 text-accent" data-sector="all">
+      <!-- Sector tabs (flex-wrap comme les tags ci-dessus, pas de scroll horizontal) -->
+      <div class="mb-6" id="temoignages-sectors">
+        <div class="flex flex-wrap gap-2">
+          <button class="sector-tab active px-3 py-2 rounded-full text-xs font-medium border transition-all duration-300 bg-accent/10 border-accent/30 text-accent" data-sector="all">
             <span data-i18n-lang="fr">Tous les secteurs</span>
             <span data-i18n-lang="en">All sectors</span>
           </button>
@@ -204,12 +204,12 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
             const count = testimonials.filter(t => t.sector === sector).length;
             return (
               <button
-                class="sector-tab px-4 py-2 rounded-lg text-xs font-medium transition-all duration-300 bg-surface-alt border border-border-subtle text-ink-subtle hover:border-border-strong hover:text-ink-muted"
+                class="sector-tab px-3 py-2 rounded-full text-xs border transition-all duration-300 bg-surface-alt text-ink-subtle border-border-subtle hover:border-border-strong hover:text-ink-muted"
                 data-sector={sector}
               >
                 <span data-i18n-lang="fr">{sectorLabels[sector].fr}</span>
                 <span data-i18n-lang="en">{sectorLabels[sector].en}</span>
-                <span class="opacity-60"> ({count})</span>
+                <span class="text-[10px] text-ink-disabled ml-1">{count}</span>
               </button>
             );
           })}

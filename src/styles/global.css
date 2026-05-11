@@ -151,6 +151,10 @@ html.banner-closed .universe-carousel { top: 24px; }
   overflow-x: hidden;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
+  /* Bloque le pan horizontal natif à l'intérieur d'un panel —
+     la nav inter-univers passe uniquement par le JS handler avec
+     seuil dx>=90 et ratio dx/dy>1.8 (req. Luc — sensibilité diagonale) */
+  touch-action: pan-y;
   /* Marge top: 1.5x hauteur nav pour éviter que le titre colle la barre */
   padding-top: 32px;
   /* Marge bottom : laisser respirer le contenu final sous le bouton "Avancer" */
