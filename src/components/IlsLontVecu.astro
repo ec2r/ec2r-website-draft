@@ -27,6 +27,18 @@ const tagFreq: Record<string, number> = {};
 testimonials.forEach(t => t.tags.forEach(tag => { tagFreq[tag] = (tagFreq[tag] || 0) + 1; }));
 const topTags = Object.entries(tagFreq).sort((a, b) => b[1] - a[1]).slice(0, 25);
 
+// Tri anti-chronologique + anti-adjacence (pas deux fois le même name à la suite).
+// Évite "Florence Beaucousin 7 fois d'affilée" tout en gardant les récents en haut.
+const sortedByYear = [...testimonials].sort((a, b) => b.year - a.year);
+const orderedTestimonials: typeof testimonials = [];
+const remaining = [...sortedByYear];
+while (remaining.length > 0) {
+  const lastName = orderedTestimonials.length > 0 ? orderedTestimonials[orderedTestimonials.length - 1].name : null;
+  let pickIdx = remaining.findIndex(t => t.name !== lastName);
+  if (pickIdx === -1) pickIdx = 0; // tous restants = même name → on prend
+  orderedTestimonials.push(remaining.splice(pickIdx, 1)[0]);
+}
+
 // Sector colors
 const sectorColors: Record<Sector, string> = {
   'expertise-comptable': 'bg-blue-50 text-blue-700 border-blue-200',
@@ -206,7 +218,7 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
 
       <!-- THE WALL (masonry layout) -->
       <div id="temoignages-wall" class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-        {testimonials.map((t) => (
+        {orderedTestimonials.map((t) => (
           <div
             class="temoignage-card break-inside-avoid bg-surface-alt rounded-xl p-5 border border-border-subtle
                    hover:border-border hover:shadow-lg hover:shadow-brand-anchor/5
@@ -217,22 +229,38 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
           >
             <!-- Header: photo + name -->
             <div class="flex items-start gap-3 mb-3">
-              <a href={t.linkedinUrl || '#'} target="_blank" rel="noopener noreferrer"
-                 class="flex-shrink-0 w-10 h-10 rounded-full bg-surface-raised border border-border-subtle flex items-center justify-center overflow-hidden hover:border-accent/40 transition-colors group"
-                 title={`Voir le profil LinkedIn de ${t.name}`}>
-                {t.photoUrl ? (
-                  <img src={t.photoUrl} alt={t.name} class="w-full h-full object-cover rounded-full" loading="lazy" />
-                ) : (
-                  <span class="text-ink-faint text-xs font-bold group-hover:text-accent transition-colors">
-                    {t.name.split(' ').map(w => w[0]).filter(c => c && c === c.toUpperCase()).slice(0, 2).join('')}
-                  </span>
-                )}
-              </a>
-              <div class="min-w-0">
-                <a href={t.linkedinUrl || '#'} target="_blank" rel="noopener noreferrer"
-                   class="font-display font-semibold text-ink text-sm hover:text-accent transition-colors block truncate">
-                  {t.name}
+              {t.linkedinUrl ? (
+                <a href={t.linkedinUrl} target="_blank" rel="noopener noreferrer"
+                   class="flex-shrink-0 w-10 h-10 rounded-full bg-surface-raised border border-border-subtle flex items-center justify-center overflow-hidden hover:border-accent/40 transition-colors group"
+                   title={`Voir le profil LinkedIn de ${t.name}`}>
+                  {t.photoUrl ? (
+                    <img src={t.photoUrl} alt={t.name} class="w-full h-full object-cover rounded-full" loading="lazy" />
+                  ) : (
+                    <span class="text-ink-faint text-xs font-bold group-hover:text-accent transition-colors">
+                      {t.name.split(' ').map(w => w[0]).filter(c => c && c === c.toUpperCase()).slice(0, 2).join('')}
+                    </span>
+                  )}
                 </a>
+              ) : (
+                <span class="flex-shrink-0 w-10 h-10 rounded-full bg-surface-raised border border-border-subtle flex items-center justify-center overflow-hidden">
+                  {t.photoUrl ? (
+                    <img src={t.photoUrl} alt={t.name} class="w-full h-full object-cover rounded-full" loading="lazy" />
+                  ) : (
+                    <span class="text-ink-faint text-xs font-bold">
+                      {t.name.split(' ').map(w => w[0]).filter(c => c && c === c.toUpperCase()).slice(0, 2).join('')}
+                    </span>
+                  )}
+                </span>
+              )}
+              <div class="min-w-0">
+                {t.linkedinUrl ? (
+                  <a href={t.linkedinUrl} target="_blank" rel="noopener noreferrer"
+                     class="font-display font-semibold text-ink text-sm hover:text-accent transition-colors block truncate">
+                    {t.name}
+                  </a>
+                ) : (
+                  <span class="font-display font-semibold text-ink text-sm block truncate">{t.name}</span>
+                )}
                 <p class="text-ink-subtle text-xs leading-snug">{t.title}</p>
                 {t.company && <p class="text-ink-faint text-xs">{t.company}</p>}
               </div>
