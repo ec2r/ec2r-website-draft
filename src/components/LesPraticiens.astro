@@ -102,6 +102,13 @@ const partners = [
 ];
 const MIN_PARTNER_PLACEHOLDERS = 2;
 
+// Praticiens externes — grille 3 cols comme la team. On comble la dernière
+// row avec des placeholders "Praticien externe à venir" pour ne pas laisser
+// de case vide (et signaler que l'écosystème grandit).
+const PRATICIEN_GRID_COLS = 3;
+const praticienExternePlaceholders =
+  (PRATICIEN_GRID_COLS - (praticiensExternes.length % PRATICIEN_GRID_COLS)) % PRATICIEN_GRID_COLS;
+
 // Teaser séminaires
 const seminairePlaceholders = [
   { labelFr: 'Séminaire Laforêt 2024', labelEn: 'Laforêt seminar 2024' },
@@ -243,8 +250,8 @@ const seminairePlaceholders = [
         <span data-i18n-lang="en">They embody the EC²R Method on their grounds and ecosystems.</span>
       </p>
 
-      <!-- Ligne 1 : Praticiens externes (mêmes cartes que la team ci-dessus) -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 auto-rows-fr mb-6">
+      {/* Ligne 1 : Praticiens externes — grille 3 cols comme team (req Stéphane 13/05) */}
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr mb-6">
         {praticiensExternes.map((member) => (
           <div class="bg-surface-alt border border-border-subtle rounded-2xl overflow-hidden hover:border-border transition-all group flex flex-col">
             <div class="aspect-[4/3] bg-gradient-to-br from-surface-alt via-surface to-surface-alt relative flex items-center justify-center overflow-hidden">
@@ -280,6 +287,21 @@ const seminairePlaceholders = [
                 <span data-i18n-lang="fr">{member.bioFr}</span>
                 <span data-i18n-lang="en">{member.bioEn}</span>
               </p>
+            </div>
+          </div>
+        ))}
+        {Array.from({ length: praticienExternePlaceholders }).map(() => (
+          <div class="bg-surface-alt border border-dashed border-border-subtle rounded-2xl overflow-hidden flex flex-col">
+            <div class="aspect-[4/3] bg-gradient-to-br from-surface-alt via-surface to-surface-alt flex items-center justify-center">
+              <p class="text-ink-faint text-xs italic text-center px-4">
+                <span data-i18n-lang="fr">Praticien à venir</span>
+                <span data-i18n-lang="en">Practitioner to come</span>
+              </p>
+            </div>
+            <div class="p-4 flex-1 flex flex-col">
+              <div class="h-4 w-2/3 bg-surface rounded mb-2"></div>
+              <div class="h-3 w-1/2 bg-surface rounded mb-2"></div>
+              <div class="h-3 w-3/4 bg-surface rounded"></div>
             </div>
           </div>
         ))}
