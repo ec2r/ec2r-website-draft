@@ -33,6 +33,13 @@ const { fr, en } = Astro.props;
     </div>
   </div>
 
+  <!-- Mobile : indicateur 5 points (position dans le carrousel d'univers — req Stéphane 12/05) -->
+  <div id="mobile-universe-dots" class="sm:hidden flex items-center justify-center gap-2 pt-2 pb-1" aria-hidden="true">
+    {[0,1,2,3,4].map((i) => (
+      <span class="universe-dot w-1.5 h-1.5 rounded-full bg-ink-disabled transition-all duration-300" data-dot-idx={i}></span>
+    ))}
+  </div>
+
   <!-- Mobile : 3 sections inline [← Revenir] [Parlons-en] [Avancer →] -->
   <div class="sm:hidden flex items-stretch justify-between gap-2 px-3 py-2">
     <button id="mobile-nav-prev" class="bottom-bar-prev flex items-center justify-center gap-1.5 text-xs font-semibold
@@ -102,11 +109,19 @@ const { fr, en } = Astro.props;
   prevBtn?.addEventListener('click', () => gotoPanel(currentIdx - 1));
   nextBtn?.addEventListener('click', () => gotoPanel(currentIdx + 1));
 
-  // Sync état boutons selon univers courant (TopNav émet l'évènement)
+  // Sync état boutons + dots selon univers courant (TopNav émet l'évènement)
+  const dots = document.querySelectorAll<HTMLElement>('.universe-dot');
   function syncNavState(idx: number, total: number) {
     currentIdx = idx;
     if (prevBtn) prevBtn.disabled = idx <= 0;
     if (nextBtn) nextBtn.disabled = idx >= total - 1;
+    dots.forEach((dot, i) => {
+      const dotIdx = parseInt(dot.dataset.dotIdx || '0', 10);
+      const isActive = dotIdx === idx;
+      dot.style.width = isActive ? '20px' : '6px';
+      dot.style.background = isActive ? `var(--energy-color-${dotIdx})` : '';
+      dot.classList.toggle('bg-ink-disabled', !isActive);
+    });
   }
   document.addEventListener('universechange', (e: any) => {
     syncNavState(e.detail.idx, e.detail.total);

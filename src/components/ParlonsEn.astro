@@ -53,23 +53,8 @@ const { fr, en } = Astro.props;
       </p>
     </div>
 
-    <!-- 2 CTA -->
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
-      <div class="flex flex-col items-center gap-1">
-        <a href="https://cal.methode-ec2r.com/stephaneflahaut/20min" target="_blank" rel="noopener"
-           class="bg-energy-green/90 hover:bg-accent text-ink font-display font-bold text-base
-                  px-8 py-4 rounded-lg transition-all shadow-lg shadow-accent/20 hover:shadow-accent/30
-                  flex items-center gap-2">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-          </svg>
-          <span data-i18n-lang="fr">Ça résonne — prendre rendez-vous</span>
-          <span data-i18n-lang="en">It resonates — book a call</span>
-        </a>
-      </div>
-
-      <span class="text-ink-disabled text-sm hidden sm:block">ou</span>
-
+    <!-- CTA secondaire (budget) — req Stéphane 12/05 : Cal RDV retiré, contact = formulaire -->
+    <div class="flex justify-center mb-8">
       <button id="budget-btn" class="text-ink-faint hover:text-ink-muted border border-border-subtle hover:border-border-strong
               text-xs px-5 py-2.5 rounded-lg transition-all">
         <span data-i18n-lang="fr">Je cherche juste un budget</span>
@@ -77,9 +62,15 @@ const { fr, en } = Astro.props;
       </button>
     </div>
 
-    <!-- Formulaire de contact -->
+    <!-- Formulaire de contact (canal principal — destinataire energies@methode-ec2r.com) -->
     <div id="contact-form-wrapper" class="max-w-lg mx-auto">
+      <p class="text-center text-ink-muted text-sm mb-4">
+        <span data-i18n-lang="fr">Écrivez-nous — réponse sous 24h ouvrées.</span>
+        <span data-i18n-lang="en">Write to us — reply within 1 business day.</span>
+      </p>
       <form action="https://formspree.io/f/xdkopajd" method="POST" class="space-y-4">
+        <input type="hidden" name="_subject" value="[méthode-ec2r.com] Nouveau contact via site" />
+        <input type="hidden" name="_to" value="energies@methode-ec2r.com" />
         <div class="grid sm:grid-cols-2 gap-4">
           <input type="text" name="name" required
                  class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm

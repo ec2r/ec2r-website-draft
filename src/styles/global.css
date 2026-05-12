@@ -352,6 +352,26 @@ html.banner-closed .universe-carousel { top: 24px; }
   background: rgb(var(--scrollbar-thumb-hover));
 }
 
+/* Scrollbar plus visible dans le scroll vertical d'un univers
+   (req Stéphane 12/05 — l'ascenseur n'était pas perceptible sur PC) */
+.universe-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgb(var(--scrollbar-thumb-hover)) transparent;
+}
+.universe-scroll::-webkit-scrollbar {
+  width: 10px;
+}
+.universe-scroll::-webkit-scrollbar-thumb {
+  background: rgb(var(--scrollbar-thumb-hover));
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+.universe-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--scrollbar-thumb-hover) / 0.8);
+  background-clip: content-box;
+}
+
 /* ══════════════════════════════════════════════════════════════════
    NAVIGATION BOUTONS — Explorer univers / Univers suivant
    ══════════════════════════════════════════════════════════════════ */

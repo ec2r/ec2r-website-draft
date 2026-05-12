@@ -219,15 +219,15 @@ export const translations = {
         { title: 'Ancrer', text: 'Pratiquer dans son quotidien métier → ancrer le changement' },
       ],
       parcours: [
-        { title: 'Partir du collectif', text: "Vous voulez partir du collectif pour accélérer le passage individuel. Le baromètre des énergies révèle la dynamique réelle, puis chaque profil s'affine.", steps: ['Baromètre', 'Profil Leader', 'Mentor IA EC2R'] },
-        { title: 'Partir de vos leaders', text: "Vous voulez partir de vos leaders pour accélérer le passage collectif. Le profil individuel éclaire d'abord, puis le baromètre collectif amplifie.", steps: ['Profil Leader', 'Mentor IA EC2R', 'Baromètre'] },
-        { title: 'Expérimenter, avancer seul', text: "Vous voulez expérimenter et avancer à votre rythme. Le Mentor IA EC²R vous guide dans la découverte de la méthode, sans engagement collectif immédiat.", steps: ['Mentor IA EC²R', 'Profil', 'À votre rythme'] },
+        { title: 'Partir du collectif', text: "Vous voulez partir du collectif pour accélérer le passage individuel. Le baromètre des énergies révèle la dynamique réelle, puis chaque profil s'affine.", steps: ['Baromètre', 'Profil Leader', 'Méntōr EC²R'] },
+        { title: 'Partir de vos leaders', text: "Vous voulez partir de vos leaders pour accélérer le passage collectif. Le profil individuel éclaire d'abord, puis le baromètre collectif amplifie.", steps: ['Profil Leader', 'Méntōr EC²R', 'Baromètre'] },
+        { title: 'Expérimenter, avancer seul', text: "Vous voulez expérimenter et avancer à votre rythme. Le Méntōr EC²R vous guide dans la découverte de la méthode, sans engagement collectif immédiat.", steps: ['Méntōr EC²R', 'Profil', 'À votre rythme'] },
       ],
       seFormer: {
         label: 'Se former',
-        title: 'Formation présentiel + MentorIA',
+        title: 'Formation présentiel + Méntōr',
         tag: null,
-        text: "Formation sur mesure en présentiel : séminaires, ateliers, déploiement multi-sites : complétée par le MentorIA EC2R pour ancrer les acquis dans le quotidien métier.",
+        text: "Formation sur mesure en présentiel : séminaires, ateliers, déploiement multi-sites : complétée par le Méntōr EC²R pour ancrer les acquis dans le quotidien métier.",
       },
       abyme: {
         label: 'Mise en abyme',
@@ -509,7 +509,7 @@ export const translations = {
         { year: '2023', label: 'Formalisation', sub: 'We improve, we formalise. We spread.' },
         { year: '2024', label: 'Diffusion', sub: 'Referents emerge. It takes hold.' },
         { year: '2025', label: 'Augmentation', sub: "EC2R AI enters the loop. From know-how to show-how." },
-        { year: '2026', label: 'Augmentation', sub: 'The protocol becomes AI-augmented. Living site. AI Mentor. A new era.' },
+        { year: '2026', label: 'Augmentation', sub: 'The protocol becomes AI-augmented. Living site. Méntōr. A new era.' },
       ],
     },
 
@@ -528,15 +528,15 @@ export const translations = {
         { title: 'Anchor', text: 'Practise in daily business → anchor the change' },
       ],
       parcours: [
-        { title: 'Start from the collective', text: "You want to start from the collective to accelerate individual progress. The energy barometer reveals the real dynamic, then each profile is refined.", steps: ['Barometer', 'Leader Profile', 'EC2R AI Mentor'] },
-        { title: 'Start from your leaders', text: "You want to start from your leaders to accelerate the collective shift. The individual profile illuminates first, then the collective barometer amplifies.", steps: ['Leader Profile', 'EC2R AI Mentor', 'Barometer'] },
-        { title: 'Experiment, move at your pace', text: "You want to experiment and move at your own pace. The EC²R AI Mentor guides you through the method's discovery, without immediate collective commitment.", steps: ['EC²R AI Mentor', 'Profile', 'At your pace'] },
+        { title: 'Start from the collective', text: "You want to start from the collective to accelerate individual progress. The energy barometer reveals the real dynamic, then each profile is refined.", steps: ['Barometer', 'Leader Profile', 'Méntōr EC²R'] },
+        { title: 'Start from your leaders', text: "You want to start from your leaders to accelerate the collective shift. The individual profile illuminates first, then the collective barometer amplifies.", steps: ['Leader Profile', 'Méntōr EC²R', 'Barometer'] },
+        { title: 'Experiment, move at your pace', text: "You want to experiment and move at your own pace. The Méntōr EC²R guides you through the method's discovery, without immediate collective commitment.", steps: ['Méntōr EC²R', 'Profile', 'At your pace'] },
       ],
       seFormer: {
         label: 'Training',
-        title: 'In-person training + MentorAI',
+        title: 'In-person training + Méntōr',
         tag: 'Coming soon',
-        text: "Bespoke in-person training : seminars, workshops, multi-site deployment : complemented by the EC2R MentorAI to anchor learning in daily business practice.",
+        text: "Bespoke in-person training : seminars, workshops, multi-site deployment : complemented by the Méntōr EC²R to anchor learning in daily business practice.",
       },
       abyme: {
         label: 'Meta-narrative',
