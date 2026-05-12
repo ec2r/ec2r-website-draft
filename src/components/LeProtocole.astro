@@ -132,23 +132,31 @@ const parcours = [
               <span data-i18n-lang="fr">Reconstruction illustrative — données fictives</span>
               <span data-i18n-lang="en">Illustrative reconstruction — fictional data</span>
             </p>
-            <div class="grid grid-cols-2 gap-3 lg:gap-4">
+            {/* Ordre demandé par Stéphane (12/05) :
+                - Colonne GAUCHE bottom→top : Projeter, Centrer, Exiger
+                - Colonne DROITE top→bottom : Animer, Réguler, Remobiliser
+                Layout : grid-flow-col + grid-rows-3 → le tableau est rempli colonne par colonne.
+                Tableau dans l'ordre col1(top→bottom) puis col2(top→bottom) :
+                  [Exiger, Centrer, Projeter, Animer, Réguler, Remobiliser]
+                → côté gauche, en partant du bas on retrouve Projeter / Centrer / Exiger. ✓ */}
+            <div class="grid grid-cols-2 grid-rows-3 grid-flow-col gap-3 lg:gap-4">
               {[
-                { name: 'Projeter', file: 'projeter', score: 75 },     // 61-80 vert clair
-                { name: 'Centrer', file: 'centrer', score: 56 },        // 41-60 beige
-                { name: 'Exiger', file: 'exiger', score: 51 },          // 41-60 beige
-                { name: 'Animer', file: 'animer', score: 60 },          // 41-60 beige (limite)
-                { name: 'Réguler', file: 'recentrer', score: 71 },      // 61-80 vert clair
-                { name: 'Remobiliser', file: 'remobiliser', score: 59 },// 41-60 beige
+                { name: 'Exiger', file: 'exiger', score: 51 },           // col-G top
+                { name: 'Centrer', file: 'centrer', score: 56 },         // col-G middle
+                { name: 'Projeter', file: 'projeter', score: 75 },       // col-G bottom
+                { name: 'Animer', file: 'animer', score: 60 },           // col-D top
+                { name: 'Réguler', file: 'recentrer', score: 71 },       // col-D middle
+                { name: 'Remobiliser', file: 'remobiliser', score: 59 }, // col-D bottom
               ].map(e => (
                 <div class="flex items-center gap-3 bg-surface-alt border border-border-subtle rounded-lg p-2.5">
                   <img src={`/images/energies/${e.file}-thumb.webp`}
                        srcset={`/images/energies/${e.file}-thumb.webp 1x, /images/energies/${e.file}.webp 2x`}
                        alt={e.name} class="w-12 h-12 object-cover rounded shrink-0" loading="lazy" />
                   <div class="flex-1 min-w-0">
-                    <div class="flex items-baseline justify-between mb-1">
-                      <span class="text-ink text-xs font-semibold uppercase tracking-wide">{e.name}<span class="plus-accent text-[10px]">+</span></span>
-                      <span class="text-sm font-display font-bold" style={`color:${gaugeColor(e.score)}`}>{e.score}</span>
+                    <div class="flex items-baseline gap-2 mb-1">
+                      {/* name pousse à gauche, score est dans une colonne fixe à droite → alignement vertical des chiffres entre cartes garanti */}
+                      <span class="text-ink text-xs font-semibold uppercase tracking-wide flex-1 min-w-0 truncate">{e.name}<span class="plus-accent text-[10px]">+</span></span>
+                      <span class="text-sm font-display font-bold tabular-nums text-right shrink-0" style={`color:${gaugeColor(e.score)}; width:1.75rem`}>{e.score}</span>
                     </div>
                     <div class="h-1 bg-surface-raised rounded-full overflow-hidden">
                       <div class="h-full rounded-full" style={`width:${e.score}%;background:${gaugeColor(e.score)}`}></div>
@@ -296,12 +304,12 @@ const parcours = [
                     <div class="h-2 bg-energy-green/45 rounded-full" style="width:70%"></div>
                   </div>
                 </div>
-                <!-- 3 badges modes en bas -->
+                {/* 3 badges modes en bas — Texte / Audio / Vidéo (req Stéphane 13/05) */}
                 <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2">
                   {[
                     { fr: 'Texte', en: 'Text' },
                     { fr: 'Audio', en: 'Audio' },
-                    { fr: 'Simulation', en: 'Simulation' },
+                    { fr: 'Vidéo', en: 'Video' },
                   ].map(b => (
                     <div class="flex items-center gap-1.5 bg-energy-green/15 backdrop-blur-sm border border-accent/30 rounded-full px-2.5 py-1">
                       <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
@@ -313,42 +321,8 @@ const parcours = [
                   ))}
                 </div>
               </div>
-              <!-- Avatar centré dans son carré + badge "À l'écoute" + waveform -->
-              <div class="relative bg-surface flex items-center justify-center overflow-hidden">
-                <div class="aspect-square w-full max-w-[420px] relative">
-                  <img src="/images/app-preview/mentor-avatar-crop.webp" alt="Avatar Méntōr EC²R"
-                       class="absolute inset-0 w-full h-full object-cover object-center rounded-lg" loading="lazy" />
-                  <!-- Badge "À l'écoute" + waveform animée -->
-                  <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-accent-strong/55 backdrop-blur-md border border-accent/50 rounded-full px-3 py-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>
-                    <span class="text-[10px] uppercase tracking-wider text-white font-semibold">
-                      <span data-i18n-lang="fr">À l'écoute</span>
-                      <span data-i18n-lang="en">Listening</span>
-                    </span>
-                    <!-- Waveform : 5 traits verticaux animés -->
-                    <div class="flex items-center gap-0.5 h-3">
-                      <span class="w-0.5 bg-energy-green/80 rounded-full wave-bar wave-bar-1"></span>
-                      <span class="w-0.5 bg-energy-green/80 rounded-full wave-bar wave-bar-2"></span>
-                      <span class="w-0.5 bg-energy-green/80 rounded-full wave-bar wave-bar-3"></span>
-                      <span class="w-0.5 bg-energy-green/80 rounded-full wave-bar wave-bar-4"></span>
-                      <span class="w-0.5 bg-energy-green/80 rounded-full wave-bar wave-bar-5"></span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              {/* Bloc avatar Méntōr (photo Stéphane + waveform "À l'écoute") retiré — req Stéphane 13/05 */}
             </div>
-            <style>
-              @keyframes waveBar {
-                0%, 100% { height: 30%; }
-                50% { height: 90%; }
-              }
-              .wave-bar { animation: waveBar 1s ease-in-out infinite; }
-              .wave-bar-1 { animation-delay: 0s; }
-              .wave-bar-2 { animation-delay: 0.15s; }
-              .wave-bar-3 { animation-delay: 0.3s; }
-              .wave-bar-4 { animation-delay: 0.45s; }
-              .wave-bar-5 { animation-delay: 0.6s; }
-            </style>
           </div>
           <!-- Texte 2/3 (visuel petit 1/3 — req Stéphane 12/05 : remettre visuels en petit) -->
           <div class="md:col-span-2 p-6 lg:p-8 flex flex-col justify-center">
