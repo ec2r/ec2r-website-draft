@@ -153,13 +153,17 @@ const parcours = [
                        srcset={`/images/energies/${e.file}-thumb.webp 1x, /images/energies/${e.file}.webp 2x`}
                        alt={e.name} class="w-12 h-12 object-cover rounded shrink-0" loading="lazy" />
                   <div class="flex-1 min-w-0">
-                    <div class="flex items-baseline gap-2 mb-1">
-                      {/* name pousse à gauche, score est dans une colonne fixe à droite → alignement vertical des chiffres entre cartes garanti */}
-                      <span class="text-ink text-xs font-semibold uppercase tracking-wide flex-1 min-w-0 truncate">{e.name}<span class="plus-accent text-[10px]">+</span></span>
-                      <span class="text-sm font-display font-bold tabular-nums text-right shrink-0" style={`color:${gaugeColor(e.score)}; width:1.75rem`}>{e.score}</span>
+                    {/* Layout 2 lignes : nom seul en haut (pleine largeur du flex-1 → plus de troncature),
+                        puis sur la 2e ligne : barre + score aligné à droite (colonne fixe).
+                        L'alignement vertical des chiffres dans chaque colonne est garanti par width:1.75rem + tabular-nums. */}
+                    <div class="mb-1">
+                      <span class="text-ink text-xs font-semibold">{e.name}<span class="plus-accent text-[10px]">+</span></span>
                     </div>
-                    <div class="h-1 bg-surface-raised rounded-full overflow-hidden">
-                      <div class="h-full rounded-full" style={`width:${e.score}%;background:${gaugeColor(e.score)}`}></div>
+                    <div class="flex items-center gap-2">
+                      <div class="h-1 flex-1 bg-surface-raised rounded-full overflow-hidden">
+                        <div class="h-full rounded-full" style={`width:${e.score}%;background:${gaugeColor(e.score)}`}></div>
+                      </div>
+                      <span class="text-sm font-display font-bold tabular-nums text-right shrink-0" style={`color:${gaugeColor(e.score)}; width:1.75rem`}>{e.score}</span>
                     </div>
                   </div>
                 </div>
