@@ -68,9 +68,13 @@ const { fr, en } = Astro.props;
         <span data-i18n-lang="fr">Écrivez-nous — réponse sous 24h ouvrées.</span>
         <span data-i18n-lang="en">Write to us — reply within 1 business day.</span>
       </p>
-      <form action="https://formspree.io/f/xdkopajd" method="POST" class="space-y-4">
+      <form action="https://formsubmit.co/energies@methode-ec2r.com" method="POST" class="space-y-4">
         <input type="hidden" name="_subject" value="[méthode-ec2r.com] Nouveau contact via site" />
-        <input type="hidden" name="_to" value="energies@methode-ec2r.com" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="true" />
+        <input type="hidden" name="_next" value="https://methode-ec2r.com/?contact=ok" />
+        <!-- Honeypot anti-spam (champ caché, doit rester vide) -->
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
         <div class="grid sm:grid-cols-2 gap-4">
           <input type="text" name="name" required
                  class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm
