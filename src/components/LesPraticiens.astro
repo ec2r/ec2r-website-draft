@@ -314,11 +314,14 @@ const seminairePlaceholders = [
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 auto-rows-fr">
         {partners.map(p => (
           <div class="bg-surface-alt border border-border-subtle rounded-2xl overflow-hidden hover:border-border transition-all group flex flex-col">
-            <div class="aspect-[4/3] bg-gradient-to-br from-surface-alt via-surface to-surface-alt relative flex items-center justify-center p-6 overflow-hidden">
+            <a href={p.website} target="_blank" rel="noopener" aria-label={`Site ${p.name}`}
+               class="aspect-[4/3] bg-gradient-to-br from-surface-alt via-surface to-surface-alt relative flex items-center justify-center p-6 overflow-hidden cursor-pointer transition-transform hover:scale-[1.02]">
               <img src={p.logo} alt={p.name} class="max-h-full max-w-full object-contain" loading="lazy" />
-            </div>
+            </a>
             <div class="p-4 flex-1 flex flex-col">
-              <h4 class="font-display font-bold text-sm text-ink mb-1">{p.name}</h4>
+              <h4 class="font-display font-bold text-sm text-ink mb-1">
+                <a href={p.website} target="_blank" rel="noopener" class="hover:text-accent transition-colors">{p.name}</a>
+              </h4>
               <p class="text-ink-faint text-[11px] mb-2">{p.contact}</p>
               <div class="flex items-center gap-3 mt-auto pt-2 border-t border-border-subtle">
                 <a href={p.website} target="_blank" rel="noopener"
