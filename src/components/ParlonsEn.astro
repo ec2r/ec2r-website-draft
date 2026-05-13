@@ -78,26 +78,26 @@ const { fr, en } = Astro.props;
         <div class="grid sm:grid-cols-2 gap-4">
           <input type="text" name="name" required
                  class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm
-                        placeholder-white/25 focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
+                        placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
                         outline-none transition-all"
                  data-placeholder-fr="Votre nom" data-placeholder-en="Your name"
                  placeholder="Votre nom" />
           <input type="email" name="email" required
                  class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm
-                        placeholder-white/25 focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
+                        placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
                         outline-none transition-all"
                  data-placeholder-fr="Votre email" data-placeholder-en="Your email"
                  placeholder="Votre email" />
         </div>
         <input type="text" name="organization"
                class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm
-                      placeholder-white/25 focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
+                      placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
                       outline-none transition-all"
                data-placeholder-fr="Organisation (optionnel)" data-placeholder-en="Organization (optional)"
                placeholder="Organisation (optionnel)" />
         <textarea name="message" rows="3"
                   class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm
-                         placeholder-white/25 focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
+                         placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
                          outline-none transition-all resize-none"
                   data-placeholder-fr="En quelques mots, ce qui résonne chez vous…" data-placeholder-en="In a few words, what resonates with you…"
                   placeholder="En quelques mots, ce qui résonne chez vous…"></textarea>
