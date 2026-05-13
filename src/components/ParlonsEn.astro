@@ -68,11 +68,11 @@ const { fr, en } = Astro.props;
         <span data-i18n-lang="fr">Écrivez-nous — réponse sous 24h ouvrées.</span>
         <span data-i18n-lang="en">Write to us — reply within 1 business day.</span>
       </p>
-      <form action="https://formsubmit.co/energies@methode-ec2r.com" method="POST" class="space-y-4">
+      <!-- Soumission AJAX → reste sur le site, pas de redirection (UX FormSubmit native trop moche) -->
+      <form id="contact-form" action="https://formsubmit.co/ajax/energies@methode-ec2r.com" method="POST" class="space-y-4">
         <input type="hidden" name="_subject" value="[méthode-ec2r.com] Nouveau contact via site" />
         <input type="hidden" name="_template" value="table" />
-        <input type="hidden" name="_captcha" value="true" />
-        <input type="hidden" name="_next" value="https://methode-ec2r.com/?contact=ok" />
+        <input type="hidden" name="_captcha" value="false" />
         <!-- Honeypot anti-spam (champ caché, doit rester vide) -->
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" />
         <div class="grid sm:grid-cols-2 gap-4">
@@ -101,13 +101,39 @@ const { fr, en } = Astro.props;
                          outline-none transition-all resize-none"
                   data-placeholder-fr="En quelques mots, ce qui résonne chez vous…" data-placeholder-en="In a few words, what resonates with you…"
                   placeholder="En quelques mots, ce qui résonne chez vous…"></textarea>
-        <button type="submit"
+        <button id="contact-submit-btn" type="submit"
                 class="w-full bg-surface-raised hover:bg-surface-raised text-ink font-semibold py-3 rounded-lg
-                       border border-border-subtle hover:border-border transition-all text-sm">
-          <span data-i18n-lang="fr">Envoyer</span>
-          <span data-i18n-lang="en">Send</span>
+                       border border-border-subtle hover:border-border transition-all text-sm disabled:opacity-60 disabled:cursor-wait">
+          <span class="contact-btn-idle" data-i18n-lang="fr">Envoyer</span>
+          <span class="contact-btn-idle" data-i18n-lang="en">Send</span>
+          <span class="contact-btn-loading hidden" data-i18n-lang="fr">Envoi en cours…</span>
+          <span class="contact-btn-loading hidden" data-i18n-lang="en">Sending…</span>
         </button>
       </form>
+
+      <!-- États post-submit (affichés via JS — pas de redirection) -->
+      <div id="contact-success" class="hidden text-center py-10 px-6 bg-energy-green/10 border border-energy-green/30 rounded-xl">
+        <div class="w-12 h-12 mx-auto mb-3 rounded-full bg-energy-green/20 flex items-center justify-center">
+          <svg class="w-6 h-6 text-energy-green" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+          </svg>
+        </div>
+        <p class="text-ink font-display font-bold text-lg mb-1">
+          <span data-i18n-lang="fr">Message bien reçu.</span>
+          <span data-i18n-lang="en">Message received.</span>
+        </p>
+        <p class="text-ink-subtle text-sm">
+          <span data-i18n-lang="fr">Réponse sous 24h ouvrées sur l'email que vous avez indiqué.</span>
+          <span data-i18n-lang="en">We'll reply within 1 business day at the email you provided.</span>
+        </p>
+      </div>
+
+      <div id="contact-error" class="hidden mt-3 text-center py-3 px-4 bg-energy-red/10 border border-energy-red/30 rounded-lg text-sm">
+        <p class="text-energy-red">
+          <span data-i18n-lang="fr">L'envoi a échoué. Réessayez ou écrivez directement à energies@methode-ec2r.com.</span>
+          <span data-i18n-lang="en">Sending failed. Try again or write directly to energies@methode-ec2r.com.</span>
+        </p>
+      </div>
     </div>
 
     <!-- Footer minimal -->
@@ -130,20 +156,71 @@ const { fr, en } = Astro.props;
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    // ── Budget snark button ──────────────────────────────────────────
     const btn = document.getElementById('budget-btn');
-    if (!btn) return;
-    const originalHTML = btn.innerHTML;
-    btn.addEventListener('click', () => {
-      const lang = document.documentElement.getAttribute('data-lang') || 'fr';
-      const msg = lang === 'en' ? 'Too bad 😏' : 'Dommage 😏';
-      btn.innerHTML = `<span class="text-amber-400 font-bold">${msg}</span>`;
-      btn.disabled = true;
-      btn.classList.add('border-amber-400/30');
-      setTimeout(() => {
-        btn.innerHTML = originalHTML;
-        btn.disabled = false;
-        btn.classList.remove('border-amber-400/30');
-      }, 5000);
+    if (btn) {
+      const originalHTML = btn.innerHTML;
+      btn.addEventListener('click', () => {
+        const lang = document.documentElement.getAttribute('data-lang') || 'fr';
+        const msg = lang === 'en' ? 'Too bad 😏' : 'Dommage 😏';
+        btn.innerHTML = `<span class="text-amber-400 font-bold">${msg}</span>`;
+        btn.disabled = true;
+        btn.classList.add('border-amber-400/30');
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.disabled = false;
+          btn.classList.remove('border-amber-400/30');
+        }, 5000);
+      });
+    }
+
+    // ── Formulaire contact AJAX (FormSubmit) ────────────────────────
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+    const submitBtn = document.getElementById('contact-submit-btn') as HTMLButtonElement | null;
+    const successBox = document.getElementById('contact-success');
+    const errorBox = document.getElementById('contact-error');
+    if (!form || !submitBtn) return;
+
+    const idleSpans = submitBtn.querySelectorAll<HTMLElement>('.contact-btn-idle');
+    const loadingSpans = submitBtn.querySelectorAll<HTMLElement>('.contact-btn-loading');
+
+    function setLoading(loading: boolean) {
+      submitBtn.disabled = loading;
+      idleSpans.forEach(s => s.classList.toggle('hidden', loading));
+      loadingSpans.forEach(s => s.classList.toggle('hidden', !loading));
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBox?.classList.add('hidden');
+      // Honeypot : si rempli, on simule un succès silencieux (anti-bot)
+      const honey = (form.elements.namedItem('_honey') as HTMLInputElement | null)?.value;
+      if (honey) {
+        form.classList.add('hidden');
+        successBox?.classList.remove('hidden');
+        return;
+      }
+      setLoading(true);
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { Accept: 'application/json' },
+        });
+        const data = await res.json().catch(() => ({}));
+        const ok = res.ok && (data.success === 'true' || data.success === true || /sent|inbox|activate/i.test(String(data.message || '')));
+        if (ok) {
+          form.classList.add('hidden');
+          successBox?.classList.remove('hidden');
+          successBox?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+          errorBox?.classList.remove('hidden');
+          setLoading(false);
+        }
+      } catch {
+        errorBox?.classList.remove('hidden');
+        setLoading(false);
+      }
     });
   });
 </script>
