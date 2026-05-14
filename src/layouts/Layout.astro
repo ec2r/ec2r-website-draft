@@ -9,7 +9,7 @@ interface Props {
 
 const {
   title = 'EC²R — Mobiliser les énergies collectives',
-  description = 'Méthode EC²R : identifier chirurgicalement les leviers de mobilisation collective pour passer à l\'acte. Développement professionnel, pas personnel.',
+  description = 'Méthode EC²R — baromètre des énergies collectives, profils de leadership, Mentor IA. Coaching managérial qui passe à l\'acte, du diagnostic au micro-geste.',
 } = Astro.props;
 ---
 
@@ -66,7 +66,7 @@ const {
     "name": "EC²R Conseil",
     "url": "https://methode-ec2r.com",
     "logo": new URL('/images/logo-ec2r.png', Astro.url).href,
-    "description": "Méthode EC²R : mobiliser les énergies collectives de performance. Coaching managérial, baromètre organisationnel, IA mentor.",
+    "description": "Méthode EC²R — baromètre des énergies collectives, profils de leadership et Mentor IA. Coaching managérial qui passe à l'acte, du diagnostic au micro-comportement.",
     "founder": {
       "@type": "Person",
       "name": "Stéphane Flahaut",
@@ -82,6 +82,27 @@ const {
       "https://www.youtube.com/@stephaneflahaut-ec2rconseil",
       "https://www.linkedin.com/company/methode-ec2r/"
     ]
+  })} />
+
+  <!-- Structured Data — Service Mentor IA EC²R -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Mentor IA EC²R",
+    "alternateName": ["EC2R Mentor", "Mentor EC2R", "EC²R Mentor IA"],
+    "serviceType": "AI mentoring & leadership coaching",
+    "provider": {
+      "@type": "Organization",
+      "name": "EC²R Conseil",
+      "url": "https://methode-ec2r.com"
+    },
+    "areaServed": ["FR", "BE", "CH", "LU"],
+    "description": "Mentor IA EC²R : accompagnement managérial qui prolonge le baromètre des énergies collectives et les profils de leadership, du diagnostic au micro-comportement quotidien.",
+    "url": "https://methode-ec2r.com/#le-protocole",
+    "audience": {
+      "@type": "BusinessAudience",
+      "audienceType": "Managers, dirigeants, équipes RH et L&D"
+    }
   })} />
 </head>
 <body>
