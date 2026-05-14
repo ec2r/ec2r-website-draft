@@ -1,4 +1,5 @@
 ---
+import type { Lang } from '../i18n/translations';
 interface Universe {
   id: string;
   labelFr: string;
@@ -6,10 +7,19 @@ interface Universe {
 }
 interface Props {
   universes: Universe[];
-  fr: any;
-  en: any;
+  lang: Lang;
+  fr?: any;
+  en?: any;
 }
-const { universes } = Astro.props;
+const { universes, lang } = Astro.props;
+
+// Mirror URL pour le toggle FR↔EN
+const path = Astro.url.pathname;
+const otherLangHref = lang === 'fr'
+  ? `/en${path === '/' ? '/' : path}${Astro.url.search}`
+  : (path.startsWith('/en/') ? path.slice(3) : '/') + Astro.url.search;
+const otherLangLabel = lang === 'fr' ? 'EN' : 'FR';
+const currentLangLabel = lang.toUpperCase();
 ---
 
 <!-- Progress bar segmentée par univers -->
@@ -51,8 +61,7 @@ const { universes } = Astro.props;
                          data-[active]:text-ink data-[active]:bg-surface-raised"
                   data-universe-target={u.id}
                   data-idx={i}>
-            <span data-i18n-lang="fr">{u.labelFr}</span>
-            <span data-i18n-lang="en">{u.labelEn}</span>
+            {lang === 'fr' ? u.labelFr : u.labelEn}
           </button>
         </li>
       ))}
@@ -60,36 +69,40 @@ const { universes } = Astro.props;
 
     <!-- Lang + Theme toggles + Burger (mobile) -->
     <div class="flex items-center gap-2">
-      <!-- Lang toggle : version courte mobile (juste la langue active), version longue desktop (drapeaux + FR · EN) -->
-      <button id="lang-toggle" aria-label="Switch language"
-        class="flex items-center gap-1 text-xs font-semibold tracking-widest text-ink-subtle
-               hover:text-ink transition-colors duration-200 border border-border-subtle
-               hover:border-border-strong rounded-md px-2 py-1.5">
-        <!-- Mobile : juste FR ou EN -->
-        <span id="lang-current-mobile" class="lg:hidden">FR</span>
-        <!-- Desktop : drapeau FR · drapeau EN avec opacité (SVG inline — Chrome/Windows ne rend pas les emoji régionaux) -->
-        <span id="lang-fr-flag" class="hidden lg:inline-flex items-center">
-          <svg viewBox="0 0 60 40" class="w-4 h-[12px] rounded-sm shadow-sm" aria-hidden="true">
-            <rect width="20" height="40" fill="#0055A4"/>
-            <rect x="20" width="20" height="40" fill="#FFFFFF"/>
-            <rect x="40" width="20" height="40" fill="#EF4135"/>
-          </svg>
-        </span>
-        <span id="lang-current" class="hidden lg:inline">FR</span>
+      <!-- Lang toggle : lien vers l'URL miroir (FR↔EN), pas de JS -->
+      <a href={otherLangHref} rel="alternate" hreflang={lang === 'fr' ? 'en' : 'fr'}
+         aria-label={lang === 'fr' ? 'Switch to English' : 'Passer en français'}
+         class="flex items-center gap-1 text-xs font-semibold tracking-widest text-ink-subtle
+                hover:text-ink transition-colors duration-200 border border-border-subtle
+                hover:border-border-strong rounded-md px-2 py-1.5">
+        <!-- Mobile : juste la langue active -->
+        <span class="lg:hidden">{currentLangLabel}</span>
+        <!-- Desktop : drapeau langue active + langue alternative -->
+        {lang === 'fr' ? (
+          <span class="hidden lg:inline-flex items-center">
+            <svg viewBox="0 0 60 40" class="w-4 h-[12px] rounded-sm shadow-sm" aria-hidden="true">
+              <rect width="20" height="40" fill="#0055A4"/>
+              <rect x="20" width="20" height="40" fill="#FFFFFF"/>
+              <rect x="40" width="20" height="40" fill="#EF4135"/>
+            </svg>
+          </span>
+        ) : (
+          <span class="hidden lg:inline-flex items-center">
+            <svg viewBox="0 0 60 40" class="w-4 h-[12px] rounded-sm shadow-sm overflow-hidden" aria-hidden="true">
+              <rect width="60" height="40" fill="#012169"/>
+              <path d="M0,0 L60,40 M60,0 L0,40" stroke="#FFFFFF" stroke-width="6"/>
+              <path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="3"/>
+              <path d="M30,0 V40 M0,20 H60" stroke="#FFFFFF" stroke-width="10"/>
+              <path d="M30,0 V40 M0,20 H60" stroke="#C8102E" stroke-width="6"/>
+            </svg>
+          </span>
+        )}
+        <span class="hidden lg:inline">{currentLangLabel}</span>
         <span class="hidden lg:inline text-ink-disabled mx-0.5">·</span>
-        <span id="lang-en-flag" class="hidden lg:inline-flex items-center" style="opacity:0.4">
-          <svg viewBox="0 0 60 40" class="w-4 h-[12px] rounded-sm shadow-sm overflow-hidden" aria-hidden="true">
-            <rect width="60" height="40" fill="#012169"/>
-            <path d="M0,0 L60,40 M60,0 L0,40" stroke="#FFFFFF" stroke-width="6"/>
-            <path d="M0,0 L60,40 M60,0 L0,40" stroke="#C8102E" stroke-width="3"/>
-            <path d="M30,0 V40 M0,20 H60" stroke="#FFFFFF" stroke-width="10"/>
-            <path d="M30,0 V40 M0,20 H60" stroke="#C8102E" stroke-width="6"/>
-          </svg>
-        </span>
-        <span id="lang-other" class="hidden lg:inline text-ink-disabled">EN</span>
-      </button>
-      <!-- Theme toggle (mode clair par défaut, gros bouton — req TGlT0tmZ) — texte masqué sur mobile -->
-      <button id="theme-toggle" aria-label="Basculer mode clair/sombre"
+        <span class="hidden lg:inline text-ink-disabled">{otherLangLabel}</span>
+      </a>
+      <!-- Theme toggle (mode clair par défaut) -->
+      <button id="theme-toggle" aria-label={lang === 'fr' ? 'Basculer mode clair/sombre' : 'Toggle light/dark mode'}
         class="flex items-center gap-1.5 text-xs font-semibold text-ink-muted
                hover:text-ink transition-colors duration-200 border border-border-subtle
                hover:border-border-strong rounded-md px-2 py-1.5 lg:px-3">
@@ -99,10 +112,10 @@ const { universes } = Astro.props;
         <svg id="theme-icon-moon" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
-        <span id="theme-label" class="hidden lg:inline">Clair</span>
+        <span id="theme-label" class="hidden lg:inline" data-label-light={lang === 'fr' ? 'Clair' : 'Light'} data-label-dark={lang === 'fr' ? 'Sombre' : 'Dark'}>{lang === 'fr' ? 'Clair' : 'Light'}</span>
       </button>
       <!-- Burger mobile (ouvre menu univers) -->
-      <button id="mobile-menu-toggle" type="button" aria-label="Menu" aria-expanded="false"
+      <button id="mobile-menu-toggle" type="button" aria-label={lang === 'fr' ? 'Menu' : 'Menu'} aria-expanded="false"
         class="lg:hidden flex items-center justify-center p-2 text-ink border border-border-subtle rounded-md">
         <svg id="burger-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -125,8 +138,7 @@ const { universes } = Astro.props;
                   data-universe-target={u.id}
                   data-idx={i}>
             <span class="w-2 h-2 rounded-full flex-shrink-0" style={`background: var(--energy-color-${i})`}></span>
-            <span data-i18n-lang="fr">{u.labelFr}</span>
-            <span data-i18n-lang="en">{u.labelEn}</span>
+            {lang === 'fr' ? u.labelFr : u.labelEn}
           </button>
         </li>
       ))}
@@ -137,7 +149,7 @@ const { universes } = Astro.props;
 <!-- Bouton "Remonter en haut" — mobile uniquement, fixe en bas-droit.
      Hors <nav> car backdrop-filter sur la nav créerait un containing block
      pour les descendants fixed, et le bouton serait positionné relativement à la nav. -->
-<button id="scroll-top-btn" class="scroll-top-btn" aria-label="Remonter en haut">
+<button id="scroll-top-btn" class="scroll-top-btn" aria-label={lang === 'fr' ? 'Remonter en haut' : 'Back to top'}>
   <svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
   </svg>
@@ -265,32 +277,6 @@ const { universes } = Astro.props;
   // Init
   setActiveUniverse(0);
 
-  // Lang toggle
-  const langBtn = document.getElementById('lang-toggle')!;
-  const langCur = document.getElementById('lang-current')!;
-  const langOth = document.getElementById('lang-other')!;
-  const langCurMobile = document.getElementById('lang-current-mobile')!;
-
-  // Init affichage selon lang persistée (Layout pose data-lang au DOMContentLoaded — on relit ici)
-  const initLang = (document.documentElement.getAttribute('data-lang') as string) || localStorage.getItem('ec2r-lang') || 'fr';
-  langCurMobile.textContent = initLang.toUpperCase();
-
-  langBtn.addEventListener('click', () => {
-    const cur = document.documentElement.getAttribute('data-lang') || 'fr';
-    const next = cur === 'fr' ? 'en' : 'fr';
-    localStorage.setItem('ec2r-lang', next);
-    document.documentElement.setAttribute('data-lang', next);
-    langCur.textContent = next.toUpperCase();
-    langOth.textContent = next === 'fr' ? 'EN' : 'FR';
-    langCurMobile.textContent = next.toUpperCase();
-    const frFlag = document.getElementById('lang-fr-flag') as HTMLElement;
-    const enFlag = document.getElementById('lang-en-flag') as HTMLElement;
-    if (frFlag && enFlag) {
-      frFlag.style.opacity = next === 'fr' ? '1' : '0.4';
-      enFlag.style.opacity = next === 'en' ? '1' : '0.4';
-    }
-  });
-
   // ── Theme toggle (light default, persisted in localStorage) ────────
   const themeBtn = document.getElementById('theme-toggle');
   const themeLabel = document.getElementById('theme-label');
@@ -299,8 +285,11 @@ const { universes } = Astro.props;
 
   function applyTheme(theme: string) {
     document.documentElement.setAttribute('data-theme', theme);
-    // Affiche l'ÉTAT courant (soleil = clair, lune = sombre), pas la cible
-    if (themeLabel) themeLabel.textContent = theme === 'light' ? 'Clair' : 'Sombre';
+    if (themeLabel) {
+      const lightLabel = themeLabel.dataset.labelLight || 'Clair';
+      const darkLabel = themeLabel.dataset.labelDark || 'Sombre';
+      themeLabel.textContent = theme === 'light' ? lightLabel : darkLabel;
+    }
     if (themeIconSun && themeIconMoon) {
       themeIconSun.classList.toggle('hidden', theme !== 'light');
       themeIconMoon.classList.toggle('hidden', theme === 'light');

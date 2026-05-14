@@ -9,8 +9,14 @@
  * 3. Équipe praticiens (4 cartes moyennes)
  * 4. Teaser "Sur le terrain" (photos séminaires à venir)
  */
-interface Props { fr: any; en: any; }
-const { fr, en } = Astro.props;
+import type { Lang } from '../i18n/translations';
+interface Props {
+  lang: Lang;
+  fr?: any;
+  en?: any;
+}
+const { lang, fr, en } = Astro.props;
+const t = lang === 'fr' ? fr : en;
 
 // Toute l'équipe — Stéphane même taille que les autres (req fNizKtDs)
 const team = [
@@ -128,16 +134,25 @@ const seminairePlaceholders = [
     <!-- ════════════════════════════════════════════════════════════════════════ -->
     <div>
       <h2 class="text-2xl md:text-3xl lg:text-4xl font-display font-extrabold text-ink mb-2">
-        <span data-i18n-lang="fr">La Team augmentée <span class="text-accent">+</span> élargie</span>
-        <span data-i18n-lang="en">The augmented <span class="text-accent">+</span> extended team</span>
+        {lang === 'fr' ? (
+          <Fragment>La Team augmentée <span class="text-accent">+</span> élargie</Fragment>
+        ) : (
+          <Fragment>The augmented <span class="text-accent">+</span> extended team</Fragment>
+        )}
       </h2>
       <p class="text-accent text-base font-semibold mb-4">
-        <span data-i18n-lang="fr">Une <strong class="text-ink">Méthode</strong> à votre service, pas l'inverse.</span>
-        <span data-i18n-lang="en">A <strong class="text-ink">Method</strong> at your service, not the other way around.</span>
+        {lang === 'fr' ? (
+          <Fragment>Une <strong class="text-ink">Méthode</strong> à votre service, pas l'inverse.</Fragment>
+        ) : (
+          <Fragment>A <strong class="text-ink">Method</strong> at your service, not the other way around.</Fragment>
+        )}
       </p>
       <p class="text-ink-subtle text-sm leading-relaxed max-w-3xl">
-        <span data-i18n-lang="fr">Pas des consultants interchangeables, pas une querelle d'associés ou de seniors qui vendent des missions et ensuite des juniors. Des professionnels et des humains qui ont expérimenté la différenciation de la <strong>Méthode</strong>, qui savent à chaque étape comment vous aider à la traduire et la faire vivre dans votre quotidien professionnel.</span>
-        <span data-i18n-lang="en">Not interchangeable consultants, not a dispute between partners or seniors selling missions to juniors. Professionals and humans who have experienced the <strong>Method</strong>'s differentiation, who at each step know how to help you translate and bring it to life in your daily professional reality.</span>
+        {lang === 'fr' ? (
+          <Fragment>Pas des consultants interchangeables, pas une querelle d'associés ou de seniors qui vendent des missions et ensuite des juniors. Des professionnels et des humains qui ont expérimenté la différenciation de la <strong>Méthode</strong>, qui savent à chaque étape comment vous aider à la traduire et la faire vivre dans votre quotidien professionnel.</Fragment>
+        ) : (
+          <Fragment>Not interchangeable consultants, not a dispute between partners or seniors selling missions to juniors. Professionals and humans who have experienced the <strong>Method</strong>'s differentiation, who at each step know how to help you translate and bring it to life in your daily professional reality.</Fragment>
+        )}
       </p>
     </div>
 
@@ -181,12 +196,10 @@ const seminairePlaceholders = [
               )}
             </h3>
             <p class="text-accent font-semibold text-sm mb-2">
-              <span data-i18n-lang="fr">{member.roleFr}</span>
-              <span data-i18n-lang="en">{member.roleEn}</span>
+              {lang === 'fr' ? member.roleFr : member.roleEn}
             </p>
             <p class="text-ink-muted text-sm leading-relaxed">
-              <span data-i18n-lang="fr">{member.bioFr}</span>
-              <span data-i18n-lang="en">{member.bioEn}</span>
+              {lang === 'fr' ? member.bioFr : member.bioEn}
             </p>
           </div>
         </div>
@@ -225,12 +238,10 @@ const seminairePlaceholders = [
               )}
             </h4>
             <p class="text-accent/80 font-semibold text-xs mb-2">
-              <span data-i18n-lang="fr">{member.roleFr}</span>
-              <span data-i18n-lang="en">{member.roleEn}</span>
+              {lang === 'fr' ? member.roleFr : member.roleEn}
             </p>
             <p class="text-ink-subtle text-[11px] leading-relaxed flex-1">
-              <span data-i18n-lang="fr">{member.bioFr}</span>
-              <span data-i18n-lang="en">{member.bioEn}</span>
+              {lang === 'fr' ? member.bioFr : member.bioEn}
             </p>
           </div>
         </div>
@@ -242,12 +253,10 @@ const seminairePlaceholders = [
     <!-- ════════════════════════════════════════════════════════════════════════ -->
     <div>
       <h3 class="text-2xl font-display font-bold text-ink mb-2">
-        <span data-i18n-lang="fr">Praticiens &amp; Partenaires</span>
-        <span data-i18n-lang="en">Practitioners &amp; Partners</span>
+        {lang === 'fr' ? 'Praticiens & Partenaires' : 'Practitioners & Partners'}
       </h3>
       <p class="text-ink-subtle text-sm mb-6 italic">
-        <span data-i18n-lang="fr">Ils incarnent la Méthode EC²R sur leurs terrains et écosystèmes.</span>
-        <span data-i18n-lang="en">They embody the EC²R Method on their grounds and ecosystems.</span>
+        {lang === 'fr' ? 'Ils incarnent la Méthode EC²R sur leurs terrains et écosystèmes.' : 'They embody the EC²R Method on their grounds and ecosystems.'}
       </p>
 
       {/* Ligne 1 : Praticiens externes — grille 3 cols comme team (req Stéphane 13/05) */}
@@ -280,12 +289,10 @@ const seminairePlaceholders = [
                 )}
               </h4>
               <p class="text-accent/80 font-semibold text-xs mb-2">
-                <span data-i18n-lang="fr">{member.roleFr}</span>
-                <span data-i18n-lang="en">{member.roleEn}</span>
+                {lang === 'fr' ? member.roleFr : member.roleEn}
               </p>
               <p class="text-ink-subtle text-[11px] leading-relaxed flex-1">
-                <span data-i18n-lang="fr">{member.bioFr}</span>
-                <span data-i18n-lang="en">{member.bioEn}</span>
+                {lang === 'fr' ? member.bioFr : member.bioEn}
               </p>
             </div>
           </div>
@@ -294,8 +301,7 @@ const seminairePlaceholders = [
           <div class="bg-surface-alt border border-dashed border-border-subtle rounded-2xl overflow-hidden flex flex-col">
             <div class="aspect-[4/3] bg-gradient-to-br from-surface-alt via-surface to-surface-alt flex items-center justify-center">
               <p class="text-ink-faint text-xs italic text-center px-4">
-                <span data-i18n-lang="fr">Praticien à venir</span>
-                <span data-i18n-lang="en">Practitioner to come</span>
+                {lang === 'fr' ? 'Praticien à venir' : 'Practitioner to come'}
               </p>
             </div>
             <div class="p-4 flex-1 flex flex-col">
@@ -345,8 +351,7 @@ const seminairePlaceholders = [
           <div class="bg-surface-alt border border-dashed border-border-subtle rounded-2xl overflow-hidden flex flex-col">
             <div class="aspect-[4/3] flex items-center justify-center p-6">
               <p class="text-ink-faint text-xs italic text-center">
-                <span data-i18n-lang="fr">Partenariat à venir</span>
-                <span data-i18n-lang="en">Partnership to come</span>
+                {lang === 'fr' ? 'Partenariat à venir' : 'Partnership to come'}
               </p>
             </div>
             <div class="p-4 flex-1 flex flex-col">
@@ -369,8 +374,7 @@ const seminairePlaceholders = [
         <svg class="w-5 h-5 text-ink-muted group-hover:text-accent transition-colors" fill="currentColor" viewBox="0 0 24 24">
           <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
         </svg>
-        <span data-i18n-lang="fr">Suivre la Méthode EC²R sur LinkedIn</span>
-        <span data-i18n-lang="en">Follow the EC²R Method on LinkedIn</span>
+        {lang === 'fr' ? 'Suivre la Méthode EC²R sur LinkedIn' : 'Follow the EC²R Method on LinkedIn'}
       </a>
     </div>
 

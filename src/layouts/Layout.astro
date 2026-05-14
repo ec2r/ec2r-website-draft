@@ -1,76 +1,94 @@
 ---
 import '../styles/fonts.css';
 import AnnouncementBanner from '../components/AnnouncementBanner.astro';
+import { translations, type Lang } from '../i18n/translations';
 
 interface Props {
+  lang?: Lang;
   title?: string;
   description?: string;
+  /**
+   * Si true, n'émet pas de hreflang EN (pour les pages sans version anglaise,
+   * ex. mentions légales / politique de confidentialité — contenu juridique FR).
+   */
+  noAlternate?: boolean;
 }
 
 const {
-  title = 'EC²R — Mobiliser les énergies collectives',
-  description = 'Méthode EC²R — baromètre des énergies collectives, profils de leadership, Mentor IA. Coaching managérial qui passe à l\'acte, du diagnostic au micro-geste.',
+  lang = 'fr',
+  title,
+  description,
+  noAlternate = false,
 } = Astro.props;
+
+const t = translations[lang];
+const resolvedTitle = title ?? t.seo.title;
+const resolvedDescription = description ?? t.seo.description;
+
+// Compute mirror URL (FR ↔ EN) for hreflang and language toggle
+const path = Astro.url.pathname;
+const frPath = path.startsWith('/en/') ? path.slice(3) : path === '/en' ? '/' : path;
+const enPath = path.startsWith('/en/') || path === '/en' ? path : `/en${path === '/' ? '/' : path}`;
+const frUrl = new URL(frPath, 'https://methode-ec2r.com').href;
+const enUrl = new URL(enPath, 'https://methode-ec2r.com').href;
 ---
 
 <!DOCTYPE html>
-<html lang="fr" data-lang="fr">
+<html lang={lang} data-lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content={description} />
+  <meta name="description" content={resolvedDescription} />
   <script is:inline>
-    // i18n critical CSS — injected before any paint to avoid FOUC
-    (function(){var s=document.createElement('style');s.textContent='[data-lang="fr"] [data-i18n-lang="en"]{display:none!important}[data-lang="en"] [data-i18n-lang="fr"]{display:none!important}';document.head.insertBefore(s,document.head.firstChild);})();
     // Theme : mode clair par défaut (sauf choix utilisateur persisté)
     (function(){var t=localStorage.getItem('ec2r-theme')||'light';document.documentElement.setAttribute('data-theme',t);})();
   </script>
-  
+
   <!-- Canonical URL -->
   <link rel="canonical" href={Astro.url.href} />
-  
-  <!-- Hreflang -->
-  <link rel="alternate" hreflang="fr" href={new URL(Astro.url.pathname, 'https://methode-ec2r.com').href} />
-  <link rel="alternate" hreflang="en" href={new URL(Astro.url.pathname, 'https://methode-ec2r.com').href} />
-  <link rel="alternate" hreflang="x-default" href={new URL(Astro.url.pathname, 'https://methode-ec2r.com').href} />
-  
+
+  <!-- Hreflang — chaque URL pointe vers sa vraie version localisée -->
+  <link rel="alternate" hreflang="fr" href={frUrl} />
+  {!noAlternate && <link rel="alternate" hreflang="en" href={enUrl} />}
+  <link rel="alternate" hreflang="x-default" href={frUrl} />
+
   <!-- OG -->
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
+  <meta property="og:title" content={resolvedTitle} />
+  <meta property="og:description" content={resolvedDescription} />
   <meta property="og:type" content="website" />
   <meta property="og:url" content={Astro.url.href} />
   <meta property="og:image" content={new URL('/images/og-image.png', Astro.url).href} />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
-  <meta id="og-locale" property="og:locale" content="fr_FR" />
-  
+  <meta property="og:locale" content={lang === 'en' ? 'en_GB' : 'fr_FR'} />
+
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
+  <meta name="twitter:title" content={resolvedTitle} />
+  <meta name="twitter:description" content={resolvedDescription} />
   <meta name="twitter:image" content={new URL('/images/og-image.png', Astro.url).href} />
-  
-  <title>{title}</title>
-  
+
+  <title>{resolvedTitle}</title>
+
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="shortcut icon" href="/favicon.ico" />
-  
-  <!-- Structured Data (JSON-LD) -->
+
+  <!-- Structured Data — Organization (localisé) -->
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "EC²R Conseil",
     "url": "https://methode-ec2r.com",
     "logo": new URL('/images/logo-ec2r.png', Astro.url).href,
-    "description": "Méthode EC²R — baromètre des énergies collectives, profils de leadership et Mentor IA. Coaching managérial qui passe à l'acte, du diagnostic au micro-comportement.",
+    "description": resolvedDescription,
     "founder": {
       "@type": "Person",
       "name": "Stéphane Flahaut",
-      "jobTitle": "Fondateur EC²R Conseil"
+      "jobTitle": lang === 'en' ? "Founder, EC²R Conseil" : "Fondateur EC²R Conseil"
     },
     "contactPoint": {
       "@type": "ContactPoint",
@@ -88,7 +106,7 @@ const {
   <script type="application/ld+json" set:html={JSON.stringify({
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Mentor IA EC²R",
+    "name": lang === 'en' ? "EC²R AI Mentor" : "Mentor IA EC²R",
     "alternateName": ["EC2R Mentor", "Mentor EC2R", "EC²R Mentor IA"],
     "serviceType": "AI mentoring & leadership coaching",
     "provider": {
@@ -97,67 +115,21 @@ const {
       "url": "https://methode-ec2r.com"
     },
     "areaServed": ["FR", "BE", "CH", "LU"],
-    "description": "Mentor IA EC²R : accompagnement managérial qui prolonge le baromètre des énergies collectives et les profils de leadership, du diagnostic au micro-comportement quotidien.",
+    "description": lang === 'en'
+      ? "EC²R AI Mentor: management support that extends the collective energy barometer and leadership profiles, from diagnosis to daily micro-behaviour."
+      : "Mentor IA EC²R : accompagnement managérial qui prolonge le baromètre des énergies collectives et les profils de leadership, du diagnostic au micro-comportement quotidien.",
     "url": "https://methode-ec2r.com/#le-protocole",
     "audience": {
       "@type": "BusinessAudience",
-      "audienceType": "Managers, dirigeants, équipes RH et L&D"
+      "audienceType": lang === 'en' ? "Managers, executives, HR and L&D teams" : "Managers, dirigeants, équipes RH et L&D"
     }
   })} />
 </head>
 <body>
-  <AnnouncementBanner />
+  <AnnouncementBanner lang={lang} />
   <slot />
 
   <script>
-    // ── i18n global ──────────────────────────────────────────────────
-    function applyI18n(lang: string) {
-      document.querySelectorAll<HTMLElement>('[data-i18n-fr]').forEach(el => {
-        // Ne modifier que les feuilles (pas d'éléments enfants non-texte)
-        const hasChildElements = Array.from(el.childNodes).some(n => n.nodeType === 1);
-        if (hasChildElements) return;
-        const val = lang === 'en' ? el.dataset.i18nEn : el.dataset.i18nFr;
-        if (val !== undefined && val !== '') el.textContent = val;
-      });
-      // Placeholders inputs/textarea
-      document.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[data-placeholder-fr]').forEach(el => {
-        el.placeholder = lang === 'en'
-          ? (el.dataset.placeholderEn || el.dataset.placeholderFr || '')
-          : (el.dataset.placeholderFr || '');
-      });
-      document.documentElement.setAttribute('lang', lang);
-      const ogLocale = document.getElementById('og-locale');
-      if (ogLocale) ogLocale.setAttribute('content', lang === 'en' ? 'en_GB' : 'fr_FR');
-    }
-
-    // Détection initiale : localStorage (choix explicite) → fr par défaut
-    // Le site est français par défaut. Seul un clic sur le toggle EN bascule.
-    function detectLang(): string {
-      const stored = localStorage.getItem('ec2r-lang');
-      if (stored === 'fr' || stored === 'en') return stored;
-      return 'fr';
-    }
-
-    // Au chargement du DOM : set data-lang et applique les textes
-    document.addEventListener('DOMContentLoaded', () => {
-      const lang = detectLang();
-      localStorage.setItem('ec2r-lang', lang);
-      document.documentElement.setAttribute('data-lang', lang);
-      applyI18n(lang);
-
-      // Met à jour le bouton toggle si déjà rendu
-      const cur = document.getElementById('lang-current');
-      const oth = document.getElementById('lang-other');
-      if (cur) cur.textContent = lang.toUpperCase();
-      if (oth) oth.textContent = lang === 'fr' ? 'EN' : 'FR';
-    });
-
-    // Écoute les changements (déclenchés par le toggle dans Nav)
-    new MutationObserver(() => {
-      const lang = document.documentElement.getAttribute('data-lang') || 'fr';
-      applyI18n(lang);
-    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-lang'] });
-
     // Scroll reveal
     const observer = new IntersectionObserver(
       (entries) => {
@@ -194,6 +166,19 @@ const {
         }
       });
     });
+
+    // One-shot migration : ancien localStorage 'ec2r-lang=en' → redirige vers /en/
+    (function migrateLegacyEnUser() {
+      try {
+        const stored = localStorage.getItem('ec2r-lang');
+        if (stored === 'en' && !location.pathname.startsWith('/en/') && location.pathname !== '/en') {
+          localStorage.removeItem('ec2r-lang');
+          location.replace('/en' + (location.pathname === '/' ? '/' : location.pathname) + location.search + location.hash);
+        } else if (stored) {
+          localStorage.removeItem('ec2r-lang');
+        }
+      } catch {}
+    })();
   </script>
 </body>
 </html>

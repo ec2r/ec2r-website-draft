@@ -3,8 +3,14 @@
  * Univers 2 : "La méthode"
  * Philosophie, points de différenciation, circuit énergétique
  */
-interface Props { fr: any; en: any; }
-const { fr, en } = Astro.props;
+import type { Lang } from '../i18n/translations';
+interface Props {
+  lang: Lang;
+  fr?: any;
+  en?: any;
+}
+const { lang, fr, en } = Astro.props;
+const t = lang === 'fr' ? fr : en;
 
 // Icônes SVG minimalistes — couleurs alignées sur le circuit énergétique
 const diffPoints = [
@@ -33,36 +39,48 @@ const circuitItems = [
     <!-- Titre animé -->
     <div id="methode-start" class="text-center mb-12 scroll-mt-24">
       <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-extrabold energy-gradient-text inline-block mb-4">
-        <span data-i18n-lang="fr">La méthode</span>
-        <span data-i18n-lang="en">The method</span>
+        {lang === 'fr' ? 'La méthode' : 'The method'}
       </h2>
 
       <!-- 3 phrases de différenciation -->
       <div class="space-y-3 max-w-3xl mx-auto mt-6">
         <p class="text-base md:text-lg text-ink-muted leading-relaxed">
           <span class="text-red-500 font-bold">ARRÊTEZ</span>
-          <span data-i18n-lang="fr"> d'épuiser votre énergie à vouloir absolument <strong>motiver</strong> tous les <strong>individus</strong> à changer</span>
-          <span data-i18n-lang="en"> exhausting your energy trying to absolutely <strong>motivate</strong> all <strong>individuals</strong> to change</span>
+          {lang === 'fr' ? (
+            <Fragment> d'épuiser votre énergie à vouloir absolument <strong>motiver</strong> tous les <strong>individus</strong> à changer</Fragment>
+          ) : (
+            <Fragment> exhausting your energy trying to absolutely <strong>motivate</strong> all <strong>individuals</strong> to change</Fragment>
+          )}
         </p>
         <p class="text-base md:text-lg text-ink-muted leading-relaxed">
-          <span data-i18n-lang="fr">INSTALLER<span class="plus-accent">+</span> les conditions durablement favorables pour mobiliser les <strong>professionnels</strong></span>
-          <span data-i18n-lang="en">INSTALL<span class="plus-accent">+</span> sustainably favourable conditions to mobilize the <strong>professionals</strong></span>
+          {lang === 'fr' ? (
+            <Fragment>INSTALLER<span class="plus-accent">+</span> les conditions durablement favorables pour mobiliser les <strong>professionnels</strong></Fragment>
+          ) : (
+            <Fragment>INSTALL<span class="plus-accent">+</span> sustainably favourable conditions to mobilize the <strong>professionals</strong></Fragment>
+          )}
         </p>
         <p class="text-base md:text-lg text-ink-muted leading-relaxed">
-          <span data-i18n-lang="fr">ENGAGER<span class="plus-accent">+</span> les professionnels sur leur situation, réalité et comportement métier décisif</span>
-          <span data-i18n-lang="en">ENGAGE<span class="plus-accent">+</span> professionals on their situation, reality and decisive professional behaviour</span>
+          {lang === 'fr' ? (
+            <Fragment>ENGAGER<span class="plus-accent">+</span> les professionnels sur leur situation, réalité et comportement métier décisif</Fragment>
+          ) : (
+            <Fragment>ENGAGE<span class="plus-accent">+</span> professionals on their situation, reality and decisive professional behaviour</Fragment>
+          )}
         </p>
       </div>
 
       <!-- Méthode vivante auto-entretenue + plateforme -->
       <div class="mt-8 max-w-3xl mx-auto space-y-2 text-sm text-ink-subtle italic">
         <p>
-          <span data-i18n-lang="fr"><strong class="text-accent not-italic">Méthode vivante auto-entretenue</strong> — une plateforme de leadership qui évolue avec votre collectif.</span>
-          <span data-i18n-lang="en"><strong class="text-accent not-italic">Self-sustaining living method</strong> — a leadership platform that evolves with your collective.</span>
+          {lang === 'fr' ? (
+            <Fragment><strong class="text-accent not-italic">Méthode vivante auto-entretenue</strong> — une plateforme de leadership qui évolue avec votre collectif.</Fragment>
+          ) : (
+            <Fragment><strong class="text-accent not-italic">Self-sustaining living method</strong> — a leadership platform that evolves with your collective.</Fragment>
+          )}
         </p>
         <p>
-          <span data-i18n-lang="fr">Mesure d'impact en temps réel — du diagnostic chirurgical au micro-comportement de leadership.</span>
-          <span data-i18n-lang="en">Real-time impact measurement — from surgical diagnosis to leadership micro-behaviour.</span>
+          {lang === 'fr'
+            ? "Mesure d'impact en temps réel — du diagnostic chirurgical au micro-comportement de leadership."
+            : 'Real-time impact measurement — from surgical diagnosis to leadership micro-behaviour.'}
         </p>
       </div>
     </div>
@@ -104,12 +122,10 @@ const circuitItems = [
             )}
           </div>
           <h3 class="text-ink font-semibold text-sm mb-1 group-hover:text-accent transition-colors">
-            <span data-i18n-lang="fr">{p.labelFr}</span>
-            <span data-i18n-lang="en">{p.labelEn}</span>
+            {lang === 'fr' ? p.labelFr : p.labelEn}
           </h3>
           <p class="text-ink-subtle text-xs">
-            <span data-i18n-lang="fr">{p.descFr}</span>
-            <span data-i18n-lang="en">{p.descEn}</span>
+            {lang === 'fr' ? p.descFr : p.descEn}
           </p>
         </div>
       ))}
@@ -118,28 +134,30 @@ const circuitItems = [
     <!-- IRM organisationnel -->
     <div class="bg-surface-alt border border-border-subtle rounded-xl p-6 lg:p-8 mb-12">
       <h3 class="text-xl font-display font-bold text-ink mb-3">
-        <span data-i18n-lang="fr">Votre IRM<span class="plus-accent">+</span> organisationnel</span>
-        <span data-i18n-lang="en">Your organizational MRI<span class="plus-accent">+</span></span>
+        {lang === 'fr' ? (
+          <Fragment>Votre IRM<span class="plus-accent">+</span> organisationnel</Fragment>
+        ) : (
+          <Fragment>Your organizational MRI<span class="plus-accent">+</span></Fragment>
+        )}
       </h3>
       <p class="text-ink-subtle text-sm leading-relaxed max-w-3xl">
-        <span data-i18n-lang="fr">Votre lecture en temps réel de votre système vivant de mobilisation. La dynamique réelle de votre collectif, ses tensions, ses leviers, ses zones de désengagement, ses comportements décisifs — au plus près du quotidien métier. Pour co-construire la puissance de la Méthode, pas l'inverse.</span>
-        <span data-i18n-lang="en">Your real-time reading of your living mobilization system. The real dynamics of your collective — its tensions, levers, disengagement zones, decisive behaviours — as close as possible to daily work reality.</span>
+        {lang === 'fr'
+          ? "Votre lecture en temps réel de votre système vivant de mobilisation. La dynamique réelle de votre collectif, ses tensions, ses leviers, ses zones de désengagement, ses comportements décisifs — au plus près du quotidien métier. Pour co-construire la puissance de la Méthode, pas l'inverse."
+          : 'Your real-time reading of your living mobilization system. The real dynamics of your collective — its tensions, levers, disengagement zones, decisive behaviours — as close as possible to daily work reality.'}
       </p>
     </div>
 
     <!-- Circuit énergétique -->
     <div class="text-center">
       <h3 class="text-sm uppercase tracking-[0.15em] text-ink-faint font-semibold mb-6">
-        <span data-i18n-lang="fr">Circuit de mobilisation</span>
-        <span data-i18n-lang="en">Mobilization circuit</span>
+        {lang === 'fr' ? 'Circuit de mobilisation' : 'Mobilization circuit'}
       </h3>
       <div class="flex flex-wrap justify-center gap-3">
         {circuitItems.map((c, i) => (
           <div class="flex items-center gap-2">
             <span class="w-3 h-3 rounded-full" style={`background:${c.color}`}></span>
             <span class="text-ink-muted text-sm font-semibold">
-              <span data-i18n-lang="fr">{c.labelFr}</span>
-              <span data-i18n-lang="en">{c.labelEn}</span>
+              {lang === 'fr' ? c.labelFr : c.labelEn}
             </span>
             {i < circuitItems.length - 1 && <span class="text-ink-disabled ml-1">→</span>}
           </div>

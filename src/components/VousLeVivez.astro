@@ -4,8 +4,14 @@
  * Page d'arrivée — Logo batterie, taglines animées, 6+1 onglets énergie
  * Porte le contenu de l'ancien Hero.astro + Situations.astro
  */
-interface Props { fr: any; en: any; }
-const { fr, en } = Astro.props;
+import type { Lang } from '../i18n/translations';
+interface Props {
+  lang: Lang;
+  fr?: any;
+  en?: any;
+}
+const { lang, fr, en } = Astro.props;
+const t = lang === 'fr' ? fr : en;
 
 const energyColors = ['#DC2626','#EAB308','#C9A56E','#22C55E','#166534','#3B82F6','#8B5CF6'];
 const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
@@ -21,14 +27,12 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
     <div class="flex flex-wrap justify-center text-center gap-4 mb-4 text-xs text-ink-faint">
       <div class="flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-        <span data-i18n-lang="fr">EC2R Conseil depuis le 1er juillet 2021 —</span>
-        <span data-i18n-lang="en">EC2R Conseil since July 1, 2021 —</span>
+        <span>{lang === 'fr' ? 'EC2R Conseil depuis le 1er juillet 2021 —' : 'EC2R Conseil since July 1, 2021 —'}</span>
         <span id="counter-ec2r" class="font-mono text-ink-subtle"></span>
       </div>
       <div class="flex items-center gap-2">
         <span class="w-2 h-2 rounded-full bg-accent animate-pulse"></span>
-        <span data-i18n-lang="fr">Plateforme augmentée depuis le 11 mars 2026 —</span>
-        <span data-i18n-lang="en">Augmented platform since March 11, 2026 —</span>
+        <span>{lang === 'fr' ? 'Plateforme augmentée depuis le 11 mars 2026 —' : 'Augmented platform since March 11, 2026 —'}</span>
         <span id="counter-proto" class="font-mono text-ink-subtle"></span>
       </div>
     </div>
@@ -39,15 +43,21 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
       <div>
         <!-- Phrase d'accroche unique dominante -->
         <p class="text-2xl md:text-3xl lg:text-4xl font-display text-ink leading-tight max-w-lg mb-6">
-          <span data-i18n-lang="fr">Vos collectifs ont besoin d'énergie et de savoir comment passer<span class="plus-accent">+</span> vite à l'action.</span>
-          <span data-i18n-lang="en">Your collectives need energy and to know how to take action faster<span class="plus-accent">+</span>.</span>
+          {lang === 'fr' ? (
+            <Fragment>Vos collectifs ont besoin d'énergie et de savoir comment passer<span class="plus-accent">+</span> vite à l'action.</Fragment>
+          ) : (
+            <Fragment>Your collectives need energy and to know how to take action faster<span class="plus-accent">+</span>.</Fragment>
+          )}
         </p>
 
         <!-- Tagline EC2R animée -->
         <div class="mb-6">
           <h1 class="text-2xl md:text-3xl lg:text-4xl font-display font-extrabold text-ink leading-[1.1] mb-2">
-            <span data-i18n-lang="fr">La méthode<span class="plus-accent">+</span> vivante</span>
-            <span data-i18n-lang="en">The living method<span class="plus-accent">+</span></span>
+            {lang === 'fr' ? (
+              <Fragment>La méthode<span class="plus-accent">+</span> vivante</Fragment>
+            ) : (
+              <Fragment>The living method<span class="plus-accent">+</span></Fragment>
+            )}
             <br/>
             <span class="energy-gradient-text">EC²R</span>
           </h1>
@@ -56,12 +66,12 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
             <div class="flex items-center gap-2 opacity-0 ec2r-line" style="transition:opacity 0.3s">
               <span class="text-accent font-bold text-xl w-7">E</span>
               <span class="text-ink-disabled">···</span>
-              <span class="text-ink-muted"><span class="plus-accent">+</span>Énergies</span>
+              <span class="text-ink-muted"><span class="plus-accent">+</span>{lang === 'fr' ? 'Énergies' : 'Energies'}</span>
             </div>
             <div class="flex items-center gap-2 opacity-0 ec2r-line" style="transition:opacity 0.3s">
               <span class="text-accent font-bold text-xl w-7">C</span>
               <span class="text-ink-disabled">···</span>
-              <span class="text-ink-muted"><span class="plus-accent">+</span>Collectives</span>
+              <span class="text-ink-muted"><span class="plus-accent">+</span>{lang === 'fr' ? 'Collectives' : 'Collective'}</span>
             </div>
             <div class="flex items-center gap-2 opacity-0 ec2r-line" style="transition:opacity 0.3s">
               <span class="text-accent font-bold text-xl w-7">C</span>
@@ -79,42 +89,40 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
         <!-- Waze tagline (tout en blanc, "Le Waze" en gradient énergie) -->
         <p class="text-lg md:text-xl text-ink leading-relaxed max-w-lg mb-3 font-semibold">
           <span class="line-through decoration-ink-muted/60">
-            <span data-i18n-lang="fr">Pas le Netflix </span>
-            <span data-i18n-lang="en">Not the Netflix of </span>
-            <strong id="netflix-word" class="text-ink">de la formation</strong>.
+            <span>{lang === 'fr' ? 'Pas le Netflix ' : 'Not the Netflix of '}</span>
+            <strong id="netflix-word" class="text-ink">{lang === 'fr' ? 'de la formation' : 'training'}</strong>.
           </span><br/>
-          <span class="energy-gradient-text font-bold" data-i18n-lang="fr">Le Waze </span>
-          <span class="energy-gradient-text font-bold" data-i18n-lang="en">The Waze of </span>
-          <strong id="waze-word" class="text-ink">de la mobilisation collective</strong>.
+          <span class="energy-gradient-text font-bold">{lang === 'fr' ? 'Le Waze ' : 'The Waze of '}</span>
+          <strong id="waze-word" class="text-ink">{lang === 'fr' ? 'de la mobilisation collective' : 'collective mobilisation'}</strong>.
         </p>
 
         <!-- IRM baseline -->
         <p class="text-sm text-ink-faint leading-relaxed max-w-lg mb-6">
-          <span data-i18n-lang="fr">Votre IRM<span class="plus-accent">+</span> organisationnel qui mesure vos énergies collectives, identifie <span class="plus-accent">+</span> chirurgicalement vos leviers de mobilisation et accompagne votre passage à l'acte jusqu'au micro-comportement dans vos situations quotidiennes.</span>
-          <span data-i18n-lang="en">Your organizational MRI<span class="plus-accent">+</span> that measures your collective energies, identifies <span class="plus-accent">+</span> surgically your mobilization levers and supports your transition to action down to micro-behaviours in your daily situations.</span>
+          {lang === 'fr' ? (
+            <Fragment>Votre IRM<span class="plus-accent">+</span> organisationnel qui mesure vos énergies collectives, identifie <span class="plus-accent">+</span> chirurgicalement vos leviers de mobilisation et accompagne votre passage à l'acte jusqu'au micro-comportement dans vos situations quotidiennes.</Fragment>
+          ) : (
+            <Fragment>Your organizational MRI<span class="plus-accent">+</span> that measures your collective energies, identifies <span class="plus-accent">+</span> surgically your mobilization levers and supports your transition to action down to micro-behaviours in your daily situations.</Fragment>
+          )}
         </p>
       </div>
 
       <!-- Droite : 6+1 onglets énergie -->
       <div>
         <p class="text-sm text-ink mb-3 font-medium">
-          <span data-i18n-lang="fr">Créez des collectifs qui agissent réellement — pas juste qui veulent faire ou se sentent bien au travail.</span>
-          <span data-i18n-lang="en">Build collectives that truly act — not just want to or feel good at work.</span>
+          {lang === 'fr' ? 'Créez des collectifs qui agissent réellement — pas juste qui veulent faire ou se sentent bien au travail.' : 'Build collectives that truly act — not just want to or feel good at work.'}
         </p>
 
         <div class="space-y-1.5" id="situations-accordion">
-          {fr.situations.map((s: any, i: number) => (
+          {t.situations.map((s: any, i: number) => (
             <div class="sit-item rounded-lg overflow-hidden bg-surface-raised border border-border-subtle transition-all duration-200 hover:bg-surface-raised hover:border-accent/40 hover:shadow-lg hover:shadow-energy-green/5" data-idx={i}>
               <button class="sit-trigger w-full text-left px-3 py-3 flex items-center gap-2.5 group cursor-pointer" aria-expanded="false">
                 <span class="shrink-0 w-7 h-8 flex items-center justify-center rounded border text-[10px] font-bold transition-colors"
                       style={`border-color: ${energyColors[i]}60; color: ${energyColors[i]}; background: ${energyColors[i]}12`}>
                   {energyLabels[i]}
                 </span>
-                <span class="text-ink text-sm leading-snug flex-1 sit-accroche font-medium"
-                      data-fr={s.accroche} data-en={en.situations[i].accroche}>{s.accroche}</span>
+                <span class="text-ink text-sm leading-snug flex-1 sit-accroche font-medium">{s.accroche}</span>
                 <span class="sit-cta shrink-0 hidden md:flex items-center gap-1 text-[10px] uppercase tracking-wider text-accent/60 group-hover:text-accent font-semibold transition-colors">
-                  <span data-i18n-lang="fr">Voir</span>
-                  <span data-i18n-lang="en">View</span>
+                  {lang === 'fr' ? 'Voir' : 'View'}
                 </span>
                 <span class="sit-arrow shrink-0 text-accent/70 group-hover:text-accent group-hover:translate-y-0.5 transition-all">
                   <svg width="16" height="16" viewBox="0 0 14 14" fill="none">
@@ -126,31 +134,31 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
               <div class="sit-panel hidden">
                 <div class="flex border-t border-border-subtle text-xs">
                   <button class="sit-tab active-tab flex-1 py-1.5 px-2 text-center font-semibold tracking-wide transition-colors" data-tab="0">
-                    <span data-i18n-lang="fr">Ce qui se passe</span><span data-i18n-lang="en">What's happening</span>
+                    {lang === 'fr' ? 'Ce qui se passe' : "What's happening"}
                   </button>
                   <button class="sit-tab flex-1 py-1.5 px-2 text-center font-semibold tracking-wide transition-colors" data-tab="1">
-                    <span data-i18n-lang="fr">Vous avez essayé — ou vous ne voulez pas vous limiter à</span><span data-i18n-lang="en">You've tried — or you don't want to limit yourself to</span>
+                    {lang === 'fr' ? 'Vous avez essayé — ou vous ne voulez pas vous limiter à' : "You've tried — or you don't want to limit yourself to"}
                   </button>
                   <button class="sit-tab flex-1 py-1.5 px-2 text-center font-semibold tracking-wide transition-colors" data-tab="2">
-                    <span data-i18n-lang="fr">Notre réponse</span><span data-i18n-lang="en">Our answer</span>
+                    {lang === 'fr' ? 'Notre réponse' : 'Our answer'}
                   </button>
                 </div>
                 <div class="sit-content border-t border-border-subtle relative" style="min-height:80px">
                   <div class="sit-pane px-3 py-2.5 absolute inset-0 transition-opacity" data-pane="0" style="opacity:1;pointer-events:auto">
-                    <p class="text-ink-faint text-sm leading-relaxed sit-passe" data-fr={s.ceQuiSePasse} data-en={en.situations[i].ceQuiSePasse}>{s.ceQuiSePasse}</p>
+                    <p class="text-ink-faint text-sm leading-relaxed sit-passe">{s.ceQuiSePasse}</p>
                   </div>
                   <div class="sit-pane px-3 py-2.5 absolute inset-0 transition-opacity" data-pane="1" style="opacity:0;pointer-events:none">
-                    <ul class="space-y-0.5 mb-4 sit-essaye-list" data-fr={JSON.stringify(s.essaye)} data-en={JSON.stringify(en.situations[i].essaye)}>
+                    <ul class="space-y-0.5 mb-4 sit-essaye-list">
                       {s.essaye.map((e: string) => (
                         <li class="text-ink-subtle text-sm flex items-start gap-1.5">
                           <span class="text-ink-muted mt-0.5 shrink-0">–</span><span>{e}</span>
                         </li>
                       ))}
                     </ul>
-                    <p class="text-ink-subtle text-xs italic sit-conclusion mt-3 mb-2 border-l-2 border-accent/30 pl-3" data-fr={s.essayeConclusion} data-en={en.situations[i].essayeConclusion}>{s.essayeConclusion}</p>
+                    <p class="text-ink-subtle text-xs italic sit-conclusion mt-3 mb-2 border-l-2 border-accent/30 pl-3">{s.essayeConclusion}</p>
                   </div>
                   <div class="sit-pane px-3 py-2.5 absolute inset-0 transition-opacity" data-pane="2" style="opacity:0;pointer-events:none">
-                    <p class="text-ink-muted text-sm leading-relaxed sit-reponse" data-fr={s.reponse} data-en={en.situations[i].reponse}>{s.reponse}</p>
+                    <p class="text-ink-muted text-sm leading-relaxed sit-reponse">{s.reponse}</p>
                   </div>
                 </div>
               </div>
@@ -162,9 +170,8 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
 
     <!-- CTA scroll vers la méthode -->
     <div class="text-center mt-4">
-      <a href="#methode-start" id="cta-voir-methode" class="inline-flex items-center gap-1.5 text-accent text-xs font-semibold uppercase tracking-wider hover:text-accent/80 transition-colors animate-bounce" aria-label="Voir la méthode">
-        <span data-i18n-lang="fr">Voir la méthode</span>
-        <span data-i18n-lang="en">See the method</span>
+      <a href="#methode-start" id="cta-voir-methode" class="inline-flex items-center gap-1.5 text-accent text-xs font-semibold uppercase tracking-wider hover:text-accent/80 transition-colors animate-bounce" aria-label={lang === 'fr' ? 'Voir la méthode' : 'See the method'}>
+        <span>{lang === 'fr' ? 'Voir la méthode' : 'See the method'}</span>
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
       </a>
     </div>
@@ -267,13 +274,14 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
 
   // ── Netflix / Waze cycling ──
   const data = document.getElementById('vlv-cycling-data')!;
-  const nFr: string[] = JSON.parse(data.dataset.netflixFr||'[]');
-  const wFr: string[] = JSON.parse(data.dataset.wazeFr||'[]');
+  const currentLang = document.documentElement.getAttribute('data-lang') || 'fr';
+  const nWords: string[] = JSON.parse((currentLang === 'en' ? data.dataset.netflixEn : data.dataset.netflixFr) || '[]');
+  const wWords: string[] = JSON.parse((currentLang === 'en' ? data.dataset.wazeEn : data.dataset.wazeFr) || '[]');
   const nEl = document.getElementById('netflix-word');
   const wEl = document.getElementById('waze-word');
   let ni=0, wi=0;
-  setInterval(()=>{if(!nEl)return;nEl.style.opacity='0';setTimeout(()=>{nEl.textContent=nFr[ni];nEl.style.opacity='1';ni=(ni+1)%nFr.length;},200);},2500);
-  setInterval(()=>{if(!wEl)return;wEl.style.opacity='0';setTimeout(()=>{wEl.textContent=wFr[wi];wEl.style.opacity='1';wi=(wi+1)%wFr.length;},200);},3200);
+  setInterval(()=>{if(!nEl||!nWords.length)return;nEl.style.opacity='0';setTimeout(()=>{nEl.textContent=nWords[ni];nEl.style.opacity='1';ni=(ni+1)%nWords.length;},200);},2500);
+  setInterval(()=>{if(!wEl||!wWords.length)return;wEl.style.opacity='0';setTimeout(()=>{wEl.textContent=wWords[wi];wEl.style.opacity='1';wi=(wi+1)%wWords.length;},200);},3200);
 
   // ── Accordion ──
   document.addEventListener('DOMContentLoaded', () => {
@@ -303,17 +311,6 @@ const energyLabels = ['E1','E2','E3','E4','E5','E6','↗'];
       content.addEventListener('touchstart',(e:any)=>{sx=e.changedTouches[0].clientX},{passive:true});
       content.addEventListener('touchend',(e:any)=>{const dx=e.changedTouches[0].clientX-sx;if(Math.abs(dx)<40)return;switchPane(dx<0?Math.min(cur+1,2):Math.max(cur-1,0));},{passive:true});
     });
-
-    // i18n situations
-    function updateSitLang(lang:string){
-      document.querySelectorAll('.sit-accroche').forEach((el:any)=>{el.textContent=el.dataset[lang]||el.dataset.fr;});
-      document.querySelectorAll('.sit-passe').forEach((el:any)=>{el.textContent=el.dataset[lang]||el.dataset.fr;});
-      document.querySelectorAll('.sit-conclusion').forEach((el:any)=>{el.textContent=el.dataset[lang]||el.dataset.fr;});
-      document.querySelectorAll('.sit-reponse').forEach((el:any)=>{el.textContent=el.dataset[lang]||el.dataset.fr;});
-      document.querySelectorAll('.sit-essaye-list').forEach((el:any)=>{const items=JSON.parse(el.dataset[lang]||el.dataset.fr);el.innerHTML=items.map((e:string)=>`<li class="text-ink-subtle text-sm flex items-start gap-1.5"><span class="text-ink-muted mt-0.5 shrink-0">–</span><span>${e}</span></li>`).join('');});
-    }
-    new MutationObserver(()=>updateSitLang(document.documentElement.getAttribute('data-lang')||'fr')).observe(document.documentElement,{attributes:true,attributeFilter:['data-lang']});
-    updateSitLang(document.documentElement.getAttribute('data-lang')||'fr');
 
     // CTA "Voir la méthode" : scroll dans .universe-scroll (overflow:hidden global empêche scroll natif)
     const ctaVoirMethode = document.getElementById('cta-voir-methode');

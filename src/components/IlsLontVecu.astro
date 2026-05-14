@@ -10,8 +10,14 @@
  * 4. Musée / Timeline
  * 5. LinkedIn cards
  */
-interface Props { fr: any; en: any; }
-const { fr, en } = Astro.props;
+import type { Lang } from '../i18n/translations';
+interface Props {
+  lang: Lang;
+  fr?: any;
+  en?: any;
+}
+const { lang, fr, en } = Astro.props;
+const t = lang === 'fr' ? fr : en;
 
 import { testimonials, sectorLabels, impactLabels, allTags, allSectors, type Sector, type ImpactLevel } from '../data/testimonials';
 import { fieldMoments, fieldMomentColors, fieldMomentLabels } from '../data/onTerrain';
@@ -87,9 +93,8 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
 
     <!-- Indicateur scroll : descendre vers le mur de témoignages -->
     <div class="text-center -mb-8">
-      <a href="#temoignages-wall" class="inline-flex items-center gap-2 text-accent text-xs font-semibold uppercase tracking-wider hover:text-accent/80 transition-colors animate-bounce" aria-label="Voir les témoignages">
-        <span data-i18n-lang="fr">Descendre vers les témoignages</span>
-        <span data-i18n-lang="en">Scroll to testimonials</span>
+      <a href="#temoignages-wall" class="inline-flex items-center gap-2 text-accent text-xs font-semibold uppercase tracking-wider hover:text-accent/80 transition-colors animate-bounce" aria-label={lang === 'fr' ? 'Voir les témoignages' : 'See testimonials'}>
+        {lang === 'fr' ? 'Descendre vers les témoignages' : 'Scroll to testimonials'}
         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
       </a>
     </div>
@@ -102,13 +107,15 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
       <!-- Word cloud dynamique (2/3) -->
       <div class="lg:col-span-2 bg-surface-alt border border-border-subtle rounded-xl p-6">
         <h3 class="font-display font-semibold text-ink text-lg mb-4">
-          <span data-i18n-lang="fr">Ce que retiennent ceux qui ont vécu la <strong class="text-accent">Méthode</strong></span>
-          <span data-i18n-lang="en">What those who lived the <strong class="text-accent">Method</strong> retain</span>
+          {lang === 'fr' ? (
+            <Fragment>Ce que retiennent ceux qui ont vécu la <strong class="text-accent">Méthode</strong></Fragment>
+          ) : (
+            <Fragment>What those who lived the <strong class="text-accent">Method</strong> retain</Fragment>
+          )}
         </h3>
         <div id="word-cloud-top" class="relative h-[160px] md:h-[200px] overflow-hidden"></div>
         <p class="text-ink-faint text-xs mt-3 italic">
-          <span data-i18n-lang="fr">Mots-clés en temps réel — extraits des témoignages spontanés</span>
-          <span data-i18n-lang="en">Real-time keywords — extracted from spontaneous testimonials</span>
+          {lang === 'fr' ? 'Mots-clés en temps réel — extraits des témoignages spontanés' : 'Real-time keywords — extracted from spontaneous testimonials'}
         </p>
       </div>
       <!-- Bannière "Ce site est vivant" — clic pour développer -->
@@ -116,21 +123,26 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
         <summary class="cursor-pointer list-none">
           <div class="flex items-center justify-between mb-3">
             <h3 class="text-xl md:text-2xl font-display font-extrabold text-accent leading-tight">
-              <span data-i18n-lang="fr">Ce site est vivant</span>
-              <span data-i18n-lang="en">This site is alive</span>
+              {lang === 'fr' ? 'Ce site est vivant' : 'This site is alive'}
             </h3>
             <svg class="w-5 h-5 text-accent/70 group-open:rotate-180 transition-transform shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
             </svg>
           </div>
           <p class="text-ink-muted text-base leading-snug">
-            <span data-i18n-lang="fr">Pourquoi ? <span class="text-accent/80 font-semibold">Cliquez pour lire.</span></span>
-            <span data-i18n-lang="en">Why? <span class="text-accent/80 font-semibold">Click to read.</span></span>
+            {lang === 'fr' ? (
+              <Fragment>Pourquoi ? <span class="text-accent/80 font-semibold">Cliquez pour lire.</span></Fragment>
+            ) : (
+              <Fragment>Why? <span class="text-accent/80 font-semibold">Click to read.</span></Fragment>
+            )}
           </p>
         </summary>
         <p class="text-ink-subtle text-sm leading-relaxed mt-4 pt-4 border-t border-accent/10">
-          <span data-i18n-lang="fr">Il documente sa propre construction et notre dynamique de mobilisation. Pas un résultat figé — l'illustration du processus vivant. Nous avons utilisé la puissance<span class="plus-accent">+</span> dirigée de l'IA pour partir du réel et passer d'un savoir-faire artisanal à un mode augmenté. On essaye, on expérimente, on traduit, on améliore.</span>
-          <span data-i18n-lang="en">It documents its own construction and our mobilization dynamics. Not a frozen result — the illustration of the living process. We used the directed<span class="plus-accent">+</span> power of AI to start from reality and move from artisanal know-how to augmented mode.</span>
+          {lang === 'fr' ? (
+            <Fragment>Il documente sa propre construction et notre dynamique de mobilisation. Pas un résultat figé — l'illustration du processus vivant. Nous avons utilisé la puissance<span class="plus-accent">+</span> dirigée de l'IA pour partir du réel et passer d'un savoir-faire artisanal à un mode augmenté. On essaye, on expérimente, on traduit, on améliore.</Fragment>
+          ) : (
+            <Fragment>It documents its own construction and our mobilization dynamics. Not a frozen result — the illustration of the living process. We used the directed<span class="plus-accent">+</span> power of AI to start from reality and move from artisanal know-how to augmented mode.</Fragment>
+          )}
         </p>
       </details>
     </section>
@@ -141,12 +153,18 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
     <section>
       <div class="mb-8">
         <h2 class="text-2xl md:text-3xl lg:text-4xl font-display font-extrabold text-ink mb-3">
-          <span data-i18n-lang="fr">Ils l'ont vécu, la <strong class="text-accent">Méthode</strong></span>
-          <span data-i18n-lang="en">They lived the <strong class="text-accent">Method</strong></span>
+          {lang === 'fr' ? (
+            <Fragment>Ils l'ont vécu, la <strong class="text-accent">Méthode</strong></Fragment>
+          ) : (
+            <Fragment>They lived the <strong class="text-accent">Method</strong></Fragment>
+          )}
         </h2>
         <p class="text-base text-ink-subtle leading-relaxed max-w-3xl mb-6">
-          <span data-i18n-lang="fr">Pas de promesses marketing, des résultats concrets avec les mots de nos clients depuis l'origine. Pas de témoignages sollicités, pas de citations anonymisées — ce sont les mots publiés <strong>spontanément</strong> par des dirigeants, des managers de terrain, des leaders. Des données <span class="plus-accent">+</span> mesurables, des comportements <span class="plus-accent">+</span> observables, un impact déjà <span class="plus-accent">+</span> réel.</span>
-          <span data-i18n-lang="en">No marketing promises, concrete results in our clients' own words from the start. No solicited testimonials, no anonymized quotes — words published <strong>spontaneously</strong> by executives, field managers, leaders. Measurable<span class="plus-accent">+</span> data, observable<span class="plus-accent">+</span> behaviours, already<span class="plus-accent">+</span> real impact.</span>
+          {lang === 'fr' ? (
+            <Fragment>Pas de promesses marketing, des résultats concrets avec les mots de nos clients depuis l'origine. Pas de témoignages sollicités, pas de citations anonymisées — ce sont les mots publiés <strong>spontanément</strong> par des dirigeants, des managers de terrain, des leaders. Des données <span class="plus-accent">+</span> mesurables, des comportements <span class="plus-accent">+</span> observables, un impact déjà <span class="plus-accent">+</span> réel.</Fragment>
+          ) : (
+            <Fragment>No marketing promises, concrete results in our clients' own words from the start. No solicited testimonials, no anonymized quotes — words published <strong>spontaneously</strong> by executives, field managers, leaders. Measurable<span class="plus-accent">+</span> data, observable<span class="plus-accent">+</span> behaviours, already<span class="plus-accent">+</span> real impact.</Fragment>
+          )}
         </p>
 
         <!-- Stats bar -->
@@ -154,22 +172,31 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
           <div class="flex items-center gap-2">
             <span class="text-3xl font-display font-bold text-ink">{testimonials.length}</span>
             <span class="text-sm text-ink-subtle">
-              <span data-i18n-lang="fr">témoignages<br/>vérifiables</span>
-              <span data-i18n-lang="en">verifiable<br/>testimonials</span>
+              {lang === 'fr' ? (
+                <Fragment>témoignages<br/>vérifiables</Fragment>
+              ) : (
+                <Fragment>verifiable<br/>testimonials</Fragment>
+              )}
             </span>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-3xl font-display font-bold text-ink">{allSectors.length}</span>
             <span class="text-sm text-ink-subtle">
-              <span data-i18n-lang="fr">secteurs<br/>d'activité</span>
-              <span data-i18n-lang="en">sectors<br/>of activity</span>
+              {lang === 'fr' ? (
+                <Fragment>secteurs<br/>d'activité</Fragment>
+              ) : (
+                <Fragment>sectors<br/>of activity</Fragment>
+              )}
             </span>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-3xl font-display font-bold text-accent">100%</span>
             <span class="text-sm text-ink-subtle">
-              <span data-i18n-lang="fr">non sollicités<br/>publics sur LinkedIn</span>
-              <span data-i18n-lang="en">unsolicited<br/>public on LinkedIn</span>
+              {lang === 'fr' ? (
+                <Fragment>non sollicités<br/>publics sur LinkedIn</Fragment>
+              ) : (
+                <Fragment>unsolicited<br/>public on LinkedIn</Fragment>
+              )}
             </span>
           </div>
         </div>
@@ -179,8 +206,7 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
       <div class="mb-6" id="temoignages-tags">
         <div class="flex flex-wrap gap-2">
           <button class="tag-filter active px-3 py-2 rounded-full text-xs font-medium border transition-all duration-300 bg-accent/10 border-accent/30 text-accent" data-tag="all">
-            <span data-i18n-lang="fr">Tous</span>
-            <span data-i18n-lang="en">All</span>
+            {lang === 'fr' ? 'Tous' : 'All'}
           </button>
           {topTags.map(([tag, freq]) => (
             <button
@@ -197,8 +223,7 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
       <div class="mb-6" id="temoignages-sectors">
         <div class="flex flex-wrap gap-2">
           <button class="sector-tab active px-3 py-2 rounded-full text-xs font-medium border transition-all duration-300 bg-accent/10 border-accent/30 text-accent" data-sector="all">
-            <span data-i18n-lang="fr">Tous les secteurs</span>
-            <span data-i18n-lang="en">All sectors</span>
+            {lang === 'fr' ? 'Tous les secteurs' : 'All sectors'}
           </button>
           {allSectors.map(sector => {
             const count = testimonials.filter(t => t.sector === sector).length;
@@ -207,8 +232,7 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
                 class="sector-tab px-3 py-2 rounded-full text-xs border transition-all duration-300 bg-surface-alt text-ink-subtle border-border-subtle hover:border-border-strong hover:text-ink-muted"
                 data-sector={sector}
               >
-                <span data-i18n-lang="fr">{sectorLabels[sector].fr}</span>
-                <span data-i18n-lang="en">{sectorLabels[sector].en}</span>
+                {sectorLabels[sector][lang]}
                 <span class="text-[10px] text-ink-disabled ml-1">{count}</span>
               </button>
             );
@@ -218,82 +242,79 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
 
       <!-- THE WALL (masonry layout) -->
       <div id="temoignages-wall" class="columns-1 md:columns-2 lg:columns-3 gap-4 space-y-4">
-        {orderedTestimonials.map((t) => (
+        {orderedTestimonials.map((tm) => (
           <div
             class="temoignage-card break-inside-avoid bg-surface-alt rounded-xl p-5 border border-border-subtle
                    hover:border-border hover:shadow-lg hover:shadow-brand-anchor/5
                    transition-all duration-300"
-            data-tags={JSON.stringify(t.tags)}
-            data-sector={t.sector}
-            data-impact={t.impact}
+            data-tags={JSON.stringify(tm.tags)}
+            data-sector={tm.sector}
+            data-impact={tm.impact}
           >
             <!-- Header: photo + name -->
             <div class="flex items-start gap-3 mb-3">
-              {t.linkedinUrl ? (
-                <a href={t.linkedinUrl} target="_blank" rel="noopener noreferrer"
+              {tm.linkedinUrl ? (
+                <a href={tm.linkedinUrl} target="_blank" rel="noopener noreferrer"
                    class="flex-shrink-0 w-10 h-10 rounded-full bg-surface-raised border border-border-subtle flex items-center justify-center overflow-hidden hover:border-accent/40 transition-colors group"
-                   title={`Voir le profil LinkedIn de ${t.name}`}>
-                  {t.photoUrl ? (
-                    <img src={t.photoUrl} alt={t.name} class="w-full h-full object-cover rounded-full" loading="lazy" />
+                   title={lang === 'fr' ? `Voir le profil LinkedIn de ${tm.name}` : `View ${tm.name}'s LinkedIn profile`}>
+                  {tm.photoUrl ? (
+                    <img src={tm.photoUrl} alt={tm.name} class="w-full h-full object-cover rounded-full" loading="lazy" />
                   ) : (
                     <span class="text-ink-faint text-xs font-bold group-hover:text-accent transition-colors">
-                      {t.name.split(' ').map(w => w[0]).filter(c => c && c === c.toUpperCase()).slice(0, 2).join('')}
+                      {tm.name.split(' ').map(w => w[0]).filter(c => c && c === c.toUpperCase()).slice(0, 2).join('')}
                     </span>
                   )}
                 </a>
               ) : (
                 <span class="flex-shrink-0 w-10 h-10 rounded-full bg-surface-raised border border-border-subtle flex items-center justify-center overflow-hidden">
-                  {t.photoUrl ? (
-                    <img src={t.photoUrl} alt={t.name} class="w-full h-full object-cover rounded-full" loading="lazy" />
+                  {tm.photoUrl ? (
+                    <img src={tm.photoUrl} alt={tm.name} class="w-full h-full object-cover rounded-full" loading="lazy" />
                   ) : (
                     <span class="text-ink-faint text-xs font-bold">
-                      {t.name.split(' ').map(w => w[0]).filter(c => c && c === c.toUpperCase()).slice(0, 2).join('')}
+                      {tm.name.split(' ').map(w => w[0]).filter(c => c && c === c.toUpperCase()).slice(0, 2).join('')}
                     </span>
                   )}
                 </span>
               )}
               <div class="min-w-0">
-                {t.linkedinUrl ? (
-                  <a href={t.linkedinUrl} target="_blank" rel="noopener noreferrer"
+                {tm.linkedinUrl ? (
+                  <a href={tm.linkedinUrl} target="_blank" rel="noopener noreferrer"
                      class="font-display font-semibold text-ink text-sm hover:text-accent transition-colors block truncate">
-                    {t.name}
+                    {tm.name}
                   </a>
                 ) : (
-                  <span class="font-display font-semibold text-ink text-sm block truncate">{t.name}</span>
+                  <span class="font-display font-semibold text-ink text-sm block truncate">{tm.name}</span>
                 )}
-                <p class="text-ink-subtle text-xs leading-snug">{t.title}</p>
-                {t.company && <p class="text-ink-faint text-xs">{t.company}</p>}
+                <p class="text-ink-subtle text-xs leading-snug">{tm.title}</p>
+                {tm.company && <p class="text-ink-faint text-xs">{tm.company}</p>}
               </div>
             </div>
 
             <!-- Badges -->
             <div class="flex flex-wrap gap-1.5 mb-3">
               <span class="inline-block text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full bg-surface-raised text-ink-subtle border border-border-subtle">
-                <span data-i18n-lang="fr">{sectorLabels[t.sector].fr}</span>
-                <span data-i18n-lang="en">{sectorLabels[t.sector].en}</span>
+                {sectorLabels[tm.sector][lang]}
               </span>
               <span class="inline-block text-[10px] font-medium px-2 py-0.5 rounded-full bg-surface-alt text-ink-faint">
-                <span data-i18n-lang="fr">{impactLabels[t.impact].fr}</span>
-                <span data-i18n-lang="en">{impactLabels[t.impact].en}</span>
+                {impactLabels[tm.impact][lang]}
               </span>
             </div>
 
             <!-- Quote -->
             <blockquote class="text-ink-muted text-sm leading-relaxed italic mb-3">
-              "{t.quote}"
+              "{tm.quote}"
             </blockquote>
 
             <!-- Footer: year + LinkedIn link -->
             <div class="flex items-center justify-between pt-3 border-t border-border-subtle">
-              <span class="text-xs text-ink-faint">{t.year}</span>
-              <a href={t.postUrl} target="_blank" rel="noopener noreferrer"
+              <span class="text-xs text-ink-faint">{tm.year}</span>
+              <a href={tm.postUrl} target="_blank" rel="noopener noreferrer"
                  class="text-xs text-accent/70 hover:text-accent flex items-center gap-1 transition-colors"
-                 title="Voir le post original sur LinkedIn">
+                 title={lang === 'fr' ? 'Voir le post original sur LinkedIn' : 'See the original post on LinkedIn'}>
                 <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                 </svg>
-                <span data-i18n-lang="fr">Voir sur LinkedIn</span>
-                <span data-i18n-lang="en">See on LinkedIn</span>
+                {lang === 'fr' ? 'Voir sur LinkedIn' : 'See on LinkedIn'}
               </a>
             </div>
           </div>
@@ -303,12 +324,10 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
       <!-- Empty state -->
       <div id="temoignages-empty" class="hidden text-center py-16">
         <p class="text-ink-subtle text-lg">
-          <span data-i18n-lang="fr">Aucun témoignage pour ce filtre.</span>
-          <span data-i18n-lang="en">No testimonials for this filter.</span>
+          {lang === 'fr' ? 'Aucun témoignage pour ce filtre.' : 'No testimonials for this filter.'}
         </p>
         <button class="mt-4 text-accent text-sm font-medium hover:underline" id="temoignages-reset">
-          <span data-i18n-lang="fr">Voir tous les témoignages</span>
-          <span data-i18n-lang="en">See all testimonials</span>
+          {lang === 'fr' ? 'Voir tous les témoignages' : 'See all testimonials'}
         </button>
       </div>
     </section>
@@ -321,13 +340,13 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
       <div class="flex items-center gap-3 mb-4">
         <div class="w-2 h-8 bg-gradient-to-b from-energy-green to-accent rounded-full"></div>
         <h3 class="font-display font-bold text-2xl text-ink">
-          <span data-i18n-lang="fr">Sur le terrain</span>
-          <span data-i18n-lang="en">In the field</span>
+          {lang === 'fr' ? 'Sur le terrain' : 'In the field'}
         </h3>
       </div>
       <p class="text-ink-subtle text-sm mb-6 ml-5 max-w-3xl">
-        <span data-i18n-lang="fr">Séminaires, keynotes, ateliers de mobilisation. Des preuves d'activité publiques — partenaires nommés, dates, contextes. Les retours des participants se trouvent dans le mur ci-dessus.</span>
-        <span data-i18n-lang="en">Off-sites, keynotes, mobilization workshops. Public proof of activity — named partners, dates, contexts. Participant feedback is in the wall above.</span>
+        {lang === 'fr'
+          ? "Séminaires, keynotes, ateliers de mobilisation. Des preuves d'activité publiques — partenaires nommés, dates, contextes. Les retours des participants se trouvent dans le mur ci-dessus."
+          : 'Off-sites, keynotes, mobilization workshops. Public proof of activity — named partners, dates, contexts. Participant feedback is in the wall above.'}
       </p>
 
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -342,28 +361,24 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
           >
             <div class="flex items-center justify-between mb-3">
               <span class={`inline-block text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border ${fieldMomentColors[m.univers]}`}>
-                <span data-i18n-lang="fr">{fieldMomentLabels[m.univers].fr}</span>
-                <span data-i18n-lang="en">{fieldMomentLabels[m.univers].en}</span>
+                {fieldMomentLabels[m.univers][lang]}
               </span>
               <time class="text-xs text-ink-faint font-medium" datetime={m.date}>
-                {new Date(m.date).toLocaleDateString('fr-FR', { month: 'short', year: 'numeric' })}
+                {new Date(m.date).toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-GB', { month: 'short', year: 'numeric' })}
               </time>
             </div>
 
             <h4 class="font-display font-semibold text-ink text-base leading-snug mb-2 group-hover:text-accent transition-colors">
-              <span data-i18n-lang="fr">{m.titleFr}</span>
-              <span data-i18n-lang="en">{m.titleEn}</span>
+              {lang === 'fr' ? m.titleFr : m.titleEn}
             </h4>
 
             <p class="text-ink-subtle text-sm mb-3">
-              <span data-i18n-lang="fr">{m.subtitleFr}</span>
-              <span data-i18n-lang="en">{m.subtitleEn}</span>
+              {lang === 'fr' ? m.subtitleFr : m.subtitleEn}
             </p>
 
             <p class="text-ink-faint text-xs leading-relaxed border-t border-border-subtle pt-3">
               <span class="font-medium text-ink-subtle">
-                <span data-i18n-lang="fr">Avec :</span>
-                <span data-i18n-lang="en">With:</span>
+                {lang === 'fr' ? 'Avec :' : 'With:'}
               </span>
               {' '}{m.partners}
             </p>
@@ -382,8 +397,7 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
                 )}
               </span>
               <span class="text-accent/70 group-hover:text-accent flex items-center gap-1 transition-colors">
-                <span data-i18n-lang="fr">Voir le post</span>
-                <span data-i18n-lang="en">See post</span>
+                {lang === 'fr' ? 'Voir le post' : 'See post'}
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
               </span>
             </div>
@@ -399,20 +413,21 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
       <div class="flex items-center gap-3 mb-4">
         <div class="w-2 h-8 bg-gradient-to-b from-energy-red to-energy-dark rounded-full"></div>
         <h3 class="font-display font-bold text-2xl text-ink">
-          <span data-i18n-lang="fr">{fr.preuves?.trajTitle || 'Trajectoires'}</span>
-          <span data-i18n-lang="en">{en.preuves?.trajTitle || 'Trajectories'}</span>
+          {t?.preuves?.trajTitle || (lang === 'fr' ? 'Trajectoires' : 'Trajectories')}
         </h3>
       </div>
       <p class="text-ink-subtle text-sm mb-2 ml-5">
-        <span data-i18n-lang="fr">{fr.preuves?.trajSub || 'Vidéos de témoignages réels'}</span>
-        <span data-i18n-lang="en">{en.preuves?.trajSub || 'Real testimonial videos'}</span>
+        {t?.preuves?.trajSub || (lang === 'fr' ? 'Vidéos de témoignages réels' : 'Real testimonial videos')}
       </p>
       <p class="text-ink-faint text-xs mb-6 ml-5 italic">
-        <span data-i18n-lang="fr">Vidéos de la trajectoire <strong class="text-accent not-italic">Méthode EC²R</strong> — pour l'avenir.</span>
-        <span data-i18n-lang="en">Videos of the <strong class="text-accent not-italic">EC²R Method</strong> trajectory — for the future.</span>
+        {lang === 'fr' ? (
+          <Fragment>Vidéos de la trajectoire <strong class="text-accent not-italic">Méthode EC²R</strong> — pour l'avenir.</Fragment>
+        ) : (
+          <Fragment>Videos of the <strong class="text-accent not-italic">EC²R Method</strong> trajectory — for the future.</Fragment>
+        )}
       </p>
       <div class="grid md:grid-cols-2 gap-6">
-        {(fr.preuves?.videos || []).slice(0, 2).map((video: any, i: number) => (
+        {(t?.preuves?.videos || fr?.preuves?.videos || []).slice(0, 2).map((video: any, i: number) => (
           <div class="group">
             <div class="relative aspect-video bg-surface-alt rounded-xl overflow-hidden shadow-lg group-hover:shadow-xl transition-shadow duration-300">
               <iframe src={`https://www.youtube-nocookie.com/embed/${videoIds[i]}`}
@@ -422,16 +437,13 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
             </div>
             <div class="mt-4">
               <h4 class="font-display font-semibold text-ink">
-                <span data-i18n-lang="fr">{video.title}</span>
-                <span data-i18n-lang="en">{en.preuves?.videos?.[i]?.title || video.title}</span>
+                {video.title}
               </h4>
               <p class="text-sm text-accent font-medium">
-                <span data-i18n-lang="fr">{video.subtitle}</span>
-                <span data-i18n-lang="en">{en.preuves?.videos?.[i]?.subtitle || video.subtitle}</span>
+                {video.subtitle}
               </p>
               <p class="text-sm text-ink-subtle mt-1">
-                <span data-i18n-lang="fr">{video.description}</span>
-                <span data-i18n-lang="en">{en.preuves?.videos?.[i]?.description || video.description}</span>
+                {video.description}
               </p>
             </div>
           </div>
@@ -446,33 +458,28 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
     <!-- ════════════════════════════════════════════════════════════════════════ -->
     <!-- 6. MUSÉE / TIMELINE -->
     <!-- ════════════════════════════════════════════════════════════════════════ -->
-    {fr.preuves?.museeTimeline && (
+    {t?.preuves?.museeTimeline && (
       <section class="bg-surface-alt border border-border-subtle rounded-2xl p-8 md:p-10">
         <p class="text-xs text-ink-faint uppercase tracking-wider font-medium mb-3">
-          <span data-i18n-lang="fr">{fr.preuves?.museeLabel || 'Musée'}</span>
-          <span data-i18n-lang="en">{en.preuves?.museeLabel || 'Museum'}</span>
+          {t.preuves?.museeLabel || (lang === 'fr' ? 'Musée' : 'Museum')}
         </p>
         <h4 class="font-display font-bold text-xl text-ink mb-3">
-          <span data-i18n-lang="fr">{fr.preuves?.museeTitle || 'Trajectoire énergétique'}</span>
-          <span data-i18n-lang="en">{en.preuves?.museeTitle || 'Energy trajectory'}</span>
+          {t.preuves?.museeTitle || (lang === 'fr' ? 'Trajectoire énergétique' : 'Energy trajectory')}
         </h4>
         <p class="text-ink-subtle leading-relaxed mb-8">
-          <span data-i18n-lang="fr">{fr.preuves?.museeSub || '2018 → 2025'}</span>
-          <span data-i18n-lang="en">{en.preuves?.museeSub || '2018 → 2025'}</span>
+          {t.preuves?.museeSub || '2018 → 2025'}
         </p>
 
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-          {fr.preuves.museeTimeline.map((item: any, i: number) => (
+          {t.preuves.museeTimeline.map((item: any, i: number) => (
             <div class={`${i === 5 ? 'ring-1 ring-accent/30 bg-green-500/[0.03]' : ''} rounded-lg p-4`}>
               <div class={`h-1 ${timelineColors[i]} rounded-full mb-3`}></div>
               <p class={`font-display font-bold text-lg ${timelineTextColors[i]}`}>{item.year}</p>
               <p class="font-display font-semibold text-ink text-sm mb-1">
-                <span data-i18n-lang="fr">{item.label}</span>
-                <span data-i18n-lang="en">{en.preuves?.museeTimeline?.[i]?.label || item.label}</span>
+                {item.label}
               </p>
               <p class="text-ink-subtle text-xs leading-relaxed">
-                <span data-i18n-lang="fr">{item.sub}</span>
-                <span data-i18n-lang="en">{en.preuves?.museeTimeline?.[i]?.sub || item.sub}</span>
+                {item.sub}
               </p>
             </div>
           ))}

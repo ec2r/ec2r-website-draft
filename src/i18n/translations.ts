@@ -2,6 +2,18 @@ export type Lang = 'fr' | 'en';
 
 export const translations = {
   fr: {
+    // SEO meta
+    seo: {
+      title: 'EC²R — Mobiliser les énergies collectives',
+      description: "Méthode EC²R — baromètre des énergies collectives, profils de leadership, Mentor IA. Coaching managérial qui passe à l'acte, du diagnostic au micro-geste.",
+      mentionsLegalesTitle: 'Mentions légales — Méthode EC²R',
+      mentionsLegalesDescription: 'Informations légales du site methode-ec2r.com et de la société EC²R Conseil.',
+      museeTitle: 'Musée EC²R — Histoire et archives de la Méthode',
+      museeDescription: 'Trajectoire EC²R Conseil 2018 → 2026 : témoignages, jalons, archives de la Méthode.',
+      privacyTitle: 'Politique de confidentialité — Méthode EC²R',
+      privacyDescription: 'Politique de confidentialité du site methode-ec2r.com : données collectées, finalités, droits RGPD.',
+    },
+
     // Nav
     nav: {
       method: 'La Méthode',
@@ -318,6 +330,18 @@ export const translations = {
   },
 
   en: {
+    // SEO meta
+    seo: {
+      title: 'EC²R — Mobilising collective energies',
+      description: "EC²R Method — collective energy barometer, leadership profiles, AI Mentor. Management coaching that turns into action, from diagnosis to micro-behaviour.",
+      mentionsLegalesTitle: 'Legal notice — EC²R Method',
+      mentionsLegalesDescription: 'Legal information for methode-ec2r.com and EC²R Conseil company.',
+      museeTitle: 'EC²R Museum — Method history and archives',
+      museeDescription: 'EC²R Conseil trajectory 2018 → 2026: testimonials, milestones, Method archives.',
+      privacyTitle: 'Privacy policy — EC²R Method',
+      privacyDescription: 'Privacy policy for methode-ec2r.com: data collected, purposes, GDPR rights.',
+    },
+
     nav: {
       method: 'The Method',
       proof: 'Impact',

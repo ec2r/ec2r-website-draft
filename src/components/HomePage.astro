@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TopNav from './TopNav.astro';
+import BottomBar from './BottomBar.astro';
+import VousLeVivez from './VousLeVivez.astro';
+import LaMethode from './LaMethode.astro';
+import IlsLontVecu from './IlsLontVecu.astro';
+import LeProtocole from './LeProtocole.astro';
+import LesPraticiens from './LesPraticiens.astro';
+import ParlonsEn from './ParlonsEn.astro';
+import '../styles/global.css';
+import { translations, type Lang } from '../i18n/translations';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+
+const fr = translations.fr;
+const en = translations.en;
+
+const universes = [
+  { id: 'la-methode', labelFr: 'Méthode', labelEn: 'Method' },
+  { id: 'ils-lont-vecu', labelFr: 'Ils l\'ont vécu', labelEn: 'They lived it' },
+  { id: 'le-protocole', labelFr: 'Plateforme / App', labelEn: 'Platform / App' },
+  { id: 'les-praticiens', labelFr: 'Team augmentée + élargie', labelEn: 'augmented + extended team' },
+  { id: 'parlons-en', labelFr: 'Parlons-en !', labelEn: 'Let\'s talk!' },
+];
+
+const nextLabel = lang === 'fr' ? 'Avancer' : 'Next';
+---
+
+<Layout lang={lang}>
+  <TopNav universes={universes} lang={lang} fr={fr} en={en} />
+
+  <!-- Carrousel horizontal — 5 univers -->
+  <main id="universe-carousel" class="universe-carousel">
+    <section id="la-methode" class="universe-panel">
+      <button class="universe-next-btn" data-next-universe="ils-lont-vecu">
+        {nextLabel}
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </button>
+      <div class="universe-scroll">
+        <VousLeVivez lang={lang} fr={fr} en={en} />
+        <LaMethode lang={lang} fr={fr} en={en} />
+      </div>
+    </section>
+
+    <section id="ils-lont-vecu" class="universe-panel">
+      <button class="universe-next-btn" data-next-universe="le-protocole">
+        {nextLabel}
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </button>
+      <div class="universe-scroll">
+        <IlsLontVecu lang={lang} fr={fr} en={en} />
+      </div>
+    </section>
+
+    <section id="le-protocole" class="universe-panel">
+      <button class="universe-next-btn" data-next-universe="les-praticiens">
+        {nextLabel}
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </button>
+      <div class="universe-scroll">
+        <LeProtocole lang={lang} fr={fr} en={en} />
+      </div>
+    </section>
+
+    <section id="les-praticiens" class="universe-panel">
+      <button class="universe-next-btn" data-next-universe="parlons-en">
+        {nextLabel}
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+      </button>
+      <div class="universe-scroll">
+        <LesPraticiens lang={lang} fr={fr} en={en} />
+      </div>
+    </section>
+
+    <section id="parlons-en" class="universe-panel">
+      <div class="universe-scroll">
+        <ParlonsEn lang={lang} fr={fr} en={en} />
+      </div>
+    </section>
+  </main>
+
+  <BottomBar lang={lang} fr={fr} en={en} />
+</Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const nextButtons = document.querySelectorAll<HTMLButtonElement>('[data-next-universe]');
+    nextButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const nextId = btn.dataset.nextUniverse;
+        if (nextId) {
+          const nextPanel = document.getElementById(nextId);
+          if (nextPanel) {
+            nextPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+          }
+        }
+      });
+    });
+  });
+</script>

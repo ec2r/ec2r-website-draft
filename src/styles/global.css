@@ -97,10 +97,6 @@
   }
 }
 
-/* i18n : masque les blocs de la langue inactive */
-[data-lang="fr"] [data-i18n-lang="en"] { display: none !important; }
-[data-lang="en"] [data-i18n-lang="fr"] { display: none !important; }
-
 /* ══════════════════════════════════════════════════════════════════
    UNIVERSE CAROUSEL — Architecture 3 bandeaux
    ══════════════════════════════════════════════════════════════════ */

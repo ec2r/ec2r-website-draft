@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
 
-<Layout title="Politique de confidentialité — EC²R">
+<Layout lang="fr" noAlternate={true} title="Politique de confidentialité — EC²R">
   <div class="min-h-screen bg-surface text-ink">
     <!-- Header avec retour -->
     <div class="border-b border-border-subtle">
@@ -12,20 +12,17 @@ import '../styles/global.css';
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
           </svg>
-          <span data-i18n-fr="Retour à l'accueil" data-i18n-en="Back to home">Retour à l'accueil</span>
+          <span>Retour à l'accueil</span>
         </a>
       </div>
     </div>
 
     <!-- Contenu principal -->
     <main class="max-w-4xl mx-auto px-6 py-16">
-      <h1 class="text-4xl md:text-5xl font-display font-bold mb-4"
-          data-i18n-fr="Politique de Confidentialité" data-i18n-en="Privacy Policy">
+      <h1 class="text-4xl md:text-5xl font-display font-bold mb-4">
         Politique de Confidentialité
       </h1>
-      <p class="text-ink-muted text-lg mb-12"
-         data-i18n-fr="Conformément au Règlement Général sur la Protection des Données (RGPD)"
-         data-i18n-en="In accordance with the General Data Protection Regulation (GDPR)">
+      <p class="text-ink-muted text-lg mb-12">
         Conformément au Règlement Général sur la Protection des Données (RGPD)
       </p>
 

@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import '../styles/global.css';
 ---
 
-<Layout title="Mentions légales — EC²R">
+<Layout lang="fr" noAlternate={true} title="Mentions légales — EC²R">
   <main class="min-h-screen bg-surface">
     
     <!-- Header -->
@@ -13,10 +13,9 @@ import '../styles/global.css';
           <svg class="w-4 h-4 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
           </svg>
-          <span data-i18n-fr="Retour à l'accueil" data-i18n-en="Back to home">Retour à l'accueil</span>
+          <span>Retour à l'accueil</span>
         </a>
-        <h1 class="text-4xl md:text-5xl font-display font-bold text-ink"
-            data-i18n-fr="Mentions légales" data-i18n-en="Legal notice">
+        <h1 class="text-4xl md:text-5xl font-display font-bold text-ink">
           Mentions légales
         </h1>
       </div>

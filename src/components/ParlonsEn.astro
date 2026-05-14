@@ -4,8 +4,14 @@
  * Échange humain, prise de RDV, formulaire contact
  */
 import EC2R from './EC2R.astro';
-interface Props { fr: any; en: any; }
-const { fr, en } = Astro.props;
+import type { Lang } from '../i18n/translations';
+interface Props {
+  lang: Lang;
+  fr?: any;
+  en?: any;
+}
+const { lang, fr, en } = Astro.props;
+const t = lang === 'fr' ? fr : en;
 ---
 
 <div class="min-h-full bg-surface relative flex items-center">
@@ -15,58 +21,53 @@ const { fr, en } = Astro.props;
 
     <div class="text-center mb-10">
       <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-extrabold text-ink mb-4">
-        <span data-i18n-lang="fr">Parlons-en !</span>
-        <span data-i18n-lang="en">Let's talk!</span>
+        {lang === 'fr' ? 'Parlons-en !' : "Let's talk!"}
       </h2>
 
       <p class="text-lg text-ink-muted leading-relaxed max-w-2xl mx-auto mb-6">
-        <span data-i18n-lang="fr">Un vrai échange humain et rapide, pas un pitch ou un formulaire commercial, 10 minutes, pas d'agent conversationnel, une vraie présence.</span>
-        <span data-i18n-lang="en">A real human and quick exchange, not a pitch or commercial form, 10 minutes, no chatbot, a real presence.</span>
+        {lang === 'fr'
+          ? "Un vrai échange humain et rapide, pas un pitch ou un formulaire commercial, 10 minutes, pas d'agent conversationnel, une vraie présence."
+          : 'A real human and quick exchange, not a pitch or commercial form, 10 minutes, no chatbot, a real presence.'}
       </p>
 
       <!-- 3 intentions -->
       <div class="flex flex-wrap justify-center gap-3 mb-6 text-xs">
         <div class="bg-surface-alt border border-border-subtle rounded-lg px-4 py-2">
-          <span class="text-accent font-bold" data-i18n-lang="fr">En être</span>
-          <span class="text-accent font-bold" data-i18n-lang="en">Be part of it</span>
-          <span class="text-ink-subtle" data-i18n-lang="fr"> : vous voulez vivre la méthode</span>
-          <span class="text-ink-subtle" data-i18n-lang="en"> : you want to experience the method</span>
+          <span class="text-accent font-bold">{lang === 'fr' ? 'En être' : 'Be part of it'}</span>
+          <span class="text-ink-subtle">{lang === 'fr' ? ' : vous voulez vivre la méthode' : ' : you want to experience the method'}</span>
         </div>
         <div class="bg-surface-alt border border-border-subtle rounded-lg px-4 py-2">
-          <span class="text-accent font-bold" data-i18n-lang="fr">Le vivre</span>
-          <span class="text-accent font-bold" data-i18n-lang="en">Live it</span>
-          <span class="text-ink-subtle" data-i18n-lang="fr"> : vous avez un projet collectif</span>
-          <span class="text-ink-subtle" data-i18n-lang="en"> : you have a collective project</span>
+          <span class="text-accent font-bold">{lang === 'fr' ? 'Le vivre' : 'Live it'}</span>
+          <span class="text-ink-subtle">{lang === 'fr' ? ' : vous avez un projet collectif' : ' : you have a collective project'}</span>
         </div>
         <div class="bg-surface-alt border border-border-subtle rounded-lg px-4 py-2">
-          <span class="text-accent font-bold" data-i18n-lang="fr">Prescrire</span>
-          <span class="text-accent font-bold" data-i18n-lang="en">Prescribe</span>
-          <span class="text-ink-subtle" data-i18n-lang="fr"> : vous pensez à quelqu'un</span>
-          <span class="text-ink-subtle" data-i18n-lang="en"> : you're thinking of someone</span>
+          <span class="text-accent font-bold">{lang === 'fr' ? 'Prescrire' : 'Prescribe'}</span>
+          <span class="text-ink-subtle">{lang === 'fr' ? " : vous pensez à quelqu'un" : " : you're thinking of someone"}</span>
         </div>
       </div>
 
       <!-- Petit texte arrogant -->
       <p class="text-xs text-ink-disabled italic max-w-lg mx-auto">
-        <span data-i18n-lang="fr">Si ça résonne et que vous voulez construire, parlons-en.</span>
-        <span data-i18n-lang="en">If it resonates and you want to build, let's talk.</span>
+        {lang === 'fr'
+          ? "Si ça résonne et que vous voulez construire, parlons-en."
+          : "If it resonates and you want to build, let's talk."}
       </p>
     </div>
 
     <!-- CTA secondaire (budget) — req Stéphane 12/05 : Cal RDV retiré, contact = formulaire -->
     <div class="flex justify-center mb-8">
-      <button id="budget-btn" class="text-ink-faint hover:text-ink-muted border border-border-subtle hover:border-border-strong
+      <button id="budget-btn" data-lang={lang} class="text-ink-faint hover:text-ink-muted border border-border-subtle hover:border-border-strong
               text-xs px-5 py-2.5 rounded-lg transition-all">
-        <span data-i18n-lang="fr">Je cherche juste un budget</span>
-        <span data-i18n-lang="en">I just need a budget</span>
+        {lang === 'fr' ? 'Je cherche juste un budget' : 'I just need a budget'}
       </button>
     </div>
 
     <!-- Formulaire de contact (canal principal — destinataire energies@methode-ec2r.com) -->
     <div id="contact-form-wrapper" class="max-w-lg mx-auto">
       <p class="text-center text-ink-muted text-sm mb-4">
-        <span data-i18n-lang="fr">Écrivez-nous — réponse sous 24h ouvrées.</span>
-        <span data-i18n-lang="en">Write to us — reply within 1 business day.</span>
+        {lang === 'fr'
+          ? 'Écrivez-nous — réponse sous 24h ouvrées.'
+          : 'Write to us — reply within 1 business day.'}
       </p>
       <!-- Soumission AJAX → reste sur le site, pas de redirection (UX FormSubmit native trop moche) -->
       <form id="contact-form" action="https://formsubmit.co/ajax/energies@methode-ec2r.com" method="POST" class="space-y-4">
@@ -78,36 +79,34 @@ const { fr, en } = Astro.props;
         <div class="grid sm:grid-cols-2 gap-4">
           <input type="text" name="name" required
                  class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm
-                        placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
+                        placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30
                         outline-none transition-all"
-                 data-placeholder-fr="Votre nom" data-placeholder-en="Your name"
-                 placeholder="Votre nom" />
+                 aria-label={lang === 'fr' ? 'Votre nom' : 'Your name'}
+                 placeholder={lang === 'fr' ? 'Votre nom' : 'Your name'} />
           <input type="email" name="email" required
                  class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm
-                        placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
+                        placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30
                         outline-none transition-all"
-                 data-placeholder-fr="Votre email" data-placeholder-en="Your email"
-                 placeholder="Votre email" />
+                 aria-label={lang === 'fr' ? 'Votre email' : 'Your email'}
+                 placeholder={lang === 'fr' ? 'Votre email' : 'Your email'} />
         </div>
         <input type="text" name="organization"
                class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm
-                      placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
+                      placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30
                       outline-none transition-all"
-               data-placeholder-fr="Organisation (optionnel)" data-placeholder-en="Organization (optional)"
-               placeholder="Organisation (optionnel)" />
+               aria-label={lang === 'fr' ? 'Organisation (optionnel)' : 'Organization (optional)'}
+               placeholder={lang === 'fr' ? 'Organisation (optionnel)' : 'Organization (optional)'} />
         <textarea name="message" rows="3"
                   class="w-full bg-surface-alt border border-border-subtle rounded-lg px-4 py-3 text-ink text-sm
-                         placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30 
+                         placeholder:text-ink-faint focus:border-energy-green/50 focus:ring-1 focus:ring-accent/30
                          outline-none transition-all resize-none"
-                  data-placeholder-fr="En quelques mots, ce qui résonne chez vous…" data-placeholder-en="In a few words, what resonates with you…"
-                  placeholder="En quelques mots, ce qui résonne chez vous…"></textarea>
+                  aria-label={lang === 'fr' ? 'Message' : 'Message'}
+                  placeholder={lang === 'fr' ? 'En quelques mots, ce qui résonne chez vous…' : 'In a few words, what resonates with you…'}></textarea>
         <button id="contact-submit-btn" type="submit"
                 class="w-full bg-surface-raised hover:bg-surface-raised text-ink font-semibold py-3 rounded-lg
                        border border-border-subtle hover:border-border transition-all text-sm disabled:opacity-60 disabled:cursor-wait">
-          <span class="contact-btn-idle" data-i18n-lang="fr">Envoyer</span>
-          <span class="contact-btn-idle" data-i18n-lang="en">Send</span>
-          <span class="contact-btn-loading hidden" data-i18n-lang="fr">Envoi en cours…</span>
-          <span class="contact-btn-loading hidden" data-i18n-lang="en">Sending…</span>
+          <span class="contact-btn-idle">{lang === 'fr' ? 'Envoyer' : 'Send'}</span>
+          <span class="contact-btn-loading hidden">{lang === 'fr' ? 'Envoi en cours…' : 'Sending…'}</span>
         </button>
       </form>
 
@@ -119,19 +118,20 @@ const { fr, en } = Astro.props;
           </svg>
         </div>
         <p class="text-ink font-display font-bold text-lg mb-1">
-          <span data-i18n-lang="fr">Message bien reçu.</span>
-          <span data-i18n-lang="en">Message received.</span>
+          {lang === 'fr' ? 'Message bien reçu.' : 'Message received.'}
         </p>
         <p class="text-ink-subtle text-sm">
-          <span data-i18n-lang="fr">Réponse sous 24h ouvrées sur l'email que vous avez indiqué.</span>
-          <span data-i18n-lang="en">We'll reply within 1 business day at the email you provided.</span>
+          {lang === 'fr'
+            ? "Réponse sous 24h ouvrées sur l'email que vous avez indiqué."
+            : "We'll reply within 1 business day at the email you provided."}
         </p>
       </div>
 
       <div id="contact-error" class="hidden mt-3 text-center py-3 px-4 bg-energy-red/10 border border-energy-red/30 rounded-lg text-sm">
         <p class="text-energy-red">
-          <span data-i18n-lang="fr">L'envoi a échoué. Réessayez ou écrivez directement à energies@methode-ec2r.com.</span>
-          <span data-i18n-lang="en">Sending failed. Try again or write directly to energies@methode-ec2r.com.</span>
+          {lang === 'fr'
+            ? "L'envoi a échoué. Réessayez ou écrivez directement à energies@methode-ec2r.com."
+            : 'Sending failed. Try again or write directly to energies@methode-ec2r.com.'}
         </p>
       </div>
     </div>
@@ -141,12 +141,10 @@ const { fr, en } = Astro.props;
       <p>© {new Date().getFullYear()} Méthode <EC2R /> · <EC2R /> Conseil</p>
       <div class="flex justify-center gap-4">
         <a href="/mentions-legales" class="hover:text-ink-faint transition-colors">
-          <span data-i18n-lang="fr">Mentions légales</span>
-          <span data-i18n-lang="en">Legal</span>
+          {lang === 'fr' ? 'Mentions légales' : 'Legal'}
         </a>
         <a href="/politique-de-confidentialite" class="hover:text-ink-faint transition-colors">
-          <span data-i18n-lang="fr">Confidentialité</span>
-          <span data-i18n-lang="en">Privacy</span>
+          {lang === 'fr' ? 'Confidentialité' : 'Privacy'}
         </a>
       </div>
     </div>
@@ -161,14 +159,14 @@ const { fr, en } = Astro.props;
     if (btn) {
       const originalHTML = btn.innerHTML;
       btn.addEventListener('click', () => {
-        const lang = document.documentElement.getAttribute('data-lang') || 'fr';
+        const lang = btn.getAttribute('data-lang') || 'fr';
         const msg = lang === 'en' ? 'Too bad 😏' : 'Dommage 😏';
         btn.innerHTML = `<span class="text-amber-400 font-bold">${msg}</span>`;
-        btn.disabled = true;
+        (btn as HTMLButtonElement).disabled = true;
         btn.classList.add('border-amber-400/30');
         setTimeout(() => {
           btn.innerHTML = originalHTML;
-          btn.disabled = false;
+          (btn as HTMLButtonElement).disabled = false;
           btn.classList.remove('border-amber-400/30');
         }, 5000);
       });

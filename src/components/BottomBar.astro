@@ -1,9 +1,11 @@
 ---
+import type { Lang } from '../i18n/translations';
 interface Props {
-  fr: any;
-  en: any;
+  lang: Lang;
+  fr?: any;
+  en?: any;
 }
-const { fr, en } = Astro.props;
+const { lang } = Astro.props;
 ---
 
 <!-- Bandeau bas permanent — CTA "Parlons-en" -->
@@ -14,21 +16,20 @@ const { fr, en } = Astro.props;
   <!-- Desktop -->
   <div class="hidden sm:flex max-w-7xl mx-auto px-6 py-3.5 items-center justify-between">
     <p class="text-ink-subtle text-sm">
-      <span data-i18n-lang="fr">Un vrai échange humain — 10 minutes pour voir comment ça résonne.</span>
-      <span data-i18n-lang="en">A real human conversation — 10 minutes to see how it resonates.</span>
+      {lang === 'fr'
+        ? 'Un vrai échange humain — 10 minutes pour voir comment ça résonne.'
+        : 'A real human conversation — 10 minutes to see how it resonates.'}
     </p>
     <div class="flex items-center gap-3">
-      <button class="bottom-bar-navigate text-xs text-ink-faint hover:text-ink-muted border border-border-subtle 
+      <button class="bottom-bar-navigate text-xs text-ink-faint hover:text-ink-muted border border-border-subtle
                      hover:border-border-strong rounded-md px-3 py-1.5 transition-all"
               data-target="parlons-en">
-        <span data-i18n-lang="fr">Je cherche juste un budget</span>
-        <span data-i18n-lang="en">I just need a budget</span>
+        {lang === 'fr' ? 'Je cherche juste un budget' : 'I just need a budget'}
       </button>
-      <button class="bottom-bar-navigate bg-energy-green/90 hover:bg-accent text-ink font-semibold 
+      <button class="bottom-bar-navigate bg-energy-green/90 hover:bg-accent text-ink font-semibold
                      text-sm rounded-md px-4 py-1.5 transition-all"
               data-target="parlons-en">
-        <span data-i18n-lang="fr">Ça résonne — parlons-en</span>
-        <span data-i18n-lang="en">It resonates — let's talk</span>
+        {lang === 'fr' ? 'Ça résonne — parlons-en' : "It resonates — let's talk"}
       </button>
     </div>
   </div>
@@ -45,12 +46,11 @@ const { fr, en } = Astro.props;
     <button id="mobile-nav-prev" class="bottom-bar-prev flex items-center justify-center gap-1.5 text-xs font-semibold
                    text-ink-muted hover:text-ink border border-border-subtle hover:border-border-strong
                    rounded-md px-3 py-2 transition-all disabled:opacity-30 disabled:pointer-events-none flex-1"
-            aria-label="Univers précédent">
+            aria-label={lang === 'fr' ? 'Univers précédent' : 'Previous universe'}>
       <svg class="w-4 h-4 mobile-nav-arrow-prev" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12"/>
       </svg>
-      <span data-i18n-lang="fr">Revenir</span>
-      <span data-i18n-lang="en">Back</span>
+      {lang === 'fr' ? 'Revenir' : 'Back'}
     </button>
     <button class="bottom-bar-navigate bg-energy-green/90 hover:bg-accent text-ink font-semibold
                    text-sm rounded-md px-4 py-2 shadow-lg transition-all flex items-center gap-1.5 flex-shrink-0"
@@ -58,15 +58,13 @@ const { fr, en } = Astro.props;
       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
       </svg>
-      <span data-i18n-lang="fr">Parlons-en</span>
-      <span data-i18n-lang="en">Let's talk</span>
+      {lang === 'fr' ? 'Parlons-en' : "Let's talk"}
     </button>
     <button id="mobile-nav-next" class="bottom-bar-next flex items-center justify-center gap-1.5 text-xs font-semibold
                    text-ink-muted hover:text-ink border border-border-subtle hover:border-border-strong
                    rounded-md px-3 py-2 transition-all disabled:opacity-30 disabled:pointer-events-none flex-1"
-            aria-label="Univers suivant">
-      <span data-i18n-lang="fr">Avancer</span>
-      <span data-i18n-lang="en">Next</span>
+            aria-label={lang === 'fr' ? 'Univers suivant' : 'Next universe'}>
+      {lang === 'fr' ? 'Avancer' : 'Next'}
       <svg class="w-4 h-4 mobile-nav-arrow-next" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
       </svg>

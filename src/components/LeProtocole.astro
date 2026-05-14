@@ -3,8 +3,14 @@
  * Univers 4 : "Le protocole"
  * 5 étapes IRM, 3 parcours, lien app
  */
-interface Props { fr: any; en: any; }
-const { fr, en } = Astro.props;
+import type { Lang } from '../i18n/translations';
+interface Props {
+  lang: Lang;
+  fr?: any;
+  en?: any;
+}
+const { lang, fr, en } = Astro.props;
+const t = lang === 'fr' ? fr : en;
 
 const steps = [
   { num: '1', verbFr: 'Mesurer', verbEn: 'Measure', descFr: 'vos énergies collectives de réussite — cibler les leviers', descEn: 'your collective success energies — target the levers', color: '#DC2626' },
@@ -75,20 +81,22 @@ const parcours = [
     <!-- Titre animé -->
     <div class="text-center mb-10">
       <h2 class="text-3xl md:text-4xl lg:text-5xl font-display font-extrabold text-ink inline-block mb-1">
-        <span data-i18n-lang="fr">Plateforme d'activation du leadership</span>
-        <span data-i18n-lang="en">Leadership activation platform</span>
+        {lang === 'fr' ? "Plateforme d'activation du leadership" : 'Leadership activation platform'}
       </h2>
       <p class="text-lg energy-gradient-text font-display font-bold mb-3">
-        <span data-i18n-lang="fr">individuel et collectif</span>
-        <span data-i18n-lang="en">individual and collective</span>
+        {lang === 'fr' ? 'individuel et collectif' : 'individual and collective'}
       </p>
       <p class="text-ink-muted text-base max-w-2xl mx-auto font-medium">
-        <span data-i18n-lang="fr">Un IRM<span class="plus-accent">+</span> organisationnel : diagnostic<span class="plus-accent">+</span> chirurgical, passage<span class="plus-accent">+</span> rapide à l'acte, mesure<span class="plus-accent">+</span> immédiate d'impact.</span>
-        <span data-i18n-lang="en">An organizational MRI<span class="plus-accent">+</span>: surgical<span class="plus-accent">+</span> diagnosis, fast<span class="plus-accent">+</span> transition to action, immediate<span class="plus-accent">+</span> impact measurement.</span>
+        {lang === 'fr' ? (
+          <>Un IRM<span class="plus-accent">+</span> organisationnel : diagnostic<span class="plus-accent">+</span> chirurgical, passage<span class="plus-accent">+</span> rapide à l'acte, mesure<span class="plus-accent">+</span> immédiate d'impact.</>
+        ) : (
+          <>An organizational MRI<span class="plus-accent">+</span>: surgical<span class="plus-accent">+</span> diagnosis, fast<span class="plus-accent">+</span> transition to action, immediate<span class="plus-accent">+</span> impact measurement.</>
+        )}
       </p>
       <p class="text-ink-faint text-xs mt-2 max-w-2xl mx-auto italic">
-        <span data-i18n-lang="fr">Ni seulement un cabinet de conseil, ni seulement un organisme de formation, ni seulement un outil RH.</span>
-        <span data-i18n-lang="en">Not just a consulting firm, not just a training organization, not just an HR tool.</span>
+        {lang === 'fr'
+          ? 'Ni seulement un cabinet de conseil, ni seulement un organisme de formation, ni seulement un outil RH.'
+          : 'Not just a consulting firm, not just a training organization, not just an HR tool.'}
       </p>
     </div>
 
@@ -103,13 +111,11 @@ const parcours = [
             </div>
             <div class="pt-1.5">
               <span class="text-ink font-display font-bold text-lg" style={`color:${s.color}`}>
-                <span data-i18n-lang="fr">{s.verbFr}</span>
-                <span data-i18n-lang="en">{s.verbEn}</span>
+                {lang === 'fr' ? s.verbFr : s.verbEn}
                 <span class="plus-accent">+</span>
               </span>
               <span class="text-ink-subtle text-sm ml-2">
-                <span data-i18n-lang="fr">{s.descFr}</span>
-                <span data-i18n-lang="en">{s.descEn}</span>
+                {lang === 'fr' ? s.descFr : s.descEn}
               </span>
             </div>
           </div>
@@ -129,8 +135,7 @@ const parcours = [
           <!-- Visuel reconstruit : Baromètre 6 énergies + score central — petit -->
           <div class="md:col-span-1 bg-gradient-to-br from-surface-alt via-surface to-surface-alt p-4 lg:p-5 relative">
             <p class="text-[10px] uppercase tracking-widest text-ink-faint font-semibold mb-4">
-              <span data-i18n-lang="fr">Reconstruction illustrative — données fictives</span>
-              <span data-i18n-lang="en">Illustrative reconstruction — fictional data</span>
+              {lang === 'fr' ? 'Reconstruction illustrative — données fictives' : 'Illustrative reconstruction — fictional data'}
             </p>
             {/* Ordre demandé par Stéphane (12/05) :
                 - Colonne GAUCHE bottom→top : Projeter, Centrer, Exiger
@@ -174,8 +179,7 @@ const parcours = [
               <div class="bg-surface-raised border border-border-subtle rounded-xl px-6 py-3 text-center">
                 <div class="font-display font-extrabold text-3xl leading-none" style="color:#92D050">62<span class="text-base text-ink-faint">/100</span></div>
                 <div class="text-[10px] uppercase tracking-wider text-ink-subtle font-semibold mt-1">
-                  <span data-i18n-lang="fr">Énergie collective (moyenne)</span>
-                  <span data-i18n-lang="en">Collective energy (average)</span>
+                  {lang === 'fr' ? 'Énergie collective (moyenne)' : 'Collective energy (average)'}
                 </div>
               </div>
             </div>
@@ -183,21 +187,22 @@ const parcours = [
           <!-- Texte 2/3 (visuel petit 1/3 — req Stéphane 12/05 : remettre visuels en petit) -->
           <div class="md:col-span-2 p-6 lg:p-8 flex flex-col justify-center">
             <p class="text-accent/80 text-[10px] uppercase tracking-wider font-semibold mb-2">
-              <span data-i18n-lang="fr">Mon collectif</span>
-              <span data-i18n-lang="en">My collective</span>
+              {lang === 'fr' ? parcours[0].titleFr : parcours[0].titleEn}
             </p>
             <h3 class="text-ink font-display font-bold text-xl mb-3 leading-tight">
-              <span data-i18n-lang="fr">Baromètre énergétique EC²R</span>
-              <span data-i18n-lang="en">EC²R energy barometer</span>
+              {lang === 'fr' ? parcours[0].headlineFr : parcours[0].headlineEn}
             </h3>
             <p class="text-ink-muted text-sm leading-relaxed mb-4 italic">
-              <span data-i18n-lang="fr">Diagnostic et levier<span class="plus-accent">+</span> immédiat pour mobiliser<span class="plus-accent">+</span> mes équipes</span>
-              <span data-i18n-lang="en">Diagnosis and immediate<span class="plus-accent">+</span> lever to mobilize<span class="plus-accent">+</span> my teams</span>
+              {lang === 'fr' ? (
+                <>Diagnostic et levier<span class="plus-accent">+</span> immédiat pour mobiliser<span class="plus-accent">+</span> mes équipes</>
+              ) : (
+                <>Diagnosis and immediate<span class="plus-accent">+</span> lever to mobilize<span class="plus-accent">+</span> my teams</>
+              )}
             </p>
             <ul class="space-y-1.5 border-t border-border-subtle pt-3">
-              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span><span data-i18n-lang="fr">Baromètre énergétique collectif</span><span data-i18n-lang="en">Collective energy barometer</span></span></li>
-              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span><span data-i18n-lang="fr">Restitution<span class="plus-accent">+</span> embarquement</span><span data-i18n-lang="en">Restitution<span class="plus-accent">+</span> onboarding</span></span></li>
-              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span><span data-i18n-lang="fr">Temps fort de restitution et d'embarquement</span><span data-i18n-lang="en">Strong restitution and onboarding moment</span></span></li>
+              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span>{lang === 'fr' ? 'Baromètre énergétique collectif' : 'Collective energy barometer'}</span></li>
+              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span>{lang === 'fr' ? (<>Restitution<span class="plus-accent">+</span> embarquement</>) : (<>Restitution<span class="plus-accent">+</span> onboarding</>)}</span></li>
+              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span>{lang === 'fr' ? "Temps fort de restitution et d'embarquement" : 'Strong restitution and onboarding moment'}</span></li>
             </ul>
           </div>
         </div>
@@ -209,34 +214,29 @@ const parcours = [
           <!-- Texte 2/3 (visuel petit 1/3 — req Stéphane 12/05 : remettre visuels en petit) -->
           <div class="md:col-span-2 p-6 lg:p-8 flex flex-col justify-center">
             <p class="text-accent/80 text-[10px] uppercase tracking-wider font-semibold mb-2">
-              <span data-i18n-lang="fr">Mes leaders</span>
-              <span data-i18n-lang="en">My leaders</span>
+              {lang === 'fr' ? parcours[1].titleFr : parcours[1].titleEn}
             </p>
             <h3 class="text-ink font-display font-bold text-xl mb-3 leading-tight">
-              <span data-i18n-lang="fr">Accompagner mes leaders</span>
-              <span data-i18n-lang="en">Support my leaders</span>
+              {lang === 'fr' ? parcours[1].headlineFr : parcours[1].headlineEn}
             </h3>
             <p class="text-ink-muted text-sm leading-relaxed mb-4 italic">
-              <span data-i18n-lang="fr">Profil de leadership EC²R — faire ma part pour mobiliser ou remobiliser mes équipes, sans épuiser mes batteries</span>
-              <span data-i18n-lang="en">EC²R leadership profile — do my part to mobilize or remobilize my teams without draining my batteries</span>
+              {lang === 'fr' ? parcours[1].subFr : parcours[1].subEn}
             </p>
             <ul class="space-y-1.5 border-t border-border-subtle pt-3">
-              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span><span data-i18n-lang="fr">Profiling de leadership</span><span data-i18n-lang="en">Leadership profiling</span></span></li>
-              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span><span data-i18n-lang="fr">Formation<span class="plus-accent">+</span> accompagnement</span><span data-i18n-lang="en">Training<span class="plus-accent">+</span> support</span></span></li>
-              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span><span data-i18n-lang="fr">Mentoring sur situations</span><span data-i18n-lang="en">Situation-based mentoring</span></span></li>
+              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span>{lang === 'fr' ? 'Profiling de leadership' : 'Leadership profiling'}</span></li>
+              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span>{lang === 'fr' ? (<>Formation<span class="plus-accent">+</span> accompagnement</>) : (<>Training<span class="plus-accent">+</span> support</>)}</span></li>
+              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span>{lang === 'fr' ? 'Mentoring sur situations' : 'Situation-based mentoring'}</span></li>
             </ul>
           </div>
           <!-- Visuel reconstruit : Profil leader — petit -->
           <div class="md:col-span-1 bg-gradient-to-br from-surface-alt via-surface to-surface-alt p-4 lg:p-5 md:order-2 order-1 relative">
             <p class="text-[10px] uppercase tracking-widest text-ink-faint font-semibold mb-4">
-              <span data-i18n-lang="fr">Reconstruction illustrative — données fictives</span>
-              <span data-i18n-lang="en">Illustrative reconstruction — fictional data</span>
+              {lang === 'fr' ? 'Reconstruction illustrative — données fictives' : 'Illustrative reconstruction — fictional data'}
             </p>
             <!-- Score central — palier 51-60 = ENGAGEANT (tma_profiles_helper.rb) -->
             <div class="text-center mb-5">
               <div class="text-[10px] uppercase tracking-widest text-accent/70 font-semibold mb-1">
-                <span data-i18n-lang="fr">Leadership global</span>
-                <span data-i18n-lang="en">Global leadership</span>
+                {lang === 'fr' ? 'Leadership global' : 'Global leadership'}
               </div>
               <div class="font-display font-extrabold text-5xl leading-none" style="color:#FFCC99">55<span style="color:#FFCC99cc">.6</span><span class="text-base text-ink-faint ml-1">/100</span></div>
               <div class="inline-block mt-2 border text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full" style="background:#FFCC9920;border-color:#FFCC9966;color:#FFCC99">
@@ -255,7 +255,7 @@ const parcours = [
               ].map(d => (
                 <div class="bg-surface-alt border border-border-subtle rounded-lg p-2.5">
                   <div class="flex items-baseline justify-between mb-1.5">
-                    <span class="text-ink text-xs font-semibold uppercase tracking-wide"><span data-i18n-lang="fr">{d.labelFr}<span class="plus-accent text-[10px]">+</span></span><span data-i18n-lang="en">{d.labelEn}<span class="plus-accent text-[10px]">+</span></span></span>
+                    <span class="text-ink text-xs font-semibold uppercase tracking-wide">{lang === 'fr' ? d.labelFr : d.labelEn}<span class="plus-accent text-[10px]">+</span></span>
                     <span class="text-sm font-display font-bold" style={`color:${gaugeColor(d.score)}`}>{d.score}<span class="text-[9px] text-ink-faint">%</span></span>
                   </div>
                   <div class="h-1 bg-surface-raised rounded-full overflow-hidden">
@@ -274,8 +274,7 @@ const parcours = [
           <!-- Visuel : simili-chat + avatar Méntōr — petit -->
           <div class="md:col-span-1 bg-gradient-to-br from-surface-alt via-surface to-surface-alt relative overflow-hidden">
             <p class="absolute top-3 left-4 text-[10px] uppercase tracking-widest text-ink-faint font-semibold z-10">
-              <span data-i18n-lang="fr">Mode simulation — Méntōr EC²R</span>
-              <span data-i18n-lang="en">Simulation mode — Méntōr EC²R</span>
+              {lang === 'fr' ? 'Mode simulation — Méntōr EC²R' : 'Simulation mode — Méntōr EC²R'}
             </p>
             <div class="grid grid-cols-1 h-full min-h-[280px]">
               <!-- Simili-chat — bulles 2/3 largeur, chevauchement, traits 3/2/2/1 -->
@@ -318,8 +317,7 @@ const parcours = [
                     <div class="flex items-center gap-1.5 bg-energy-green/15 backdrop-blur-sm border border-accent/30 rounded-full px-2.5 py-1">
                       <span class="w-1.5 h-1.5 rounded-full bg-accent"></span>
                       <span class="text-[10px] uppercase tracking-wider text-accent font-semibold">
-                        <span data-i18n-lang="fr">{b.fr}</span>
-                        <span data-i18n-lang="en">{b.en}</span>
+                        {lang === 'fr' ? b.fr : b.en}
                       </span>
                     </div>
                   ))}
@@ -331,21 +329,18 @@ const parcours = [
           <!-- Texte 2/3 (visuel petit 1/3 — req Stéphane 12/05 : remettre visuels en petit) -->
           <div class="md:col-span-2 p-6 lg:p-8 flex flex-col justify-center">
             <p class="text-accent/80 text-[10px] uppercase tracking-wider font-semibold mb-2">
-              <span data-i18n-lang="fr">Moi</span>
-              <span data-i18n-lang="en">Me</span>
+              {lang === 'fr' ? parcours[2].titleFr : parcours[2].titleEn}
             </p>
             <h3 class="text-ink font-display font-bold text-xl mb-3 leading-tight">
-              <span data-i18n-lang="fr">Méntōr EC²R sur mes situations terrain</span>
-              <span data-i18n-lang="en">Méntōr EC²R on my field situations</span>
+              {lang === 'fr' ? parcours[2].headlineFr : parcours[2].headlineEn}
             </h3>
             <p class="text-ink-muted text-sm leading-relaxed mb-4 italic">
-              <span data-i18n-lang="fr">Expérimenter, avancer en autonomie</span>
-              <span data-i18n-lang="en">Experiment, advance autonomously</span>
+              {lang === 'fr' ? parcours[2].subFr : parcours[2].subEn}
             </p>
             <ul class="space-y-1.5 border-t border-border-subtle pt-3">
-              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span><span data-i18n-lang="fr">Lui envoyer un message dans la journée</span><span data-i18n-lang="en">Send a message during the day</span></span></li>
-              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span><span data-i18n-lang="fr">Lui parler à l'oral, comme avec un coach</span><span data-i18n-lang="en">Talk out loud, like with a coach</span></span></li>
-              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span><span data-i18n-lang="fr">S'entraîner en face-à-face avec un avatar vidéo</span><span data-i18n-lang="en">Train face-to-face with a video avatar</span></span></li>
+              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span>{lang === 'fr' ? 'Lui envoyer un message dans la journée' : 'Send a message during the day'}</span></li>
+              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span>{lang === 'fr' ? "Lui parler à l'oral, comme avec un coach" : 'Talk out loud, like with a coach'}</span></li>
+              <li class="text-ink-subtle text-xs flex items-start gap-2"><span class="text-accent/60 mt-0.5">›</span><span>{lang === 'fr' ? "S'entraîner en face-à-face avec un avatar vidéo" : 'Train face-to-face with a video avatar'}</span></li>
             </ul>
           </div>
         </div>
@@ -356,22 +351,21 @@ const parcours = [
     <!-- Lien app + ce que l'app permet -->
     <div class="text-center bg-surface-alt border border-border-subtle rounded-xl p-6">
       <p class="text-ink-subtle text-sm mb-3">
-        <span data-i18n-lang="fr">Ce que l'app permet de réussir : Mesurer, piloter, suivre, accompagner — en individuel et en collectif.</span>
-        <span data-i18n-lang="en">What the app enables: Measure, steer, track, support — individually and collectively.</span>
+        {lang === 'fr'
+          ? "Ce que l'app permet de réussir : Mesurer, piloter, suivre, accompagner — en individuel et en collectif."
+          : 'What the app enables: Measure, steer, track, support — individually and collectively.'}
       </p>
       <div class="flex flex-col items-center gap-2">
         <a href="https://app.methode-ec2r.com" target="_blank" rel="noopener"
            class="inline-flex items-center gap-2 px-6 py-3 bg-accent/10 border border-accent/30
                   text-accent text-base font-semibold rounded-lg hover:bg-accent/20 hover:border-energy-green/50 transition-all">
-          <span data-i18n-lang="fr">Accéder à la plateforme</span>
-          <span data-i18n-lang="en">Access the platform</span>
+          {lang === 'fr' ? 'Accéder à la plateforme' : 'Access the platform'}
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
           </svg>
         </a>
         <p class="text-ink-subtle text-xs">
-          <span data-i18n-lang="fr">mon espace praticien / partenaire</span>
-          <span data-i18n-lang="en">my practitioner / partner space</span>
+          {lang === 'fr' ? 'mon espace praticien / partenaire' : 'my practitioner / partner space'}
         </p>
       </div>
     </div>

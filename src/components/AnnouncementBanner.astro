@@ -3,6 +3,9 @@
  * Bandeau d'annonce — teaser lancement semaine prochaine
  * Discret, en haut de page, dismissable
  */
+import type { Lang } from '../i18n/translations';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
 ---
 
 <div id="announcement-banner"
@@ -17,23 +20,23 @@
         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-surface opacity-50"></span>
         <span class="relative inline-flex rounded-full h-2 w-2 bg-surface"></span>
       </span>
-      <span data-i18n-lang="fr" class="text-xs sm:text-sm">
-        Accès anticipé — lancement officiel <strong>la semaine prochaine</strong>
-      </span>
-      <span data-i18n-lang="en" class="text-xs sm:text-sm">
-        Early access — official launch <strong>next week</strong>
+      <span class="text-xs sm:text-sm">
+        {lang === 'fr' ? (
+          <Fragment>Accès anticipé — lancement officiel <strong>la semaine prochaine</strong></Fragment>
+        ) : (
+          <Fragment>Early access — official launch <strong>next week</strong></Fragment>
+        )}
       </span>
       <a href="#parlons-en"
          class="underline underline-offset-2 font-semibold hover:no-underline transition-all text-xs sm:text-sm whitespace-nowrap"
          onclick="document.getElementById('parlons-en')?.scrollIntoView({behavior:'smooth'})">
-        <span data-i18n-lang="fr">Parlons-en →</span>
-        <span data-i18n-lang="en">Let's talk →</span>
+        {lang === 'fr' ? 'Parlons-en →' : "Let's talk →"}
       </a>
     </span>
   </div>
   <button id="close-announcement"
           class="absolute right-2 top-1/2 -translate-y-1/2 p-1 opacity-50 hover:opacity-100 transition-opacity"
-          aria-label="Fermer">
+          aria-label={lang === 'fr' ? 'Fermer' : 'Close'}>
     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
     </svg>
@@ -56,7 +59,6 @@
   const spacer = document.getElementById('announcement-spacer');
   const closeBtn = document.getElementById('close-announcement');
 
-  // Sync initial — si déjà fermé, masquer banner + spacer
   if (document.documentElement.classList.contains('banner-closed')) {
     banner?.classList.add('hidden');
     spacer?.classList.add('hidden');
