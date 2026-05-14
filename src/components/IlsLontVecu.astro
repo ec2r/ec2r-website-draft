@@ -19,7 +19,7 @@ interface Props {
 const { lang, fr, en } = Astro.props;
 const t = lang === 'fr' ? fr : en;
 
-import { testimonials, sectorLabels, impactLabels, allTags, allSectors, type Sector, type ImpactLevel } from '../data/testimonials';
+import { testimonials, sectorLabels, impactLabels, tagTranslations, allTags, allSectors, type Sector, type ImpactLevel } from '../data/testimonials';
 import { fieldMoments, fieldMomentColors, fieldMomentLabels } from '../data/onTerrain';
 
 // IDs YouTube fixes
@@ -213,7 +213,7 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
               class="tag-filter px-3 py-2 rounded-full text-xs border transition-all duration-300 bg-surface-alt text-ink-subtle border-border-subtle hover:border-border-strong hover:text-ink-muted"
               data-tag={tag}
             >
-              {tag} <span class="text-[10px] text-ink-disabled ml-1">{freq}</span>
+              {lang === 'en' ? (tagTranslations[tag] || tag) : tag} <span class="text-[10px] text-ink-disabled ml-1">{freq}</span>
             </button>
           ))}
         </div>
@@ -302,7 +302,7 @@ const wordsData: Record<string, { large: string[]; medium: string[]; small: stri
 
             <!-- Quote -->
             <blockquote class="text-ink-muted text-sm leading-relaxed italic mb-3">
-              "{tm.quote}"
+              "{lang === 'fr' ? tm.quote : tm.quoteEn}"
             </blockquote>
 
             <!-- Footer: year + LinkedIn link -->
@@ -695,9 +695,5 @@ counters.forEach(counter => counterObserver.observe(counter));
   }
 
   render();
-
-  new MutationObserver(render).observe(
-    document.documentElement, { attributes: true, attributeFilter: ['data-lang'] }
-  );
 })();
 </script>

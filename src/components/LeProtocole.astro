@@ -146,23 +146,20 @@ const parcours = [
                 → côté gauche, en partant du bas on retrouve Projeter / Centrer / Exiger. ✓ */}
             <div class="grid grid-cols-2 grid-rows-3 grid-flow-col gap-3 lg:gap-4">
               {[
-                { name: 'Exiger', file: 'exiger', score: 51 },           // col-G top
-                { name: 'Centrer', file: 'centrer', score: 56 },         // col-G middle
-                { name: 'Projeter', file: 'projeter', score: 75 },       // col-G bottom
-                { name: 'Animer', file: 'animer', score: 60 },           // col-D top
-                { name: 'Réguler', file: 'recentrer', score: 71 },       // col-D middle
-                { name: 'Remobiliser', file: 'remobiliser', score: 59 }, // col-D bottom
+                { nameFr: 'Exiger',      nameEn: 'Demand',     file: 'exiger',      score: 51 }, // col-G top
+                { nameFr: 'Centrer',     nameEn: 'Center',     file: 'centrer',     score: 56 }, // col-G middle
+                { nameFr: 'Projeter',    nameEn: 'Project',    file: 'projeter',    score: 75 }, // col-G bottom
+                { nameFr: 'Animer',      nameEn: 'Animate',    file: 'animer',      score: 60 }, // col-D top
+                { nameFr: 'Réguler',     nameEn: 'Regulate',   file: 'recentrer',   score: 71 }, // col-D middle
+                { nameFr: 'Remobiliser', nameEn: 'Remobilize', file: 'remobiliser', score: 59 }, // col-D bottom
               ].map(e => (
                 <div class="flex items-center gap-3 bg-surface-alt border border-border-subtle rounded-lg p-2.5">
                   <img src={`/images/energies/${e.file}-thumb.webp`}
                        srcset={`/images/energies/${e.file}-thumb.webp 1x, /images/energies/${e.file}.webp 2x`}
-                       alt={e.name} class="w-12 h-12 object-cover rounded shrink-0" loading="lazy" />
+                       alt={lang === 'fr' ? e.nameFr : e.nameEn} class="w-12 h-12 object-cover rounded shrink-0" loading="lazy" />
                   <div class="flex-1 min-w-0">
-                    {/* Layout 2 lignes : nom seul en haut (pleine largeur du flex-1 → plus de troncature),
-                        puis sur la 2e ligne : barre + score aligné à droite (colonne fixe).
-                        L'alignement vertical des chiffres dans chaque colonne est garanti par width:1.75rem + tabular-nums. */}
                     <div class="mb-1">
-                      <span class="text-ink text-xs font-semibold">{e.name}<span class="plus-accent text-[10px]">+</span></span>
+                      <span class="text-ink text-xs font-semibold">{lang === 'fr' ? e.nameFr : e.nameEn}<span class="plus-accent text-[10px]">+</span></span>
                     </div>
                     <div class="flex items-center gap-2">
                       <div class="h-1 flex-1 bg-surface-raised rounded-full overflow-hidden">
